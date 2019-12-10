@@ -1,6 +1,8 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/index/index",
+    "pages/rewardCenter/rewardCenter",
+    "pages/mine/mine"
   ],
   "subPackages": [],
   "window": {
@@ -9,6 +11,33 @@
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap.json"
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/home-unselect.png",
+        "selectedIconPath": "static/home.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/rewardCenter/rewardCenter",
+        "iconPath": "static/reward-unselect.png",
+        "selectedIconPath": "static/reward.png",
+        "text": "奖励中心"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "iconPath": "static/mine-unselect.png",
+        "selectedIconPath": "static/mine.png",
+        "text": "个人中心"
+      }
+    ]
+  },
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom"
+  }
 }

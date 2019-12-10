@@ -3,7 +3,17 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "首页"
+			}
+		}, {
+			"path": "pages/rewardCenter/rewardCenter",
+			"style": {
+				"navigationBarTitleText": "奖励中心"
+			}
+		}, {
+			"path": "pages/mine/mine",
+			"style": {
+				"navigationBarTitleText": "个人中心"
 			}
 		}
 	],
@@ -12,5 +22,30 @@
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
+		// "navigationStyle": "custom"
+	},
+	"tabBar": {
+		"color": "#7A7E83",
+		"selectedColor": "#3cc51f",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [{
+				"pagePath": "pages/index/index",
+				"iconPath": "static/home-unselect.png",
+				"selectedIconPath": "static/home.png",
+				"text": "首页"
+			}, {
+				"pagePath": "pages/rewardCenter/rewardCenter",
+				"iconPath": "static/reward-unselect.png",
+				"selectedIconPath": "static/reward.png",
+				"text": "奖励中心"
+			},
+			{
+				"pagePath": "pages/mine/mine",
+				"iconPath": "static/mine-unselect.png",
+				"selectedIconPath": "static/mine.png",
+				"text": "个人中心"
+			}
+		]
 	}
 }

@@ -8,6 +8,7 @@
 </template>
 
 <script>
+	import requestUrls from '../../api.js'
 	export default {
 		data() {
 			return {
@@ -15,7 +16,7 @@
 			}
 		},
 		onLoad() {
-
+			console.log(requestUrls)
 		},
 		methods: {
 
