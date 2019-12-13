@@ -1,6 +1,19 @@
 <template>
 	<view>
-		<card v-for="count in 4"></card>
+		<scroll-view scroll-x class="bg-white nav">
+			<view class="flex text-center">
+				<view class="cu-item flex-sub" :class="index==TabCur?'text-orange cur':''" v-for="(item,index) in 3" :key="index"
+				 @tap="tabSelect" :data-id="index">
+					<view v-if="index ==0">话题</view>
+					<view v-if="index ==1">我参与的</view>
+					<view v-if="index ==2">我创建的</view>
+				</view>
+			</view>
+		</scroll-view>
+		<topic v-if="TabCur == 0"></topic>
+		<myJoin v-if="TabCur == 1"></myJoin>
+		<myCreate v-if="TabCur == 2"></myCreate>
+		
 	</view>
 </template>
 
@@ -9,14 +22,18 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+				TabCur: 0,
+				scrollLeft: 0
 			}
 		},
 		onLoad() {
 			console.log(requestUrls)
 		},
 		methods: {
-
+			tabSelect(e) {
+				this.TabCur = e.currentTarget.dataset.id;
+				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
+			}
 		}
 	}
 </script>

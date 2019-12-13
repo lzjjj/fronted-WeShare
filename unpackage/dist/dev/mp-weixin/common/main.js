@@ -9,12 +9,19 @@
 "use strict";
 /* WEBPACK VAR INJECTION */(function(createApp) {__webpack_require__(/*! uni-pages */ 4);__webpack_require__(/*! @dcloudio/uni-stat */ 5);
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ 9));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var cuCustom = function cuCustom() {return __webpack_require__.e(/*! import() | colorui/components/cu-custom */ "colorui/components/cu-custom").then(__webpack_require__.bind(null, /*! ./colorui/components/cu-custom.vue */ 36));};
-
-_vue.default.component('cu-custom', cuCustom);var card = function card() {return __webpack_require__.e(/*! import() | pages/component/card */ "pages/component/card").then(__webpack_require__.bind(null, /*! ./pages/component/card.vue */ 43));};
+var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ 9));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var cuCustom = function cuCustom() {return __webpack_require__.e(/*! import() | colorui/components/cu-custom */ "colorui/components/cu-custom").then(__webpack_require__.bind(null, /*! ./colorui/components/cu-custom.vue */ 36));};var card = function card() {return __webpack_require__.e(/*! import() | pages/component/card */ "pages/component/card").then(__webpack_require__.bind(null, /*! ./pages/component/card.vue */ 41));};var topic = function topic() {return __webpack_require__.e(/*! import() | pages/component/topic */ "pages/component/topic").then(__webpack_require__.bind(null, /*! ./pages/component/topic.vue */ 46));};var myJoin = function myJoin() {return __webpack_require__.e(/*! import() | pages/component/my_join */ "pages/component/my_join").then(__webpack_require__.bind(null, /*! ./pages/component/my_join.vue */ 51));};var myCreate = function myCreate() {return __webpack_require__.e(/*! import() | pages/component/my_create */ "pages/component/my_create").then(__webpack_require__.bind(null, /*! ./pages/component/my_create.vue */ 56));};
 
 
+
+
+
+
+_vue.default.component('cu-custom', cuCustom);
 _vue.default.component('card', card);
+_vue.default.component('topic', topic);
+_vue.default.component('myJoin', myJoin);
+_vue.default.component('myCreate', myCreate);
+
 
 _vue.default.config.productionTip = false;
 

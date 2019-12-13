@@ -39,6 +39,9 @@
   },
   "usingComponents": {
     "cu-custom": "/colorui/components/cu-custom",
-    "card": "/pages/component/card"
+    "card": "/pages/component/card",
+    "topic": "/pages/component/topic",
+    "my-join": "/pages/component/my_join",
+    "my-create": "/pages/component/my_create"
   }
 }

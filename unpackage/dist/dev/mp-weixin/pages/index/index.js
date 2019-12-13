@@ -138,17 +138,39 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _api = _interopRequireDefault(__webpack_require__(/*! ../../api.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
 //
 //
 //
-var _default = { data: function data() {return { title: 'Hello' };},
-  onLoad: function onLoad() {
-    console.log(_api.default);
-  },
-  methods: {} };exports.default = _default;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = { data: function data() {return { TabCur: 0, scrollLeft: 0 };}, onLoad: function onLoad() {console.log(_api.default);}, methods: { tabSelect: function tabSelect(e) {this.TabCur = e.currentTarget.dataset.id;this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60;} } };exports.default = _default;
 
 /***/ }),
 /* 21 */,
