@@ -1,1 +1,1 @@
-<view class="content"><image class="logo" src="/static/logo.png"></image><view class="text-area"><text class="title">{{title}}</text></view></view>
+<view><block wx:for="{{4}}" wx:for-item="count" wx:for-index="__i0__"><card vue-id="{{'1-'+__i0__}}" bind:__l="__l"></card></block></view>

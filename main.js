@@ -3,6 +3,9 @@ import App from './App'
 import cuCustom from './colorui/components/cu-custom.vue'
 Vue.component('cu-custom',cuCustom)
 
+import card from './pages/component/card.vue'
+Vue.component('card',card)
+
 Vue.config.productionTip = false
 
 App.mpType = 'app'
