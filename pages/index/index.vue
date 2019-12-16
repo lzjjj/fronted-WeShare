@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<scroll-view scroll-x class="bg-white nav">
+		<scroll-view scroll-x class="bg-white nav position-top" scroll-with-animation :scroll-left="scrollLeft">
 			<view class="flex text-center">
 				<view class="cu-item flex-sub" :class="index==TabCur?'text-orange cur':''" v-for="(item,index) in 3" :key="index"
 				 @tap="tabSelect" :data-id="index">
@@ -10,10 +10,11 @@
 				</view>
 			</view>
 		</scroll-view>
-		<topic v-if="TabCur == 0"></topic>
-		<myJoin v-if="TabCur == 1"></myJoin>
-		<myCreate v-if="TabCur == 2"></myCreate>
-		
+		<view style="margin-top: 50px;">
+			<topic v-if="TabCur == 0"></topic>
+			<myJoin v-if="TabCur == 1"></myJoin>
+			<myCreate v-if="TabCur == 2"></myCreate>
+		</view>
 	</view>
 </template>
 
@@ -63,5 +64,11 @@
 	.title {
 		font-size: 36rpx;
 		color: #8f8f94;
+	}
+
+	.position-top {
+		position: fixed;
+		top: 0;
+		z-index: 100;
 	}
 </style>
