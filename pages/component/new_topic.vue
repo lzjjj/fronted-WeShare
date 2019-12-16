@@ -8,12 +8,9 @@
 			</view>
 			<view class="cu-form-group">
 				<view class="grid col-4 grid-square flex-sub">
-					<view class="bg-img" @tap="ViewImage">
-						<image :src="img" mode="aspectFill"></image>
-						<view class="cu-tag bg-red" @tap.stop="DelImg" >
-							<text class='cuIcon-close'></text>
-						</view>
-						<view class="solids" @tap="ChooseImage">
+					<view class="bg-img" @tap="viewImage">
+						<image :src="imgPath" mode="aspectFill"></image>
+						<view class="solids" @tap="chooseImage">
 							<text class='cuIcon-cameraadd'></text>
 						</view>
 					</view>
@@ -23,10 +20,7 @@
 				<view class="title">演讲者</view>
 				<input placeholder="请输入演讲者姓名" name="input"></input>
 			</view>
-			<view class="cu-form-group">
-				<view class="title">时间</view>
-				<input name="input"></input>
-			</view>
+			<datetimepicker :datetype="datetime"></datetimepicker>
 			<view class="cu-form-group">
 				<view class="title">地点</view>
 				<input placeholder="请输入分享会地点" name="input"></input>
@@ -37,11 +31,12 @@
 			</view>
 			<view class="cu-form-group">
 				<view class="title">报名截止时间</view>
-				<picker mode="time" :value="time" start="09:01" end="21:01" @change="TimeChange">
-					<view class="picker">
-						{{time}}
-					</view>
-				</picker>
+				<view @click="showDatePicker">{{endDate}}</view>
+				<mx-date-picker :show="showPicker" :type="type" :value="value" :show-tips="true" :show-seconds="true" @confirm="onSelected"
+				 @cancel="onSelected" />
+			</view>
+			<view>
+
 			</view>
 		</form>
 	</view>
@@ -49,62 +44,58 @@
 
 <script>
 	import getDate from "../../utils.js"
-	// import MxDatePicker from "./mx-datepicker.vue"
+	import MxDatePicker from "./mx-datepicker.vue"
 	export default {
-		// components: {
-		//     MxDatePicker
-		// },
+		components: {
+			MxDatePicker
+		},
 		data() {
 			const currentDate = getDate();
 			return {
 				date: currentDate,
 				time: '12:01',
+				showPicker: false,
+				type: 'datetime',
+				value: '',
+				endDate: currentDate + " 00:00:00",
+				sharingDate: currentDate + " 00:00:00",
 				img: null,
+				imgPath: null
 			}
 		},
-		method: {
-			TimeChange: function(e) {
-				this.time = e.detail.value
+		methods: {
+			showDatePicker() { //显示
+				this.showPicker = true;
+				this.value = this[this.type];
+				console.log(this.value);
 			},
-			bindDateChange: function(e) {
-				this.date = e.target.value
+			onSelected(e) { //选择
+				this.showPicker = false;
+				if (e) {
+					this[this.type] = e.value;
+					//选择的值
+					console.log('value => ' + e.value);
+					//原始的Date对象
+					console.log('date => ' + e.date);
+				}
 			},
-			bindTimeChange: function(e) {
-				this.time = e.target.value
-			},
-			ChooseImage: function() {
+			chooseImage: function() {
 				uni.chooseImage({
-					count: 4, //默认9
+					count: 1, //默认9
 					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
 					sourceType: ['album'], //从相册选择
 					success: (res) => {
-						if (this.imgList.length != 0) {
-							this.imgList = this.imgList.concat(res.tempFilePaths)
-						} else {
-							this.imgList = res.tempFilePaths
-						}
+						this.imgPath = res.tempFilePaths[0];
+						this.img = res.tempFiles[0];
 					}
 				});
 			},
-			ViewImage: function(e) {
+			viewImage: function(e) {
 				uni.previewImage({
-					urls: this.img,
+					urls: this.imgPath,
 					current: e.currentTarget.dataset.url
 				});
-			},
-			DelImg: function(e) {
-				uni.showModal({
-					title: '召唤师',
-					content: '确定要删除这段回忆吗？',
-					cancelText: '再看看',
-					confirmText: '再见',
-					success: res => {
-						if (res.confirm) {
-							this.imgList.splice(e.currentTarget.dataset.index, 1)
-						}
-					}
-				})
-			},
+			}
 		}
 	}
 </script>
