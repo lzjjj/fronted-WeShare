@@ -1,19 +1,22 @@
 <template>
 	<view>
-		<scroll-view scroll-x class="bg-white nav">
+		<scroll-view scroll-x class="bg-white nav position-top" scroll-with-animation :scroll-left="scrollLeft">
 			<view class="flex text-center">
 				<view class="cu-item flex-sub" :class="index==TabCur?'text-orange cur':''" v-for="(item,index) in 3" :key="index"
 				 @tap="tabSelect" :data-id="index">
 					<view v-if="index ==0">话题</view>
 					<view v-if="index ==1">我参与的</view>
 					<view v-if="index ==2">我创建的</view>
+					<view v-if="index ==3">新建</view>
 				</view>
 			</view>
 		</scroll-view>
-		<topic v-if="TabCur == 0"></topic>
-		<myJoin v-if="TabCur == 1"></myJoin>
-		<myCreate v-if="TabCur == 2"></myCreate>
-		
+		<view style="margin-top: 50px;">
+			<topic v-if="TabCur == 0"></topic>
+			<myJoin v-if="TabCur == 1"></myJoin>
+			<myCreate v-if="TabCur == 2"></myCreate>
+			<newTopic v-if="TabCur ==3"></newTopic>
+		</view>
 	</view>
 </template>
 
@@ -22,7 +25,7 @@
 	export default {
 		data() {
 			return {
-				TabCur: 2,
+				TabCur: 3,
 				scrollLeft: 0
 			}
 		},
@@ -63,5 +66,11 @@
 	.title {
 		font-size: 36rpx;
 		color: #8f8f94;
+	}
+
+	.position-top {
+		position: fixed;
+		top: 0;
+		z-index: 100;
 	}
 </style>

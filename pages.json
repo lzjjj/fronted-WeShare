@@ -16,7 +16,7 @@
 				"navigationBarTitleText": "个人中心"
 			}
 		}
-	],
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

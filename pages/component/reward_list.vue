@@ -1,7 +1,7 @@
 <template>
 	<view class="cu-list menu-avatar">
 		<view class="cu-item" v-for="(reward, index) in rewards" :key="index" style="height: 100px;">
-			<view class="cu-avatar round lg" :style="getPhoto(reward.photo)"></view>
+			<view class="cu-avatar round lg" v-bind:style="'background-image:url(' + photo + ')'"></view>
 			<view class="content">
 				<view class="flex">
 					<view class="flex-sub padding-sm margin-xs radius" style="width: 50%;">
@@ -38,9 +38,6 @@
 			}
 		},
 		methods: {
-			getPhoto(photo) {
-				return 'background-image:url(' + photo + ')'
-			}
 		}
 	}
 </script>

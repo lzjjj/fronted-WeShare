@@ -11,7 +11,7 @@
 							<view>地点:B5 3F Room 03</view>
 							<view>截止时间:2019-12-02 11:00</view>
 						</view>
-						<button class="cu-btn lg bg-blue" style="width: 50%;height: 1.5rem;font-size: 0.55rem;">取消报名</button>
+						<button class="cu-btn lg bg-blue" style="width: 50%;height: 1.5rem;font-size: 0.55rem;color: #FFFFFF;">取消报名</button>
 					</view>
 				</view>
 			</view>
