@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<detail type = "0"></detail>
+		<detail type = "2"></detail>
 	</view>
 </template>
 

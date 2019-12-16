@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="cu-card case" :class="isCard?'no-card':''" v-for="count in 4">
+		<view class="cu-card case" :class="isCard?'no-card':''" v-for="count in 4" @click="navigate">
 			<view class="cu-item shadow">
 				<view style="margin:10px 10px;">
 					<view class="cu-bar" style="margin: -10px 0;font-size: 0.8rem;font-weight: bold;"> <text class="text-cut">Subject</text></view>
@@ -20,6 +20,19 @@
 </template>
 
 <script>
+	export default {
+		data() {
+			return {
+			};
+		},
+		methods: {
+			navigate() {
+				uni.navigateTo({
+				    url: '../myCreateDetail/myCreateDetail'
+				})
+			},
+		}
+	}
 </script>
 
 <style>

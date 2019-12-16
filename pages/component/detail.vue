@@ -9,12 +9,23 @@
 			<view class="detail-content text-cut"><text class="label">可报名人数：</text>20人(已报名人数：5人)</view>
 			<view class="detail-content text-cut"><text class="label">截止时间：</text>2019-12-04 00：00</view>
 			<view class="detail-content text-cut"><text class="label">简介：</text>DDD Event Storming</view>
-			<button class="bg-gradual-blue cu-btn apply-button">报名</button>
+			<button v-if="type == 0" class="bg-gradual-blue cu-btn apply-button">报名</button>
+			<button v-if="type == 1" class="bg-gradual-blue cu-btn apply-button">取消报名</button>
+			<view v-if="type == 2" class="flex justify-around">
+				<button  class="bg-gradual-blue cu-btn apply-button" style="margin-right: 5%;">取消分享</button>
+				<button  class="bg-gradual-blue cu-btn apply-button">编辑</button>
+			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	export default {
+		props: ["type"],
+		mounted() {
+			console.log(this.$props.type)
+		}
+	}
 </script>
 
 <style>

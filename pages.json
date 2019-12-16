@@ -15,13 +15,23 @@
 			"style": {
 				"navigationBarTitleText": "个人中心"
 			}
-		},{
+		}, {
 			"path": "pages/sharingDetail/sharingDetail",
 			"style": {
-				"navigationBarTitleText": "Shaing详情"
+				"navigationBarTitleText": "详细内容"
+			}
+		}, {
+			"path": "pages/myJoinDetail/myJoinDetail",
+			"style": {
+				"navigationBarTitleText": "详细内容"
+			}
+		}, {
+			"path": "pages/myCreateDetail/myCreateDetail",
+			"style": {
+				"navigationBarTitleText": "详细内容"
 			}
 		}
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
