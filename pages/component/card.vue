@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="cu-card case" :class="isCard?'no-card':''">
+		<view class="cu-card case" :class="isCard?'no-card':''" @click="navigate">
 			<view class="cu-item shadow">
 				<view class="image">
 					<image src="https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg" mode="widthFix"></image>
@@ -33,6 +33,11 @@
 			};
 		},
 		methods: {
+			navigate() {
+				uni.navigateTo({
+				    url: '../sharingDetail/sharingDetail'
+				})
+			},
 			IsCard(e) {
 				this.isCard = e.detail.value
 			},

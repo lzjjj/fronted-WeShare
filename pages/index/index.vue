@@ -23,7 +23,7 @@
 	export default {
 		data() {
 			return {
-				TabCur: 2,
+				TabCur: 0,
 				scrollLeft: 0
 			}
 		},

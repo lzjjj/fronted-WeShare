@@ -15,4 +15,7 @@
 	@import "colorui/main.css";
 	@import "colorui/icon.css";
 	/*每个页面公共css */
+	page {
+	  background-color: rgba(250,250,250,0.90);
+	}
 </style>

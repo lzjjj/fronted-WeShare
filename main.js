@@ -5,12 +5,14 @@ import card from './pages/component/card.vue'
 import topic from './pages/component/topic.vue'
 import myJoin from './pages/component/my_join.vue'
 import myCreate from './pages/component/my_create.vue'
+import detail from './pages/component/detail.vue'
 
 Vue.component('cu-custom',cuCustom)
 Vue.component('card',card)
 Vue.component('topic',topic)
 Vue.component('myJoin',myJoin)
 Vue.component('myCreate',myCreate)
+Vue.component('detail',detail)
 
 
 Vue.config.productionTip = false
