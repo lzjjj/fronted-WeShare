@@ -6,6 +6,8 @@ import topic from './pages/component/topic.vue'
 import myJoin from './pages/component/my_join.vue'
 import myCreate from './pages/component/my_create.vue'
 import detail from './pages/component/detail.vue'
+import rewardList from './pages/component/reward_list.vue'
+import newTopic from './pages/component/new_topic.vue'
 
 Vue.component('cu-custom',cuCustom)
 Vue.component('card',card)
@@ -13,6 +15,8 @@ Vue.component('topic',topic)
 Vue.component('myJoin',myJoin)
 Vue.component('myCreate',myCreate)
 Vue.component('detail',detail)
+Vue.component('rewardList',rewardList)
+Vue.component('newTopic', newTopic)
 
 
 Vue.config.productionTip = false

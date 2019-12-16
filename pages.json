@@ -21,7 +21,7 @@
 				"navigationBarTitleText": "Shaing详情"
 			}
 		}
-	],
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
