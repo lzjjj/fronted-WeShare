@@ -18,9 +18,10 @@
 				</view>
 			</view>
 			<view>
-				<button class="cu-btn bg-green shadow" @tap="showModal" data-target="gridModal">兑换</button>
+				<button class="cu-btn bg-green shadow" @tap="showModal(reward)" data-target="rewardDialog">兑换</button>
 			</view>
 		</view>
+		<rewardDialog :showUp=showUp :reward=currItem @hideModal="hideModal"></rewardDialog>
 	</view>
 </template>
 
@@ -34,10 +35,18 @@
 		},
 		data() {
 			return {
-				
+				showUp: '',
+				currItem: {}
 			}
 		},
 		methods: {
+			showModal(item) {
+				this.showUp = 'show'
+				this.currItem = item
+			},
+			hideModal() {
+				this.showUp = ''
+			}
 		}
 	}
 </script>
