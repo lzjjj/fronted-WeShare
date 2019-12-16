@@ -1,1 +1,0 @@
-<view><block wx:for="{{4}}" wx:for-item="count" wx:for-index="__i0__"><card vue-id="{{'1-'+__i0__}}" bind:__l="__l"></card></block></view>
