@@ -7,15 +7,14 @@
 					<view v-if="index ==0">话题</view>
 					<view v-if="index ==1">我参与的</view>
 					<view v-if="index ==2">我创建的</view>
-					<view v-if="index ==3">新建</view>
 				</view>
+				<button @click="createNewTopic"> + </button>
 			</view>
 		</scroll-view>
 		<view style="margin-top: 50px;">
 			<topic v-if="TabCur == 0"></topic>
 			<myJoin v-if="TabCur == 1"></myJoin>
 			<myCreate v-if="TabCur == 2"></myCreate>
-			<newTopic v-if="TabCur ==3"></newTopic>
 		</view>
 	</view>
 </template>
@@ -36,6 +35,11 @@
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;
 				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
+			}, 
+			createNewTopic() {
+				uni.navigateTo({
+					url: "../component/new_topic"
+				})
 			}
 		}
 	}
