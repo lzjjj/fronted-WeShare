@@ -34,7 +34,11 @@
 				scrollLeft: 0,
 				horizontal: 'right',
 				direction: 'vertical',
-				content: [{text: '创建'}],
+				content: [{
+					text: '创建',
+					iconPath: '../../static/create.svg',
+					selectedIconPath: '../../static/create_select.svg'
+				}],
 				pattern: {
 					color: '#3c3e49',
 					selectedColor: '#007AFF',

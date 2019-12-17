@@ -33,7 +33,7 @@
 				userInfo: {
 					nickName:'Vic Xu', 
 					balance: 100,
-					avatarUrl:'http://xuvi7-w10:9090/1576464501443bbb.png',
+					avatarUrl:'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg',
 					},
 				canIUse: false
 			}
@@ -56,7 +56,7 @@
 .head{
   width: 100%;
   height:9.7rem;
-  background-color: #f1ed00e5;
+  background-color: yellow;
   display: flex;
   justify-content: center;
   align-items: center;
