@@ -21,7 +21,7 @@
 				<button class="cu-btn bg-green shadow" @tap="showModal(reward)" data-target="rewardDialog">兑换</button>
 			</view>
 		</view>
-		<rewardDialog :showUp=showUp :reward=currItem @hideModal="hideModal"></rewardDialog>
+		<rewardDialog ref="popup" :showUp=showUp :reward=currItem @hideModal="hideModal" @confirm='onConfirm'></rewardDialog>
 	</view>
 </template>
 
@@ -41,11 +41,11 @@
 		},
 		methods: {
 			showModal(item) {
-				this.showUp = 'show'
+				this.$refs.popup.show = true
 				this.currItem = item
 			},
-			hideModal() {
-				this.showUp = ''
+			onConfirm() {
+				console.log("reward confirm");
 			}
 		}
 	}
