@@ -5,41 +5,45 @@
 				<image :src="imgPath" @tap="chooseImage" mode="widthFix" style="width: 100%;"></image>
 			</view>
 			<view class="cu-form-group margin-top">
-				<input placeholder="请输入标题" maxlength="30" name="input" @input="nameInput" @confirm="nameInput"></input>
+				<input placeholder="请输入标题" maxlength="30" name="input" @input="nameInput" ></input>
 			</view>
 			<view class="cu-form-group">
 				<textarea maxlength="200" :disabled="modalName!=null" @input="textareaInput" placeholder="请输入分享会简介"></textarea>
 			</view>
 			<view class="cu-form-group margin-top">
-				<view class="title">演讲者</view>
-				<input placeholder="请输入演讲者姓名" maxlength="20" name="input" @input="ownerInput" @confirm="ownerInput"></input>
+				<view class="title text-black text-bold">演讲者</view>
+				<input placeholder="请输入演讲者姓名" maxlength="20" name="input" @input="ownerInput" ></input>
 			</view>
 			<view class="cu-form-group" @tap="showStartDatePicker">
-				<view class="title">分享开始时间</view>
+				<view class="title text-black text-bold">分享开始时间</view>
 				<yu-datetime-picker ref="startDate" :isAll="false" :current="true" @confirm="onStartConfirm" @cancel="onStartCancel">
 				</yu-datetime-picker>
-				{{sharingStartDate}}
+				<view class="picker">{{sharingStartDate}}</view>
 			</view>
 			<view class="cu-form-group" @tap="showEndDatePicker">
-				<view class="title">分享结束时间</view>
+				<view class="title text-black text-bold">分享结束时间</view>
 				<yu-datetime-picker ref="endDate" :isAll="false" :current="true" @confirm="onEndConfirm" @cancel="onEndCancel">
 				</yu-datetime-picker>
-				{{sharingEndDate}}
+				<view class="picker">{{sharingEndDate}}</view>
 			</view>
 			<view class="cu-form-group">
-				<view class="title">地点</view>
-				<input placeholder="请输入分享会地点" maxlength="20" name="input" @input="placeInput" @confirm="placeInput"></input>
+				<view class="title text-black text-bold">地点</view>
+				<input placeholder="请输入分享会地点" maxlength="20" name="input" @input="placeInput" ></input>
 			</view>
 
 			<view class="cu-form-group margin-top">
-				<view class="title">可报名人数</view>
-				<input placeholder="请输入可报名人数" type="number" maxlength="3" name="input" @input="countInput" @confirm="countInput"></input>
+				<view class="title text-black text-bold">可报名人数</view>
+				<input placeholder="请输入可报名人数" type="number" maxlength="3" name="input" @input="countInput" ></input>
+			</view>
+			<view class="cu-form-group">
+				<view class="title text-black text-bold">最少参加人数</view>
+				<input placeholder="请输入最少参加人数" type="number" maxlength="3" name="input" @input="minCountsInput" ></input>
 			</view>
 			<view class="cu-form-group" @tap="showDeadlinePicker">
-				<view class="title">报名截止时间</view>
+				<view class="title text-black text-bold">报名截止时间</view>
 				<yu-datetime-picker ref="deadline" :isAll="false" :current="true" @confirm="onDeadlineConfirm" @cancel="onDeadlineCancel">
 				</yu-datetime-picker>
-				{{deadline}}
+				<view class="picker">{{deadline}}</view>
 			</view>
 
 		</form>
@@ -61,6 +65,7 @@
 	} from "../../utils.js"
 	import yuDatetimePicker from "@/components/yu-datetime-picker/yu-datetime-picker.vue"
 	import requestUrls from "../../api.js"
+	import fetch from "../../fetch.js"
 	export default {
 		components: {
 			yuDatetimePicker
@@ -86,8 +91,9 @@
 				ownerName:'',
 				topicName:'',
 				topicDesc:'',
-				topicPlase:'',
+				topicPlace:'',
 				counts:0,
+				minCounts:0,
 				sharingStartDate: currentDate,
 				sharingEndDate: currentDate,
 				imgId:'',
@@ -118,6 +124,9 @@
 			},
 			countInput: function(e) {
 				this.counts = parseInt(e.detail.value);
+			},
+			minCountsInput: function(e) {
+				this.minCounts = parseInt(e.detail.value);
 			},
 			showStartDatePicker: function() { //显示
 				this.$refs.startDate.show();
@@ -189,8 +198,27 @@
 				}
 			},
 			onConfirmCreate: function() {
+				this.topic.topic_name = this.topicName;
+				this.topic.description = this.topicDesc;
+				this.topic.owner = this.ownerName;
+				this.topic.share_place = this.topicPlace;
+				this.topic.participants_count = this.counts;
+				this.topic.from_date = this.sharingStartDate;
+				this.topic.to_date = this.sharingEndDate;
+				this.topic.dead_line_date = this.deadline;
+				this.topic.picId = this.imgId;
 				// todo
-				this.topic.topic_name = 
+				// this.topic.least_counts = this.minCounts;
+				fetch({
+					url: requestUrls.createTopic,
+					payload: this.topic,
+					method: 'POST'
+				}).then((res) => {
+					console.log(res)
+					uni.navigateTo({
+						url:"../submitSuccess/submitSuccess"
+					})
+				})
 				console.log("create new topic");
 			},
 			onAlertConfirm: function() {
@@ -217,5 +245,8 @@
 		margin-top: 20px;
 		width: 100%;
 		height: 2.5rem;
+	}
+	.cu-form-group .title {
+		min-width: calc(4em + 15px);
 	}
 </style>
