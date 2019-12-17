@@ -42,6 +42,12 @@
 				"navigationBarTitleText":"已兑换的商品"
 			}
         }
+        ,{
+            "path" : "pages/submitSuccess/submitSuccess",
+            "style" : {
+				"navigationBarTitleText":"提交成功"
+			}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
