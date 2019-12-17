@@ -11,15 +11,21 @@
 		<view class='mine-list'>
 		  <view class='list-item' >
 		    <view style='display:flex;justify-content:center;align-items:center;'>
-		      <image src='' class='item-img'></image>
+		      <image src='../../static/wallet.svg' class='item-img'></image>
 		      <text>钱包余额</text>
 		    </view>
-		    <view>{{userInfo.balance}} 元</view>
+			<view class="lg text-yellow cuIcon-rechargefill" style="font-size: 0.95rem;">{{userInfo.balance}}</view>
 		  </view>
-		  <view class='list-item' bindtap='luanchToMyDate'>
+		  <view class='list-item' bindtap='luanchToMyDate' @click="openRecord">
 		    <view style='display:flex;justify-content:center;align-items:center;'>
-		      <image src='' class='item-img'></image>
-		      <text>兑换记录</text>
+		      <image src='../../static/record.svg' class='item-img'></image>
+		      <text>账单</text>
+		    </view>
+		  </view>
+		  <view class='list-item' bindtap='luanchToMyDate' @click="openExchange">
+		    <view style='display:flex;justify-content:center;align-items:center;'>
+		      <image src='../../static/expiry.svg' class='item-img'></image>
+		      <text>兑换的商品</text>
 		    </view>
 		  </view>
 		</view>
@@ -41,10 +47,21 @@
 		methods: {
 			getUserInfo() {
 				console.log('登录操作')
+			},
+			openRecord() {
+				uni.navigateTo({
+				    url: '../record/record'
+				});
+			},
+			openExchange() {
+				uni.navigateTo({
+				    url: '../ExchangeCommodity/ExchangeCommodity'
+				});
 			}
 		},
 		onLoad() {
-			
+		},
+		onShow() {
 		}
 	}
 </script>

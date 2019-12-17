@@ -30,8 +30,19 @@
 			"style": {
 				"navigationBarTitleText": "详细内容"
 			}
-		}
-	],
+		},{
+            "path" : "pages/record/record",
+            "style" : {
+				"navigationBarTitleText":"账单"
+			}
+        }
+        ,{
+            "path" : "pages/ExchangeCommodity/ExchangeCommodity",
+            "style" : {
+				"navigationBarTitleText":"已兑换的商品"
+			}
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
