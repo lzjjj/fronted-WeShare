@@ -7,6 +7,8 @@ const requestUrls = {
   balance: globalUrl + '/user/balance',
   getMyJoins: globalUrl + '/home/topics/joiner/1', //Get myJoins list
   getMyCreates: globalUrl + '/home/topics/owner/1', //Get mycreate list
-  record: globalUrl + '/user/records'
+  record: globalUrl + '/user/records',
+  picUpload: "http://xuvi7-w10:3000/multerUpload/upload",
+  picLoad: "http://xuvi7-w10:9090"
 }
 export default requestUrls

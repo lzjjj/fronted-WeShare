@@ -5,14 +5,14 @@
 				<image :src="imgPath" @tap="chooseImage" mode="widthFix" style="width: 100%;"></image>
 			</view>
 			<view class="cu-form-group margin-top">
-				<input placeholder="请输入标题" maxlength="30" name="input"></input>
+				<input placeholder="请输入标题" maxlength="30" name="input" @input="nameInput" @confirm="nameInput"></input>
 			</view>
 			<view class="cu-form-group">
 				<textarea maxlength="200" :disabled="modalName!=null" @input="textareaInput" placeholder="请输入分享会简介"></textarea>
 			</view>
 			<view class="cu-form-group margin-top">
 				<view class="title">演讲者</view>
-				<input placeholder="请输入演讲者姓名" maxlength="20" name="input"></input>
+				<input placeholder="请输入演讲者姓名" maxlength="20" name="input" @input="ownerInput" @confirm="ownerInput"></input>
 			</view>
 			<view class="cu-form-group" @tap="showStartDatePicker">
 				<view class="title">分享开始时间</view>
@@ -28,12 +28,12 @@
 			</view>
 			<view class="cu-form-group">
 				<view class="title">地点</view>
-				<input placeholder="请输入分享会地点" maxlength="20" name="input"></input>
+				<input placeholder="请输入分享会地点" maxlength="20" name="input" @input="placeInput" @confirm="placeInput"></input>
 			</view>
 
 			<view class="cu-form-group margin-top">
 				<view class="title">可报名人数</view>
-				<input placeholder="请输入可报名人数" type="number" maxlength="3" name="input"></input>
+				<input placeholder="请输入可报名人数" type="number" maxlength="3" name="input" @input="countInput" @confirm="countInput"></input>
 			</view>
 			<view class="cu-form-group" @tap="showDeadlinePicker">
 				<view class="title">报名截止时间</view>
@@ -53,12 +53,14 @@
 	import {
 		getDate,
 		compareDate,
+		uploadFile,
 		WARNING_TITLE,
 		WARNING_DATE_LT_CURRENT,
 		WARNING_END_LT_START,
 		WARNING_DEADLINE
 	} from "../../utils.js"
 	import yuDatetimePicker from "@/components/yu-datetime-picker/yu-datetime-picker.vue"
+	import requestUrls from "../../api.js"
 	export default {
 		components: {
 			yuDatetimePicker
@@ -67,10 +69,28 @@
 			const currentDate = getDate();
 			return {
 				currentDateTime: currentDate,
-				topic: null,
+				topic: {
+					owner:'',
+					topic_name:'',
+					description:'',
+					share_place:'',
+					participants_count: 0,
+					create_date:'',
+					from_date:'',
+					to_date:'',
+					dead_line_date:'',
+					state:'',
+					picId:''
+				},
 				deadline: '',
+				ownerName:'',
+				topicName:'',
+				topicDesc:'',
+				topicPlase:'',
+				counts:0,
 				sharingStartDate: currentDate,
 				sharingEndDate: currentDate,
+				imgId:'',
 				img: null,
 				imgPath: "../../static/upload.png",
 				createConfirm: {
@@ -84,6 +104,21 @@
 			}
 		},
 		methods: {
+			nameInput: function(e) {
+				this.topicName = e.detail.value;
+			},
+			textareaInput: function(e) {
+				this.topicDesc = e.detail.value;
+			},
+			ownerInput: function(e) {
+				this.ownerName = e.detail.value;
+			},
+			placeInput: function(e) {
+				this.topicPlace = e.detail.value;
+			},
+			countInput: function(e) {
+				this.counts = parseInt(e.detail.value);
+			},
 			showStartDatePicker: function() { //显示
 				this.$refs.startDate.show();
 			},
@@ -134,6 +169,7 @@
 					success: (res) => {
 						this.imgPath = res.tempFilePaths[0];
 						this.img = res.tempFiles[0];
+						this.imgId = uploadFile(requestUrls.picUpload, this.imgPath);
 						this.viewImage();
 					}
 				});
@@ -142,9 +178,6 @@
 				uni.previewImage({
 					urls: [this.imgPath],
 				});
-			},
-			textareaInput: function(e) {
-
 			},
 			createTopic: function() {
 				if (this.validateTime()) {
@@ -157,6 +190,7 @@
 			},
 			onConfirmCreate: function() {
 				// todo
+				this.topic.topic_name = 
 				console.log("create new topic");
 			},
 			onAlertConfirm: function() {
