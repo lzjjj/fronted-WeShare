@@ -2,7 +2,7 @@
 	<view>
 		<scroll-view scroll-x class="bg-white nav position-top" scroll-with-animation :scroll-left="scrollLeft">
 			<view class="flex text-center">
-				<view class="cu-item flex-sub" :class="index==TabCur?'text-orange cur':''" v-for="(item,index) in 3" :key="index"
+				<view class="cu-item flex-sub" :class="index==TabCur?'text-blue cur':''" v-for="(item,index) in 3" :key="index"
 				 @tap="tabSelect" :data-id="index">
 					<view v-if="index ==0">话题</view>
 					<view v-if="index ==1">我参与的</view>
