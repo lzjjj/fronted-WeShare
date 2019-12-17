@@ -3,7 +3,7 @@
 		<view class="cu-card case" :class="isCard?'no-card':''" @click="navigate">
 			<view class="cu-item shadow">
 				<view class="image">
-					<image src="https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg" mode="widthFix"></image>
+					<image :src="picUrl" mode="widthFix"></image>
 				</view>
 				<view style="margin:0 10px;">
 					<view class="cu-bar" style="margin: -10px 0;font-size: 0.7rem;font-weight: bold;"> <text class="text-cut">{{topic.topic_name}}</text></view>
@@ -26,14 +26,17 @@
 </template>
 
 <script>
+	import requestUrls from '../../api.js'
 	export default {
-		props:["topic"],
+		props: ["topic"],
 		data() {
 			return {
-				isCard: false
+				isCard: false,
+				picUrl: this.$props.topic.picture_id ? requestUrls.picLoad + this.$props.topic.picture_id : 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg'
 			};
 		},
 		mounted() {
+			console.log(this.picUrl)
 		},
 		methods: {
 			navigate() {
