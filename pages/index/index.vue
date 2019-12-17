@@ -8,7 +8,6 @@
 					<view v-if="index ==1">我参与的</view>
 					<view v-if="index ==2">我创建的</view>
 				</view>
-				<button @click="createNewTopic"> + </button>
 			</view>
 		</scroll-view>
 		<view style="margin-top: 50px;">
@@ -16,18 +15,34 @@
 			<myJoin v-if="TabCur == 1"></myJoin>
 			<myCreate v-if="TabCur == 2"></myCreate>
 		</view>
+		<uni-fab
+			:pattern="pattern"
+			:content="content"
+			:horizontal="horizontal"
+			:direction="direction"
+			@trigger="trigger"></uni-fab>
 	</view>
 </template>
 
 <script>
 	import requestUrls from '../../api.js'
+	import uniFab from '@/components/uni-fab/uni-fab.vue';
 	export default {
 		data() {
 			return {
 				TabCur: 0,
-				scrollLeft: 0
+				scrollLeft: 0,
+				horizontal: 'right',
+				direction: 'vertical',
+				content: [{text: '创建'}],
+				pattern: {
+					color: '#3c3e49',
+					selectedColor: '#007AFF',
+					buttonColor: '#3c3e49'
+				}
 			}
 		},
+		components: { uniFab },
 		onLoad() {
 			console.log(requestUrls)
 		},
@@ -36,7 +51,7 @@
 				this.TabCur = e.currentTarget.dataset.id;
 				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
 			}, 
-			createNewTopic() {
+			trigger() {
 				uni.navigateTo({
 					url: "../component/new_topic"
 				})
