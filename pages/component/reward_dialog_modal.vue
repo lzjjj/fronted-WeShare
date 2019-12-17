@@ -7,15 +7,15 @@
 					<text class="cuIcon-close text-red"></text>
 				</view>
 			</view>
-			<view v-if="msg=='' && show" class="padding-xl">
+			<view v-if="msg==''" class="padding-xl">
 				你当前有金币1000，该商品需要{{reward.price}}金币，你确定要兑换吗
 			</view>
-			<view v-if="msg!='' && show" class="padding-xl">
+			<view v-if="msg!=''" class="padding-xl">
 				{{msg}}
 			</view>
 			<view class="cu-bar bg-white justify-end">
 				<view class="action">
-					<button class="cu-btn line-green text-green" @tap="hideModal">取消</button>
+					<button v-if="title!='警告'" class="cu-btn line-green text-green" @tap="hideModal">取消</button>
 					<button class="cu-btn bg-green margin-left" @tap="confirm">确定</button>
 				</view>
 			</view>
@@ -26,6 +26,10 @@
 <script>
 	export default {
 		props:{
+			showCancel: {
+				type: Boolean,
+				default: true
+			},
 			title:{
 				type: String,
 				default: "兑换确认"
@@ -55,8 +59,8 @@
 				this.show = false;
 			},
 			confirm() {
-				this.hideModal();
 				this.$emit('confirm');
+				this.hideModal();
 			}
 		}
 	}

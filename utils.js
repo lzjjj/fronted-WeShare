@@ -24,7 +24,7 @@ export const compareDate = function(date1, date2) {
 	return date1 > date2;
 }
 
-// export default {
-// 	getDate,
-// 	compareDate
-// }
+export const WARNING_TITLE = "警告";
+export const WARNING_DATE_LT_CURRENT = "不能选择早于今天的时间";
+export const WARNING_END_LT_START = "结束时间不能早于开始时间";
+export const WARNING_DEADLINE = "截止时间不能早于开始时间";

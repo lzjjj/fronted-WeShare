@@ -36,22 +36,27 @@
 				<input placeholder="请输入可报名人数" type="number" maxlength="3" name="input"></input>
 			</view>
 			<view class="cu-form-group" @tap="showDeadlinePicker">
-				 <view class="title">报名截止时间</view>
-				 <yu-datetime-picker ref="deadline" :isAll="false" :current="true" @confirm="onDeadlineConfirm" @cancel="onDeadlineCancel">
-				 </yu-datetime-picker>
-				 {{deadline}}
+				<view class="title">报名截止时间</view>
+				<yu-datetime-picker ref="deadline" :isAll="false" :current="true" @confirm="onDeadlineConfirm" @cancel="onDeadlineCancel">
+				</yu-datetime-picker>
+				{{deadline}}
 			</view>
 
 		</form>
 		<button class="bg-gradual-blue cu-btn apply-button" @click="createTopic">创建</button>
-		<rewardDialog ref="createPopup" :title="popupTitle" :msg="popupMsg" @hideModal="hideModal" @confirm='onConfirmCreate'></rewardDialog>
+		<rewardDialog ref="createPopup" :title="createConfirm.title" :msg="createConfirm.msg"  @confirm='onConfirmCreate'></rewardDialog>
+		<rewardDialog ref="dateAlert" :title="dateAlert.title" :msg="dateAlert.msg"  @confirm='onAlertConfirm'></rewardDialog>
 	</view>
 </template>
 
 <script>
 	import {
 		getDate,
-		compareDate
+		compareDate,
+		WARNING_TITLE,
+		WARNING_DATE_LT_CURRENT,
+		WARNING_END_LT_START,
+		WARNING_DEADLINE
 	} from "../../utils.js"
 	import yuDatetimePicker from "@/components/yu-datetime-picker/yu-datetime-picker.vue"
 	export default {
@@ -68,8 +73,14 @@
 				sharingEndDate: currentDate,
 				img: null,
 				imgPath: "../../static/upload.png",
-				popupTitle: "创建分享",
-				popupMsg: "是否确认创建分享？"
+				createConfirm: {
+					title: "创建分享",
+					msg: "是否确认创建分享？"
+				},
+				dateAlert: {
+					title: WARNING_TITLE,
+					msg: WARNING_DATE_LT_CURRENT
+				}
 			}
 		},
 		methods: {
@@ -78,24 +89,42 @@
 			},
 			onStartCancel: function(e) {},
 			onStartConfirm: function(e) {
-				this.sharingStartDate = e.selectRes;
+				if (compareDate(e.selectRes, this.currentDateTime)) {
+					this.sharingStartDate = e.selectRes;
+				} else {
+					this.dateAlert.msg = WARNING_DATE_LT_CURRENT;
+					this.$refs.dateAlert.showModal();
+				}
 			},
 			showEndDatePicker: function() { //显示
 				this.$refs.endDate.show();
 			},
 			onEndCancel: function() {},
 			onEndConfirm: function(e) {
-				// 大于start date
-				if (compareDate(e.selectRes, this.sharingStartDate) && compareDate(e.selectRes, this.currentDateTime)) {
+				if(compareDate(this.currentDateTime, e.selectRes)) {
+					this.dateAlert.msg = WARNING_DATE_LT_CURRENT;
+					this.$refs.dateAlert.showModal();
+				} else if(compareDate(this.sharingStartDate, e.selectRes)) {
+					this.dateAlert.msg = WARNING_END_LT_START;
+					this.$refs.dateAlert.showModal();
+				} else {
 					this.sharingEndDate = e.selectRes;
-				}
+				} 
 			},
 			showDeadlinePicker: function() { //显示
 				this.$refs.deadline.show();
 			},
 			onDeadlineCancel: function(e) {},
 			onDeadlineConfirm: function(e) {
-				this.deadline = e.selectRes;
+				if(compareDate(this.currentDateTime, e.selectRes)) {
+					this.dateAlert.msg = WARNING_DATE_LT_CURRENT;
+					this.$refs.dateAlert.showModal();
+				} else if(compareDate(e.selectRes, this.sharingStartDate)) {
+					this.dateAlert.msg = WARNING_DEADLINE;
+					this.$refs.dateAlert.showModal();
+				} else {
+					this.deadline = e.selectRes;
+				} 
 			},
 			chooseImage: function() {
 				uni.chooseImage({
@@ -118,12 +147,31 @@
 
 			},
 			createTopic: function() {
-				this.popupTitle = "创建分享",
-					this.popupMsg = "是否确认创建分享？"
-				this.$refs.createPopup.showModal();
+				if (this.validateTime()) {
+					this.popupTitle = "创建分享";
+					this.popupMsg = "是否确认创建分享？";
+					this.$refs.createPopup.showModal();
+				} else {
+					this.$refs.dateAlert.showModal();
+				}
 			},
 			onConfirmCreate: function() {
-				console.log("");
+				// todo
+				console.log("create new topic");
+			},
+			onAlertConfirm: function() {
+				this.$refs.dateAlert.hideModal();
+			}, 
+			validateTime: function() {
+				if(compareDate(this.currentDateTime, this.sharingStartDate) 
+					|| compareDate(this.currentDateTime, this.sharingEndDate) 
+					|| compareDate(this.currentDateTime, this.deadline)) {
+					this.dateAlert.msg = WARNING_DATE_LT_CURRENT;
+				}else if(compareDate(this.sharingStartDate, this.sharingEndDate)) {
+					this.dateAlert.msg = WARNING_END_LT_START;
+				}else if(compareDate(this.deadline, this.sharingStartDate)) {
+					this.dateAlert.msg = WARNING_DEADLINE;
+				} else return true;
 			}
 		}
 	}
