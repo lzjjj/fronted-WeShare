@@ -36,7 +36,7 @@
 				direction: 'vertical',
 				content: [{
 					text: '创建',
-					iconPath: '../../static/create.svg',
+					iconPath: '../../static/create_select.svg',
 					selectedIconPath: '../../static/create_select.svg'
 				}],
 				pattern: {

@@ -5,6 +5,7 @@
 </template>
 
 <script>
+	import requestUrls from '../../api.js'
 	export default {
 		data() {
 			return {
@@ -13,10 +14,18 @@
 			}
 		},
 		methods: {
-			
+			getRewards() {
+				/* uni.request({
+					url: requestUrls.getRewards,
+					method: 'GET',
+					success: (res) => {
+						console.log(res.data)
+					}
+				}) */
+			}
 		},
 		onLoad() {
-			
+			this.getRewards()
 		}
 	}
 </script>
