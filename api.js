@@ -1,5 +1,5 @@
-const globalUrl = 'http://localhost:8080/api/'
+const globalUrl = 'http://tangtr2-w10.corp.oocl.com:3000'
 const requestUrls = {
-  WeChatlogin: globalUrl + 'CxWechat/WeChatlogin.do', //例子:登录接口
+  getTopics: globalUrl + '/home/topics', //Get topic list
 }
 export default requestUrls
