@@ -9,6 +9,7 @@ const requestUrls = {
   getMyCreates: globalUrl + '/home/topics/owner/1', //Get mycreate list
   record: globalUrl + '/user/records',
   picUpload: "http://xuvi7-w10:3000/multerUpload/upload",
+  WeChatlogin: globalUrl + '/login/'
   picLoad: "http://xuvi7-w10:9090"
 }
 export default requestUrls

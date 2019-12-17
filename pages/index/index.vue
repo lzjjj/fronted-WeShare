@@ -15,12 +15,7 @@
 			<myJoin v-if="TabCur == 1"></myJoin>
 			<myCreate v-if="TabCur == 2"></myCreate>
 		</view>
-		<uni-fab
-			:pattern="pattern"
-			:content="content"
-			:horizontal="horizontal"
-			:direction="direction"
-			@trigger="trigger"></uni-fab>
+		<uni-fab :pattern="pattern" :content="content" :horizontal="horizontal" :direction="direction" @trigger="trigger"></uni-fab>
 	</view>
 </template>
 
@@ -46,15 +41,14 @@
 				}
 			}
 		},
-		components: { uniFab },
-		onLoad() {
-			console.log(requestUrls)
+		components: {
+			uniFab
 		},
 		methods: {
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;
 				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
-			}, 
+			},
 			trigger() {
 				uni.navigateTo({
 					url: "../component/new_topic"

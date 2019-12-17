@@ -21,6 +21,7 @@
 
 <script>
 	import requestUrls from '../../api.js'
+	import fetch from '../../fetch.js'
 	export default {
 		data() {
 			return {
@@ -32,15 +33,12 @@
 		},
 		methods: {
 			getMyJoins(){
-				uni.request({
+				fetch({
 						url: requestUrls.getMyJoins + '?page=1&per_page=10'
 					})
 					.then(data => { //data为一个数组，数组第一项为错误信息，第二项为返回数据
-						const [error, res] = data
-						if(error) console.log(error)
-						if (res) {
-							this.joinLists = res.data
-							console.log(res.data)
+						if (data) {
+							this.joinLists = data
 						}
 					})
 			},

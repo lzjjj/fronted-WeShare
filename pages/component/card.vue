@@ -17,7 +17,7 @@
 					</view>
 					<view class="flex justify-end align-center" style="margin-bottom: 10px;">
 						<view style="color: #C8C7CC;padding-right: 5px;">已报名{{topic.participants_count}}人</view>
-						<view style="color: #F37B1D; font-size: 0.75rem;">剩余{{topic.participants_count}}个名额</view>
+						<view style="color: #F37B1D; font-size: 0.75rem;">剩余{{topic.participants_count - topic.registrationCount}}个名额</view>
 					</view>
 				</view>
 			</view>

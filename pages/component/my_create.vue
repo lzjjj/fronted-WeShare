@@ -7,7 +7,7 @@
 					<view class="flex justify-between align-center">
 						<view class="dots_1">Sharing 简介：{{item.description}}</view>
 						<button v-if="item.status == 'new'" class="cu-btn lg bg-blue" style="width: 5.5rem;height: 1.8rem;font-size: 0.6rem;color: #FFFFFF;">报名中</button>
-						<button v-if="item.status == 'inProgress'" class="cu-btn lg bg-blue" style="width: 5.5rem;height: 1.8rem;font-size: 0.6rem;color: #FFFFFF;">进行中</button>
+						<button v-if="item.status == 'process'" class="cu-btn lg bg-blue" style="width: 5.5rem;height: 1.8rem;font-size: 0.6rem;color: #FFFFFF;">进行中</button>
 						<button v-if="item.status == 'cancel'" class="cu-btn lg bg-grey" style="width: 5.5rem;height: 1.8rem;font-size: 0.6rem;color: #FFFFFF;">已取消</button>
 						<button v-if="item.status == 'complete'" class="cu-btn lg bg-green" style="width: 5.5rem;height: 1.8rem;font-size: 0.6rem;color: #FFFFFF;">已完成</button>
 						<button v-if="item.status == 'deadline'" class="cu-btn lg bg-red" style="width: 5.5rem;height: 1.8rem;font-size: 0.6rem;color: #FFFFFF;">已截止</button>
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+	import fetch from '../../fetch.js'
 	import requestUrls from '../../api.js'
 	export default {
 		data() {
@@ -36,14 +37,12 @@
 		},
 		methods: {
 			getMyCreates(){
-				uni.request({
+				fetch({
 						url: requestUrls.getMyCreates + '?page=1&per_page=10'
 					})
 					.then(data => { //data为一个数组，数组第一项为错误信息，第二项为返回数据
-						const [error, res] = data
-						if(error) console.log(error)
-						if (res) {
-							this.myCreateList = res.data
+						if (data) {
+							this.myCreateList = data
 						}
 					})
 			},
