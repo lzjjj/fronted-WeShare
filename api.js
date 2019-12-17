@@ -4,6 +4,8 @@ const requestUrls = {
   getRewards: globalUrl + '/rewards',
   login: globalUrl + '/login',
   balance: globalUrl + '/user/balance',
+  getMyJoins: globalUrl + '/home/topics/joiner/1', //Get myJoins list
+  getMyCreates: globalUrl + '/home/topics/owner/1', //Get mycreate list
   record: globalUrl + '/user/records'
 }
 export default requestUrls
