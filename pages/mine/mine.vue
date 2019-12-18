@@ -14,7 +14,7 @@
 		      <image src='../../static/wallet.svg' class='item-img'></image>
 		      <text>钱包余额</text>
 		    </view>
-			<view class="lg text-yellow cuIcon-rechargefill" style="font-size: 0.95rem;">{{userInfo.balance}}</view>
+			<view class="lg text-yellow cuIcon-rechargefill" style="font-size: 0.8rem;">{{userInfo.balance}}</view>
 		  </view>
 		  <view class='list-item' bindtap='luanchToMyDate' @click="openRecord">
 		    <view style='display:flex;justify-content:center;align-items:center;'>
@@ -100,13 +100,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size:0.9rem;
+  /* font-size:0.9rem; */
   margin-bottom: 0.9rem;
   border-bottom: 1px solid #f8f8f8;
   padding-bottom: 0.4rem;
 }
 .item-img{
-  width: 25px;
-  height: 25px;
+  width: 1rem;
+  height: 1rem;
 }
 </style>
