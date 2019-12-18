@@ -80,6 +80,7 @@
 			},
 			cancelRegister: function() {
 				console.log('cancelRegister--------------------');
+				this.register()
 			},
 			cancelTopic: function() {
 				console.log('cancelTopic--------------------');
