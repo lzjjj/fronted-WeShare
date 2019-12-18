@@ -2,7 +2,7 @@
 	<view>
 		<form>
 			<view class="bg-img">
-				<image :src="imgPath" @tap="chooseImage" mode="widthFix" style="width: 100%;"></image>
+				<image :src="imgPath" @tap="chooseImage" mode="widthFix" style="width: 100%; max-height: 14rem;"></image>
 			</view>
 			<view class="cu-form-group margin-top">
 				<input placeholder="请输入标题" maxlength="30" name="input" @input="nameInput" ></input>
@@ -11,8 +11,8 @@
 				<textarea maxlength="200" @input="textareaInput" placeholder="请输入分享会简介"></textarea>
 			</view>
 			<view class="cu-form-group margin-top">
-				<view class="title text-black text-bold">演讲者</view>
-				<input class="input" placeholder="请输入演讲者姓名" maxlength="20" name="input" @input="ownerInput" ></input>
+				<view class="title text-black text-bold ">演讲者</view>
+				<input class="input" style="background-color: #F43F3B;" placeholder="请输入演讲者姓名" maxlength="20" name="input" @input="ownerInput" ></input>
 			</view>
 			<view class="cu-form-group" @tap="showStartDatePicker">
 				<view class="title text-black text-bold">开始时间</view>

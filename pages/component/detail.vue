@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view style="margin: 10px;">
-			<image :src="picUrl" mode="widthFix" style="width: 100%;"></image>
+			<image :src="picUrl" mode="widthFix" style="width: 100%; max-height: 14rem;"></image>
 			<view class="detail-content flex justify-start">
 				<view class="label">话题：</view>
 				<view>{{topic.topic_name}}</view>

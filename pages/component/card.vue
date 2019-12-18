@@ -3,7 +3,7 @@
 		<view class="cu-card case" :class="isCard?'no-card':''" @click="navigate">
 			<view class="cu-item shadow">
 				<view class="image">
-					<image :src="picUrl" mode="widthFix"></image>
+					<image :src="picUrl" mode="widthFix" style="max-height: 10rem; min-height: auto;"></image>
 				</view>
 				<view style="margin:0 10px;">
 					<view class="cu-bar" style="margin: -10px 0;font-size: 0.7rem;font-weight: bold;"> <text class="text-cut">{{topic.topic_name}}</text></view>
