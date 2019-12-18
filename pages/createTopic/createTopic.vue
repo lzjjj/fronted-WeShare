@@ -12,7 +12,7 @@
 			</view>
 			<view class="cu-form-group margin-top">
 				<view class="title text-black text-bold ">演讲者</view>
-				<input class="input" style="background-color: #F43F3B;" placeholder="请输入演讲者姓名" maxlength="20" name="input" @input="ownerInput" ></input>
+				<input class="input" placeholder="请输入演讲者姓名" maxlength="20" name="input" @input="ownerInput" ></input>
 			</view>
 			<view class="cu-form-group" @tap="showStartDatePicker">
 				<view class="title text-black text-bold">开始时间</view>
@@ -239,10 +239,8 @@
 					payload: this.topic,
 					method: 'POST'
 				}).then((res) => {
-					console.log('create result ------')
-					console.log(res)
-					if (res ===  MORE_THAN_ONE_TOPIC_AT_SAME_TIME) {
-						this.dateAlert.msg = res;
+					if (!isEmpty(res.msg)) {
+						this.dateAlert.msg = res.msg;
 						this.$refs.dateAlert.showModal();
 					} else {
 						uni.navigateTo({

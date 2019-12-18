@@ -34,24 +34,29 @@
 				<view class="label">简介：</view>
 				<view class="description">{{topic.description}}</view>
 			</view>
-			<button v-if="type == 0" class="bg-gradual-blue cu-btn apply-button">报名</button>
-			<button v-if="type == 1" class="bg-gradual-blue cu-btn apply-button">取消报名</button>
+			<button v-if="type == 0" class="bg-gradual-blue cu-btn apply-button" @click="register">报名</button>
+			<button v-if="type == 1" class="bg-gradual-blue cu-btn apply-button" @click="cancelRegister">取消报名</button>
 			<view v-if="type == 2" class="flex justify-around">
-				<button class="bg-gradual-blue cu-btn apply-button" style="margin-right: 5%;">取消分享</button>
-				<button class="bg-gradual-blue cu-btn apply-button">编辑</button>
+				<button class="bg-gradual-blue cu-btn apply-button" style="margin-right: 5%;" @click="cancelTopic">取消分享</button>
+				<button v-if="false" class="bg-gradual-blue cu-btn apply-button">编辑</button>
 			</view>
+			<rewardDialog ref="popup" :title="title" :msg="msg"  @confirm='popupConfirm'></rewardDialog>
 		</view>
 	</view>
 </template>
 
 <script>
 	import requestUrls from '../../api.js'
+	import {WARNING_TITLE} from '../../utils.js'
+	import fetch from '../../fetch.js'
 	export default {
 		props: ["type", "detail"],
 		data() {
 			return {
 				topic: {},
-				picUrl: ''
+				picUrl: '',
+				title: WARNING_TITLE,
+				msg: ''
 			}
 		},
 		mounted() {
@@ -59,6 +64,38 @@
 			this.topic.to_date = this.topic.to_date.substring(11)
 			this.picUrl = this.topic.picture_id ? requestUrls.picLoad + this.topic.picture_id :
 				'https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg'
+		},
+		methods:{
+			register: function() {
+				fetch({
+					url: requestUrls.registration,
+					data: {
+						topic_id: this.topic.topic_id
+					}
+				}).then((res) => {
+					console.log(res)
+					this.$refs.popup.showModal();
+				});
+				console.log('register--------------------');
+			},
+			cancelRegister: function() {
+				console.log('cancelRegister--------------------');
+			},
+			cancelTopic: function() {
+				console.log('cancelTopic--------------------');
+			},
+			popupConfirm: function() {
+				this.$refs.popup.hideModal();
+				let retUrl = './topic'
+				if(this.$props.type == 1) {
+					retUrl = '../myJoinDetail/myJoinDetail'
+				} else if(this.$props.type == 2){
+					retUrl = '../myCreateDetail/myCreateDetail'
+				}
+				uni.navigateTo({
+					url: retUrl
+				})
+			}
 		}
 	}
 </script>
