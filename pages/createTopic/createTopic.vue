@@ -58,7 +58,6 @@
 		getDate,
 		compareDate,
 		isEmpty,
-		uploadFile,
 		WARNING_TITLE,
 		WARNING_DATE_LT_CURRENT,
 		WARNING_END_LT_START,
@@ -70,7 +69,8 @@
 		WARNING_LEAST_PARTICIPANTS_EMPTY,
 		WARNING_DEADLINE_DATE_EMPTY,
 		WARNING_START_DATE_EMPTY,
-		WARNING_END_DATE_EMPTY
+		WARNING_END_DATE_EMPTY,
+		MORE_THAN_ONE_TOPIC_AT_SAME_TIME
 	} from "../../utils.js"
 	import yuDatetimePicker from "@/components/yu-datetime-picker/yu-datetime-picker.vue"
 	import requestUrls from "../../api.js"
@@ -95,7 +95,7 @@
 					dead_line_date:'',
 					state:'',
 					least_participants:'',
-					picture_Id:''
+					picture_id:''
 				},
 				deadline: '',
 				ownerName:'',
@@ -151,7 +151,6 @@
 				}
 			},
 			showEndDatePicker: function() { //显示
-				console.log('show end')
 				this.$refs.endDate.show();
 			},
 			onEndCancel: function() {},
@@ -189,8 +188,24 @@
 					success: (res) => {
 						this.imgPath = res.tempFilePaths[0];
 						this.img = res.tempFiles[0];
-						this.imgId = uploadFile(requestUrls.picUpload, this.imgPath);
-						this.viewImage();
+						this.uploadPic(this.imgPath);
+					}
+				});
+			},
+			uploadPic: function(imgPath) {
+				uni.uploadFile({
+					url: requestUrls.picUpload,
+					filePath: imgPath,
+					name: 'file',
+					success:(res) => {
+						console.log(res);
+						let ret = JSON.parse(res.data)
+						this.imgId = ret[0].path
+						console.log(this.imgId)
+					},
+					fail: (res) => {
+						console.log("upload picture failed");
+						console.log(res);
 					}
 				});
 			},
@@ -217,17 +232,23 @@
 				this.topic.from_date = this.sharingStartDate;
 				this.topic.to_date = this.sharingEndDate;
 				this.topic.dead_line_date = this.deadline;
-				this.topic.picture_Id = this.imgId;
+				this.topic.picture_id = this.imgId;
 				this.topic.least_participants = this.minCounts;
 				fetch({
 					url: requestUrls.createTopic,
 					payload: this.topic,
 					method: 'POST'
 				}).then((res) => {
+					console.log('create result ------')
 					console.log(res)
-					uni.navigateTo({
-						url:"../submitSuccess/submitSuccess"
-					})
+					if (res ===  MORE_THAN_ONE_TOPIC_AT_SAME_TIME) {
+						this.dateAlert.msg = res;
+						this.$refs.dateAlert.showModal();
+					} else {
+						uni.navigateTo({
+							url:"../submitSuccess/submitSuccess"
+						})						
+					}
 				})
 				console.log("create new topic");
 			},

@@ -24,24 +24,6 @@ export const compareDate = function(date1, date2) {
 	return date1.substr(0, 16) > date2.substr(0, 16);
 }
 
-export const uploadFile = function(url, imgPath) {
-	let imgId = '';
-	uni.uploadFile({
-		url: url,
-		filePath: imgPath,
-		name: 'file',
-		success:(res) => {
-			console.log(res)
-			imgId = res.data[0].path
-		},
-		fail: (res) => {
-			console.log("upload picture failed");
-			console.log(res);
-		}
-	});
-	return imgId;
-}
-
 export const isEmpty = function(str) {
 	return str === null || str === undefined || str === '';
 }
@@ -58,3 +40,4 @@ export const WARNING_LEAST_PARTICIPANTS_EMPTY = "最小报名人数不能为空"
 export const WARNING_DEADLINE_DATE_EMPTY = "报名截止时间不能为空";
 export const WARNING_START_DATE_EMPTY = "分享会开始时间不能为空";
 export const WARNING_END_DATE_EMPTY = "分享会结束时间不能为空";
+export const MORE_THAN_ONE_TOPIC_AT_SAME_TIME = "同一时间不能创建多个话题";
