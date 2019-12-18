@@ -70,7 +70,7 @@
 				fetch({
 					url: requestUrls.registration,
 					method: 'POST',
-					data: {
+					payload: {
 						topic_id: this.topic.topic_id
 					}
 				}).then((res) => {
@@ -84,7 +84,7 @@
 				fetch({
 					url: requestUrls.registration,
 					method: 'PUT',
-					data: {
+					payload: {
 						topic_id: this.topic.topic_id
 					}
 				}).then((res) => {
