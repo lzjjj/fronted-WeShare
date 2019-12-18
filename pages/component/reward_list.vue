@@ -22,6 +22,9 @@
 					</view>
 					<view v-else>库存不足</view>
 				</view>
+				<view v-else class="text-orange text-sm flex">
+					数量：{{reward.quantity}}
+				</view>
 			</view>
 			<view class="blockclass">
 				<view v-if="(reward.quantity > 0) && title != '已兑换商品'">
@@ -34,6 +37,7 @@
 			
 		</view>
 		<rewardDialog ref="popup" :showUp=showUp :reward=currItem @hideModal="hideModal" @confirm='onConfirm'></rewardDialog>
+		<message ref="Message"></message>
 	</view>
 </template>
 
@@ -57,11 +61,17 @@
 		},
 		methods: {
 			showModal(item) {
-				this.$refs.popup.show = true
+				this.$refs.popup.showModal()
 				this.currItem = item
 			},
-			onConfirm() {
-				console.log("reward confirm");
+			onConfirm(payload) {
+				if(payload.amount == 0 || payload.total == 0) {
+					this.$refs.Message.warn('请先选择兑换数量')
+				} else if(payload.myMoney < payload.total) {
+					this.$refs.Message.error('你的余额不足')
+				} else {
+					this.$refs.Message.success('兑换成功')
+				}
 			}
 		}
 	}

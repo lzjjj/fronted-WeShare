@@ -8,7 +8,8 @@
 				</view>
 			</view>
 			<view v-if="msg==''" class="padding-xl">
-				你当前有金币1000，该商品需要{{reward.price}}金币，你确定要兑换吗?
+				兑换数量：<uni-number-box ref="numberbox" value="0" @change="bindChange"></uni-number-box>
+				你当前有金币{{myMoney}}，商品总额{{total}}，你确定要兑换吗?
 			</view>
 			<view v-if="msg!=''" class="padding-xl">
 				{{msg}}
@@ -24,6 +25,7 @@
 </template>
 
 <script>
+	import uniNumberBox from "@/components/uni-number-box/uni-number-box.vue"
 	export default {
 		props:{
 			showCancel: {
@@ -46,21 +48,30 @@
 				type: Object
 			}
 		},
+		components: {uniNumberBox},
 		data() {
 			return {
 				show : false,
+				total: 0,
+				amount: 0,
+				myMoney: 1000
 			}
 		},
 		methods:{
 			showModal() {
 				this.show = true;
+				if(this.msg == '')
+					this.$refs.numberbox.inputValue = 0;
 			},
 			hideModal() {
 				this.show = false;
 			},
 			confirm() {
-				this.$emit('confirm');
-				this.hideModal();
+				this.$emit('confirm', {amount: this.amount, total: this.total, myMoney: this.myMoney});
+			},
+			bindChange(e) {
+				this.amount = e;
+				this.total = e * this.reward.price;
 			}
 		}
 	}
