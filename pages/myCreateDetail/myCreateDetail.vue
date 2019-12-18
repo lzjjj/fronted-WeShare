@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<detail type = "2"></detail>
+		<detail type = "2" :detail="detail"></detail>
 	</view>
 </template>
 
@@ -8,8 +8,11 @@
 	export default {
 		data() {
 			return {
-				
+				detail: {}
 			}
+		},
+		onLoad(option) {
+			this.detail = option.detail
 		},
 		methods: {
 			

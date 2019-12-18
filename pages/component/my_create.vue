@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="cu-card case" :key="index" v-for="(item,index) in myCreateList" @click="navigate">
+		<view class="cu-card case" :key="index" v-for="(item,index) in myCreateList" @click="navigate(item)" >
 			<view class="cu-item shadow">
 				<view style="margin:10px 10px;">
 					<view class="cu-bar" style="margin: -10px 0;font-size: 0.8rem;font-weight: bold;"> <text class="text-cut">{{item.topic_name}}</text></view>
@@ -46,9 +46,9 @@
 						}
 					})
 			},
-			navigate() {
+			navigate(item) {
 				uni.navigateTo({
-					url: '../myCreateDetail/myCreateDetail'
+					url: '../myCreateDetail/myCreateDetail?detail='+ JSON.stringify(item)
 				})
 			},
 		}
