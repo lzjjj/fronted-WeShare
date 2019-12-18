@@ -36,12 +36,11 @@
 			};
 		},
 		mounted() {
-			console.log(this.picUrl)
 		},
 		methods: {
 			navigate() {
 				uni.navigateTo({
-					url: '../sharingDetail/sharingDetail'
+					url: '../sharingDetail/sharingDetail?detail=' + JSON.stringify(this.$props.topic)
 				})
 			},
 			IsCard(e) {

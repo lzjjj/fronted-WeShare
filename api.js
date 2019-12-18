@@ -6,8 +6,8 @@ const requestUrls = {
 	getRewards: globalUrl + '/rewards',
 	login: globalUrl + '/login',
 	balance: globalUrl + '/user/balance',
-	getMyJoins: globalUrl + '/home/topics/joiner/1', //Get myJoins list
-	getMyCreates: globalUrl + '/home/topics/owner/1', //Get mycreate list
+	getMyJoins: globalUrl + '/home/topics/joiner', //Get myJoins list
+	getMyCreates: globalUrl + '/home/topics/owner', //Get mycreate list
 	record: globalUrl + '/user/records',
 	picUpload: "http://xuvi7-w10:3000/multerUpload/upload",
 	WeChatlogin: globalUrl + '/login/',
