@@ -4,7 +4,7 @@ const globalUrl = 'http://d7javb.natappfree.cc'
 const requestUrls = {
 	getTopics: globalUrl + '/home/topics', //Get topic list
 	createTopic: globalUrl + '/home/topics/user',
-	getRewards: globalUrl + '/rewards',
+	getRewards: globalUrl + '/commodity',
 	login: globalUrl + '/login',
 	balance: globalUrl + '/user/balance',
 	getMyJoins: globalUrl + '/home/topics/joiner', //Get myJoins list
@@ -12,6 +12,6 @@ const requestUrls = {
 	record: globalUrl + '/user/records',
 	picUpload: "http://efdgqr.natappfree.cc/multerUpload/upload",
 	WeChatlogin: globalUrl + '/login/',
-	picLoad: "http://639cgy.natappfree.cc/"
+	picLoad: "http://639cgy.natappfree.cc/",
 }
 export default requestUrls

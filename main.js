@@ -20,7 +20,6 @@ Vue.component('rewardList',rewardList)
 Vue.component('rewardDialog', rewardDialog)
 Vue.component('message', boboMessage)
 
-
 Vue.config.productionTip = false
 
 App.mpType = 'app'

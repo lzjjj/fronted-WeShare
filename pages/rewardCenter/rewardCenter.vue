@@ -10,23 +10,34 @@
 	export default {
 		data() {
 			return {
-				rewards:[{name:'棉花糖', price:'100',desc:'超级好吃的棉花糖超级好吃的棉花糖超级好吃的棉花糖',photo:'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg', quantity: 10},
-				{name:'棉花糖', price:'100',desc:'超级好吃的棉花糖',photo:'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg',quantity: 0}]
-			}
-		},
-		methods: {
-			getRewards() {
-				/* fetch({
-					url: requestUrls.getRewards,
-				}).then(data => {
-					if (data) {
-						this.topics = data
-					}
-				}) */
+				rewards:[],
+				pageIndex: 1
 			}
 		},
 		onLoad() {
 			this.getRewards()
+		},
+		onPullDownRefresh() {
+			this.pageIndex++;
+			this.getRewards()
+		},
+		methods: {
+			getRewards() {
+				fetch({
+					url: requestUrls.getRewards + "/?page=" + this.pageIndex + "&per_page=10",
+				}).then(data => {
+					if (data.length > 0) {
+						if(this.rewards.length > 0) {
+							this.rewards.push(data)
+						} else {
+							this.rewards = data
+						}
+					} else {
+						this.pageIndex--;
+					}
+					uni.stopPullDownRefresh();
+				})
+			}
 		}
 	}
 </script>

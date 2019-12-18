@@ -1,7 +1,7 @@
 <template>
 	<view class="cu-list menu-avatar">
 		<view class="cu-item" v-for="(reward, index) in rewards" :key="index" style="height: 100px;">
-			<view class="cu-avatar round lg" v-bind:style="'background-image:url(' + reward.photo + ')'"></view>
+			<view class="cu-avatar round lg" v-bind:style="'background-image:url(' + reward.picture_id + ')'"></view>
 			<view class="content">
 				<view class="flex">
 					<view class="flex-sub radius" style="width: 50%;">
@@ -13,21 +13,21 @@
 				</view>
 				<view class="text-gray text-sm flex">
 					<view class="text-cut">
-						{{reward.desc}}
+						{{reward.description}}
 					</view> 
 				</view>
 				<view v-if="title != '已兑换商品'" class="text-red text-sm flex">
-					<view v-if="reward.quantity > 0">
-						剩余{{reward.quantity}}件
+					<view v-if="reward.amount > 0">
+						剩余{{reward.amount}}件
 					</view>
 					<view v-else>库存不足</view>
 				</view>
 				<view v-else class="text-orange text-sm flex">
-					数量：{{reward.quantity}}
+					数量：{{reward.amount}}
 				</view>
 			</view>
 			<view class="blockclass">
-				<view v-if="(reward.quantity > 0) && title != '已兑换商品'">
+				<view v-if="(reward.amount > 0) && title != '已兑换商品'">
 					<button class="cu-btn bg-green shadow" @tap="showModal(reward)" data-target="rewardDialog">兑换</button>
 				</view>
 				<view v-if="title == '已兑换商品'">
