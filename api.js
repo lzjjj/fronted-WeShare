@@ -12,6 +12,6 @@ const requestUrls = {
 	record: globalUrl + '/user/records',
 	picUpload: "http://efdgqr.natappfree.cc/multerUpload/upload",
 	WeChatlogin: globalUrl + '/login/',
-	picLoad: "http://b6rin9.natappfree.cc/"
+	picLoad: "http://639cgy.natappfree.cc/"
 }
 export default requestUrls
