@@ -8,7 +8,7 @@
 						<view class="text-grey text-cut" >{{reward.name}}</view>
 					</view>
 					<view class="flex-sub radius">
-						<view class="lg text-yellow cuIcon-rechargefill" style="font-size: 0.8rem;">{{reward.price}}</view>
+						<view class="lg text-yellow cuIcon-rechargefill" style="font-size: 0.95rem;">{{reward.price}}</view>
 					</view>
 				</view>
 				<view class="text-gray text-sm flex">
@@ -23,12 +23,15 @@
 					<view v-else>库存不足</view>
 				</view>
 			</view>
-			<view v-if="(reward.quantity > 0) && title != '已兑换商品'">
-				<button class="cu-btn bg-green shadow" @tap="showModal(reward)" data-target="rewardDialog">兑换</button>
+			<view class="blockclass">
+				<view v-if="(reward.quantity > 0) && title != '已兑换商品'">
+					<button class="cu-btn bg-green shadow" @tap="showModal(reward)" data-target="rewardDialog">兑换</button>
+				</view>
+				<view v-if="title == '已兑换商品'">
+					<view class="cu-tag radius align-center showtag text-bold" :class=" reward.status == '未兑换' ? 'bg-blue' : 'bg-green'">{{reward.status}}</view>
+				</view>
 			</view>
-			<view v-if="title == '已兑换商品'">
-				<view class="cu-tag radius"  :class=" reward.status == '未兑换' ? 'bg-blue' : 'bg-green'">{{reward.status}}</view>
-			</view>
+			
 		</view>
 		<rewardDialog ref="popup" :showUp=showUp :reward=currItem @hideModal="hideModal" @confirm='onConfirm'></rewardDialog>
 	</view>
@@ -65,4 +68,10 @@
 </script>
 
 <style>
+	.blockclass {
+		margin-right: 3%;
+	}
+	.showtag {
+		width: 150rpx;
+	}
 </style>

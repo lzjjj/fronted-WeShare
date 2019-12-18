@@ -8,7 +8,7 @@
 				</view>
 			</view>
 			<view v-if="msg==''" class="padding-xl">
-				你当前有金币1000，该商品需要{{reward.price}}金币，你确定要兑换吗
+				你当前有金币1000，该商品需要{{reward.price}}金币，你确定要兑换吗?
 			</view>
 			<view v-if="msg!=''" class="padding-xl">
 				{{msg}}
