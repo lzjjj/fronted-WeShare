@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view style="margin: 10px;">
-			<image src="https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg" mode="widthFix" style="width: 100%;"></image>
+			<image :src="picUrl" mode="widthFix" style="width: 100%;"></image>
 			<view class="detail-content flex justify-start">
 				<view class="label">话题：</view>
 				<view>{{topic.topic_name}}</view>
@@ -45,16 +45,20 @@
 </template>
 
 <script>
+	import requestUrls from '../../api.js'
 	export default {
 		props: ["type", "detail"],
 		data() {
 			return {
-				topic: {}
+				topic: {},
+				picUrl: ''
 			}
 		},
 		mounted() {
 			this.topic = JSON.parse(this.$props.detail)
 			this.topic.to_date = this.topic.to_date.substring(11)
+			this.picUrl = this.topic.picture_id ? requestUrls.picLoad + this.topic.picture_id :
+				'https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg'
 		}
 	}
 </script>
