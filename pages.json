@@ -48,6 +48,12 @@
 				"navigationBarTitleText":"提交成功"
 			}
         }
+		,{
+		    "path" : "pages/createTopic/createTopic",
+		    "style" : {
+				"navigationBarTitleText":"创建分享会"
+			}
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
