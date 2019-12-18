@@ -69,6 +69,7 @@
 			register: function() {
 				fetch({
 					url: requestUrls.registration,
+					method: 'POST',
 					data: {
 						topic_id: this.topic.topic_id
 					}
@@ -80,7 +81,16 @@
 			},
 			cancelRegister: function() {
 				console.log('cancelRegister--------------------');
-				this.register()
+				fetch({
+					url: requestUrls.registration,
+					method: 'PUT',
+					data: {
+						topic_id: this.topic.topic_id
+					}
+				}).then((res) => {
+					console.log(res)
+					this.$refs.popup.showModal();
+				});
 			},
 			cancelTopic: function() {
 				console.log('cancelTopic--------------------');

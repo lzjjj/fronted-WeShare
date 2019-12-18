@@ -9,6 +9,7 @@ const requestUrls = {
 	balance: globalUrl + '/user/balance',
 	getMyJoins: globalUrl + '/home/topics/joiner', //Get myJoins list
 	getMyCreates: globalUrl + '/home/topics/owner', //Get mycreate list
+	registration: globalUrl + '/topics/registration',
 	record: globalUrl + '/user/records',
 	picUpload: "http://efdgqr.natappfree.cc/multerUpload/upload",
 	WeChatlogin: globalUrl + '/login/',
