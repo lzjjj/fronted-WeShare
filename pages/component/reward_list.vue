@@ -71,6 +71,7 @@
 					this.$refs.Message.error('你的余额不足')
 				} else {
 					this.$refs.Message.success('兑换成功')
+					this.$refs.popup.hideModal()
 				}
 			}
 		}
