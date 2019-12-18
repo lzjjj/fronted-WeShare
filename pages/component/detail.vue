@@ -19,7 +19,7 @@
 				<view>B6 3F Room 03</view>
 			</view>
 			<view class="detail-content text-cut flex">
-				<view class="label">最少报名人数：</view>
+				<view class="label">最小报名人数：</view>
 				<view>20人</view>
 			</view>
 			<view class="detail-content text-cut flex">

@@ -65,5 +65,6 @@
 		line-clamp: 2;
 		-webkit-box-orient: vertical;
 		margin-bottom: 8px;
+		width: 65%;
 	}
 </style>

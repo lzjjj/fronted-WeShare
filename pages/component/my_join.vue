@@ -62,5 +62,6 @@
 		-webkit-box-orient: vertical;
 		/* font-weight: bold; */
 		margin-bottom: 8px;
+		width: 65%;
 	}
 </style>
