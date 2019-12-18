@@ -10,7 +10,7 @@
 			<view v-if="msg==''" class="padding-xl">
 				<view class="flex p-xs margin-bottom-sm mb-sm">
 					<view class="flex-sub padding-sm"><view class="align-center text-bold" style="height: 35px; display: flex;">兑换数量：</view></view>
-					<view class="flex-twice padding-sm"><uni-number-box ref="numberbox" value="0" @change="bindChange"></uni-number-box></view>
+					<view class="flex-twice padding-sm"><uni-number-box ref="numberbox" :value="0" :max="100" @change="bindChange"></uni-number-box></view>
 				</view>
 				你当前有金币{{myMoney}}，商品总额{{total}}，你确定要兑换吗?
 			</view>
