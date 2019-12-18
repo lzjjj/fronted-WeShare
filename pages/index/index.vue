@@ -51,7 +51,7 @@
 			},
 			trigger() {
 				uni.navigateTo({
-					url: "../component/new_topic"
+					url: "../createTopic/createTopic"
 				})
 			}
 		}

@@ -1,16 +1,19 @@
-const globalUrl = 'http://kuangal2-w10.corp.oocl.com:3000'
-// const globalUrl = 'http://8e7048dd-041c-47f7-b1a3-76b71e381cd4.mock.pstmn.io'
+// const globalUrl = 'http://localhost:3000'
+// const globalUrl = 'http://kuangal2-w10.corp.oocl.com:3000'
+const globalUrl = 'http://d7javb.natappfree.cc'
 const requestUrls = {
 	getTopics: globalUrl + '/home/topics', //Get topic list
 	createTopic: globalUrl + '/home/topics/user',
-	getRewards: globalUrl + '/rewards',
+	getRewards: globalUrl + '/commodity',
 	login: globalUrl + '/login',
 	balance: globalUrl + '/user/balance',
-	getMyJoins: globalUrl + '/home/topics/joiner/1', //Get myJoins list
-	getMyCreates: globalUrl + '/home/topics/owner/1', //Get mycreate list
+	getMyJoins: globalUrl + '/home/topics/joiner', //Get myJoins list
+	getMyCreates: globalUrl + '/home/topics/owner', //Get mycreate list
+	registration: globalUrl + '/topics/registration',
 	record: globalUrl + '/user/records',
-	picUpload: "http://xuvi7-w10:3000/multerUpload/upload",
+	picUpload: "http://efdgqr.natappfree.cc/multerUpload/upload",
 	WeChatlogin: globalUrl + '/login/',
-	picLoad: "http://xuvi7-w10:9090/"
+	picLoad: "http://639cgy.natappfree.cc/",
+	getUserInfo: globalUrl + "/users"
 }
 export default requestUrls

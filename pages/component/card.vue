@@ -3,10 +3,10 @@
 		<view class="cu-card case" :class="isCard?'no-card':''" @click="navigate">
 			<view class="cu-item shadow">
 				<view class="image">
-					<image :src="picUrl" mode="widthFix"></image>
+					<image :src="picUrl" mode="widthFix" style="max-height: 10rem; min-height: auto;"></image>
 				</view>
 				<view style="margin:0 10px;">
-					<view class="cu-bar" style="margin: -10px 0;font-size: 0.7rem;font-weight: bold;"> <text class="text-cut">{{topic.topic_name}}</text></view>
+					<view class="cu-bar" style="margin: -10px 0;font-size: 0.85rem;font-weight: bold;"> <text class="text-cut">{{topic.topic_name}}</text></view>
 					<view class="flex justify-between align-center">
 						<view style="color: #C8C7CC;">
 							<view>时间: {{topic.from_date}} - {{topic.to_date}}</view>
@@ -36,12 +36,11 @@
 			};
 		},
 		mounted() {
-			console.log(this.picUrl)
 		},
 		methods: {
 			navigate() {
 				uni.navigateTo({
-					url: '../sharingDetail/sharingDetail'
+					url: '../sharingDetail/sharingDetail?detail=' + JSON.stringify(this.$props.topic)
 				})
 			},
 			IsCard(e) {

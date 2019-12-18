@@ -1,32 +1,21 @@
 <script>
 	import requestUrls from 'api.js'
 	export default {
-		onLaunch: () => {},
-		beforeCreate() {
-			// 登录
-			uni.login({
-				provider: 'weixin',
-			}).then(res => {
-				this.login(res[1].code)
+		onLaunch: () => {
+			uni.authorize({
+				scope: 'scope.userInfo',
+			}).then(() => {
+				uni.getUserInfo({
+					provider: 'weixin',
+				}).then((res) => {
+					uni.setStorage({
+						key: 'userInfo',
+						data: res[1].userInfo
+					})
+				})
 			})
 		},
-		methods: {
-			login(code) {
-				uni.request({
-						url: requestUrls.WeChatlogin + code
-					})
-					.then(data => { //data为一个数组，数组第一项为错误信息，第二项为返回数据
-						const [error, res] = data
-						if (error) console.log(error)
-						if (res) {
-							uni.setStorage({
-								key: 'token',
-								data: res.data
-							})
-						}
-					})
-			},
-		},
+		methods: {},
 		onShow: function() {
 			console.log('App Show')
 		},

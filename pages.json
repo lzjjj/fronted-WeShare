@@ -8,7 +8,8 @@
 		}, {
 			"path": "pages/rewardCenter/rewardCenter",
 			"style": {
-				"navigationBarTitleText": "奖励中心"
+				"navigationBarTitleText": "奖励中心",
+				"enablePullDownRefresh": true  
 			}
 		}, {
 			"path": "pages/mine/mine",
@@ -48,6 +49,12 @@
 				"navigationBarTitleText":"提交成功"
 			}
         }
+		,{
+		    "path" : "pages/createTopic/createTopic",
+		    "style" : {
+				"navigationBarTitleText":"创建分享会"
+			}
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

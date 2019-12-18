@@ -25,7 +25,7 @@
 						<view class="yu-datetime-item" v-for="(item,index) in dateObj.minutes" :key="index">{{item}}分</view>
 					</picker-view-column>
 					<picker-view-column>
-						<view class="yu-datetime-item" v-for="(item,index) in dateObj.seconds" :key="index">{{item}}秒</view>
+						<view class="yu-datetime-item" v-for="(item,index) in dateObj.seconds" :key="index" v-show="showSecond">{{item}}秒</view>
 					</picker-view-column>
 				</picker-view>
 				<picker-view v-else :indicator-style="itemHeight" :value="dateValues" @change="bindDateChange">
@@ -39,7 +39,7 @@
 						<view class="yu-datetime-item" v-for="(item,index) in dateObj.minutes" :key="index">{{item}}分</view>
 					</picker-view-column>
 					<picker-view-column>
-						<view class="yu-datetime-item" v-for="(item,index) in dateObj.seconds" :key="index">{{item}}秒</view>
+						<view class="yu-datetime-item" v-for="(item,index) in dateObj.seconds" :key="index" v-show="showSecond">{{item}}秒</view>
 					</picker-view-column>
 				</picker-view>
 			</view>
@@ -48,11 +48,14 @@
 </template>
 <script>
 	export default {
-		// updated() {
-		// 	console.log(this.$props.showUp)
-		// },
 		name: "yuDatetimePicker",
 		props: {
+			showSecond: {
+				type: Boolean,
+				default(){
+					return true
+				} 
+			},
 			isAll: { //全部日期有效可选
 				type: Boolean,
 				default () {

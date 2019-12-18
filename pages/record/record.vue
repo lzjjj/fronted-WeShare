@@ -10,7 +10,8 @@
 						</view>
 					</view>
 					<view class="padding-sm margin-xs radius" style="width: 25%;">
-						<view class="lg text-yellow cuIcon-rechargefill" style="font-size: 0.95rem; width: 100%;">{{item.cost}}</view>
+						<view v-if="item.cost > 0" class="lg text-yellow cuIcon-rechargefill" style="font-size: 0.95rem; width: 100%;">+{{item.cost}}</view>
+						<view v-else class="lg text-red cuIcon-rechargefill" style="font-size: 0.95rem; width: 100%;">{{item.cost}}</view>
 					</view>
 				</view>
 			</view>
@@ -25,7 +26,7 @@
 				records: [{
 					name:'分享分享会',
 					time:'2019-12-15 10:15:00',
-					cost: '+1000',
+					cost: '1000',
 					},
 					{
 					name:'兑换奖励',
