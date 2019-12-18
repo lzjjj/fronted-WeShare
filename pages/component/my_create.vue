@@ -6,11 +6,11 @@
 					<view class="cu-bar" style="margin: -10px 0;font-size: 0.8rem;font-weight: bold;"> <text class="text-cut">{{item.topic_name}}</text></view>
 					<view class="flex justify-between align-center">
 						<view class="dots_1">Sharing 简介：{{item.description}}</view>
-						<button v-if="item.status == 'new'" class="cu-btn lg bg-blue" style="width: 5.5rem;height: 1.8rem;font-size: 0.6rem;color: #FFFFFF;">报名中</button>
-						<button v-if="item.status == 'process'" class="cu-btn lg bg-blue" style="width: 5.5rem;height: 1.8rem;font-size: 0.6rem;color: #FFFFFF;">进行中</button>
-						<button v-if="item.status == 'cancel'" class="cu-btn lg bg-grey" style="width: 5.5rem;height: 1.8rem;font-size: 0.6rem;color: #FFFFFF;">已取消</button>
-						<button v-if="item.status == 'complete'" class="cu-btn lg bg-green" style="width: 5.5rem;height: 1.8rem;font-size: 0.6rem;color: #FFFFFF;">已完成</button>
-						<button v-if="item.status == 'deadline'" class="cu-btn lg bg-red" style="width: 5.5rem;height: 1.8rem;font-size: 0.6rem;color: #FFFFFF;">已截止</button>
+						<button v-if="item.status == 'new'" class="cu-btn lg bg-blue" style="width: 5.5rem;height: 1.8rem;font-size: 0.7rem;color: #FFFFFF;">报名中</button>
+						<button v-if="item.status == 'process'" class="cu-btn lg bg-blue" style="width: 5.5rem;height: 1.8rem;font-size: 0.7rem;color: #FFFFFF;">进行中</button>
+						<button v-if="item.status == 'cancel'" class="cu-btn lg bg-grey" style="width: 5.5rem;height: 1.8rem;font-size: 0.7rem;color: #FFFFFF;">已取消</button>
+						<button v-if="item.status == 'complete'" class="cu-btn lg bg-green" style="width: 5.5rem;height: 1.8rem;font-size: 0.7rem;color: #FFFFFF;">已完成</button>
+						<button v-if="item.status == 'deadline'" class="cu-btn lg bg-red" style="width: 5.5rem;height: 1.8rem;font-size: 0.7rem;color: #FFFFFF;">已截止</button>
 					</view>
 					<view style="color: #C8C7CC;">
 						<view>时间: {{item.from_date}} - {{item.to_date}}</view>
