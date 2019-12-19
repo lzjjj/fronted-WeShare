@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<rewardList :rewards= rewards />
+		<rewardList :rewards= rewards @changeReward='changeReward'/>
 	</view>
 </template>
 
@@ -24,7 +24,7 @@
 		methods: {
 			getRewards() {
 				fetch({
-					url: requestUrls.getRewards + "/?page=" + this.pageIndex + "&per_page=10",
+					url: requestUrls.getRewards + "?page=" + this.pageIndex + "&per_page=10",
 				}).then(data => {
 					if (data.result.length > 0) {
 						if(this.rewards.length > 0) {
@@ -36,6 +36,9 @@
 						this.pageIndex--;
 					}
 				})
+			},
+			changeReward(payload){
+				
 			}
 		}
 	}
