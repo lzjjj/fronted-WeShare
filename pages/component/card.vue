@@ -32,7 +32,7 @@
 		data() {
 			return {
 				isCard: false,
-				picUrl: this.$props.topic.picture_id ? requestUrls.picLoad + this.$props.topic.picture_id : 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg'
+				picUrl: this.$props.topic.picture_id ? requestUrls.picLoad + this.$props.topic.picture_id : '../../static/just_share.png'
 			};
 		},
 		mounted() {

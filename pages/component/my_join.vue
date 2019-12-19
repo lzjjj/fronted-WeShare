@@ -50,7 +50,9 @@
 						console.log(data.result)
 						if (data && data.msg=="") {
 							this.joinLists = [...this.joinLists, ...data.result]
-						}
+						} else {
+						this.pageIndex--;
+					}
 					})
 			},
 			navigate(item) {

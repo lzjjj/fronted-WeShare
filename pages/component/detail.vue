@@ -42,6 +42,7 @@
 				<button v-if="false" class="bg-gradual-blue cu-btn apply-button">编辑</button>
 			</view>
 			<rewardDialog ref="popup" :title="title" :msg="msg" @confirm='popupConfirm'></rewardDialog>
+			<message ref="message"></message>
 		</view>
 	</view>
 </template>
@@ -49,7 +50,8 @@
 <script>
 	import requestUrls from '../../api.js'
 	import {
-		WARNING_TITLE
+		WARNING_TITLE,
+		REGISTRATION_SUCCESS
 	} from '../../utils.js'
 	import fetch from '../../fetch.js'
 	export default {
@@ -58,14 +60,13 @@
 			return {
 				topic: {},
 				picUrl: '',
-				title: '',
+				title: WARNING_TITLE,
 				msg: '',
 				topic_id: ''
 			}
 		},
 		mounted() {
 			this.getTopicDetail()
-			
 		},
 		methods: {
 			getTopicDetail() {
@@ -76,7 +77,7 @@
 						this.topic = res.result
 						this.topic.to_date = this.topic.to_date.substring(11)
 						this.picUrl = this.topic.picture_id ? requestUrls.picLoad + this.topic.picture_id :
-							'https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg';
+							'../../static/just_share.png';
 						this.topic_id = this.topic.id;
 					}
 					console.log(res)
@@ -90,23 +91,22 @@
 						topic_id: this.topic_id
 					}
 				}).then((res) => {
-					this.msg = '报名成功';
-					this.$refs.popup.showModal();
+					if(res.msg == REGISTRATION_SUCCESS) {
+						// this.$refs.message.success("报名成功");
+						uni.showToast({
+							title: "报名成功",
+							duration: 2000
+						})
+						setTimeout(uni.switchTab, 1000, {url:'../index/index'})
+					} else {
+						this.$refs.message.warn("报名失败");
+					}	
 				});
-				console.log('register--------------------');
 			},
 			cancelRegister: function() {
 				console.log('cancelRegister--------------------');
-				fetch({
-					url: requestUrls.registration,
-					method: 'PUT',
-					payload: {
-						topic_id: this.topic.topic_id
-					}
-				}).then((res) => {
-					console.log(res)
-					this.$refs.popup.showModal();
-				});
+				this.msg = "是否确认取消报名?";
+				this.$refs.popup.showModal();
 			},
 			cancelTopic: function() {
 				console.log('cancelTopic--------------------');
@@ -115,14 +115,22 @@
 				this.$refs.popup.hideModal();
 				let retUrl = '../index/index'
 				if (this.$props.type == 1) {
+					fetch({
+						url: requestUrls.registration,
+						method: 'PUT',
+						payload: {
+							topic_id: this.topic_id
+						}
+					}).then((res) => {
+						this.$refs.message.success("取消报名成功");
+					});
+					console.log('取消报名')
 					retUrl = '../myJoinDetail/myJoinDetail'
 				} else if (this.$props.type == 2) {
+					'/home/:id'
 					retUrl = '../myCreateDetail/myCreateDetail'
 				}
-				console.log(retUrl)
-				uni.switchTab({
-					url: retUrl
-				})
+				setTimeout(uni.navigateBack, 1000)
 			}
 		}
 	}

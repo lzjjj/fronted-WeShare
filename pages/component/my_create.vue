@@ -54,7 +54,9 @@
 						console.log(data.result)
 						if (data && data.msg=="") {
 							this.myCreateList = [...this.myCreateList, ...data.result]
-						}
+						} else {
+						this.pageIndex--;
+					}
 					})
 			},
 			navigate(item) {

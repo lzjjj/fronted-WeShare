@@ -65,6 +65,8 @@
 						this.canIRequest = true;
 						console.log(data.result)
 						this.topics = [...this.topics, ...data.result]
+					} else {
+						this.pageIndex--;
 					}
 				})
 			}

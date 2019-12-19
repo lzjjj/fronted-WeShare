@@ -29,7 +29,7 @@ export const isEmpty = function(str) {
 }
 
 export const WARNING_TITLE = "警告";
-export const WARNING_DATE_LT_CURRENT = "不能选择早于今天的时间";
+export const WARNING_DATE_LT_CURRENT = "不能选择早于现在的时间";
 export const WARNING_END_LT_START = "结束时间不能早于开始时间";
 export const WARNING_DEADLINE = "截止时间不能大于开始时间";
 export const WARNING_TITLE_EMPTY = "分享会标题不能为空";
@@ -41,3 +41,5 @@ export const WARNING_DEADLINE_DATE_EMPTY = "报名截止时间不能为空";
 export const WARNING_START_DATE_EMPTY = "分享会开始时间不能为空";
 export const WARNING_END_DATE_EMPTY = "分享会结束时间不能为空";
 export const MORE_THAN_ONE_TOPIC_AT_SAME_TIME = "同一时间不能创建多个话题";
+
+export const REGISTRATION_SUCCESS = "registration successfully";
