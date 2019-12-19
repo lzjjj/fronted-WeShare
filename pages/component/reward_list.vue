@@ -23,7 +23,9 @@
 					<view v-else>库存不足</view>
 				</view>
 				<view v-else class="text-orange text-sm flex">
-					数量：{{reward.amount}}
+					数量:{{reward.amount}}
+					<view class="padding-sm"></view>
+					时间:{{reward.exchange_date}}
 				</view>
 			</view>
 			<view class="blockclass">
@@ -31,8 +33,8 @@
 					<button class="cu-btn bg-green shadow" @tap="showModal(reward)" data-target="rewardDialog">兑换</button>
 				</view>
 				<view v-if="title == '已兑换商品'">
-					<view v-if="reward.status=='process'" class="cu-tag radius align-center showtag text-bold bg-blue">等待兑换</view>
-					<view v-if="reward.status=='success'" class="cu-tag radius align-center showtag text-bold bg-blue">兑换成功</view>
+					<view v-if="reward.status=='process'" class="align-center text-blue">等待兑换</view>
+					<view v-if="reward.status=='success'" class="align-center text-green">兑换成功</view>
 				</view>
 			</view>
 			

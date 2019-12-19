@@ -17,16 +17,22 @@
 				<view v-if="balance!=0" class="lg text-yellow cuIcon-rechargefill" style="font-size: 1rem;">{{balance}}</view>
 				<view v-if="balance ==0" class="text-yellow" style="font-size: 1rem;">{{balance}}</view>
 			</view>
-			<view class='list-item' bindtap='luanchToMyDate' @click="openRecord">
+			<view class='list-item' bindtap='luanchToMyDate' @click="open('../record/record')">
 				<view style='display:flex;justify-content:center;align-items:center;'>
 					<image src='../../static/record.svg' class='item-img'></image>
 					<text>账单</text>
 				</view>
 			</view>
-			<view class='list-item' bindtap='luanchToMyDate' @click="openExchange">
+			<view class='list-item' bindtap='luanchToMyDate' @click="open('../ExchangeCommodity/ExchangeCommodity')">
 				<view style='display:flex;justify-content:center;align-items:center;'>
 					<image src='../../static/expiry.svg' class='item-img'></image>
 					<text>兑换的商品</text>
+				</view>
+			</view>
+			<view class='list-item' bindtap='luanchToMyDate' @click="open('../commodity/commodity')">
+				<view style='display:flex;justify-content:center;align-items:center;'>
+					<image src='../../static/goods.svg' class='item-img'></image>
+					<text>商品管理</text>
 				</view>
 			</view>
 		</view>
@@ -65,15 +71,10 @@
 					})
 				})
 			},
-			openRecord() {
+			open(path) {
 				uni.navigateTo({
-					url: '../record/record'
-				});
-			},
-			openExchange() {
-				uni.navigateTo({
-					url: '../ExchangeCommodity/ExchangeCommodity'
-				});
+					url: path
+				});		
 			}
 		},
 		onLoad() {

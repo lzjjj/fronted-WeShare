@@ -10,7 +10,7 @@
 			<view v-if="msg==''" class="padding-xl bg-white">
 				<view class="flex p-xs margin-bottom-sm mb-sm">
 					<view class="flex-sub padding-sm"><view class="align-center text-bold" style="height: 35px; display: flex;">兑换数量：</view></view>
-					<view class="flex-twice padding-sm"><uni-number-box ref="numberbox" :value="0" :max="100" @change="bindChange"></uni-number-box></view>
+					<view class="flex-twice padding-sm"><uni-number-box ref="numberbox" :value="0" :max=reward.amount @change="bindChange"></uni-number-box></view>
 				</view>
 				你当前有金币{{balance}}，商品总额{{total}}，你确定要兑换吗?
 			</view>
@@ -57,7 +57,7 @@
 		data() {
 			return {
 				show : false,
-				total: 0,
+				total: 0.0,
 				amount: 0,
 				balance: 0
 			}
@@ -78,7 +78,7 @@
 			},
 			bindChange(e) {
 				this.amount = e;
-				this.total = e * this.reward.price;
+				this.total = parseFloat(e * this.reward.price).toFixed(2);
 			},
 			getSysUserInfo() {
 				fetch({
