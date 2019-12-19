@@ -23,8 +23,10 @@
 	import requestUrls from '../../api.js'
 	import uniFab from '@/components/uni-fab/uni-fab.vue';
 	export default {
+		onLoad(option) {
+			if(option.TabCur) this.TabCur = Number(option.TabCur)
+		},
 		onReachBottom() {
-			console.log("index on bottom")
 			if (this.TabCur == 0) {
 				this.$refs.topic.refresh();
 			} else if (this.TabCur == 1) {
