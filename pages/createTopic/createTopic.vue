@@ -229,9 +229,9 @@
 				this.topic.speaker = this.ownerName;
 				this.topic.share_place = this.topicPlace;
 				this.topic.participants_count = this.counts;
-				this.topic.from_date = this.sharingStartDate;
-				this.topic.to_date = this.sharingEndDate;
-				this.topic.dead_line_date = this.deadline;
+				this.topic.from_date = this.sharingStartDate + ":00";
+				this.topic.to_date = this.sharingEndDate + ":00";
+				this.topic.dead_line_date = this.deadline + ":00";
 				this.topic.picture_id = this.imgId;
 				this.topic.least_participants = this.minCounts;
 				fetch({
