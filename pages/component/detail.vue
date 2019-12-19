@@ -92,24 +92,21 @@
 					}
 				}).then((res) => {
 					if(res.msg == REGISTRATION_SUCCESS) {
-						// this.$refs.message.success("报名成功");
-						uni.showToast({
-							title: "报名成功",
-							duration: 2000
-						})
-						setTimeout(uni.switchTab, 1000, {url:'../index/index'})
+						this.$refs.message.success("报名成功");
+						setTimeout(uni.navigateBack, 1000)
 					} else {
 						this.$refs.message.warn("报名失败");
 					}	
 				});
 			},
 			cancelRegister: function() {
-				console.log('cancelRegister--------------------');
 				this.msg = "是否确认取消报名?";
 				this.$refs.popup.showModal();
 			},
 			cancelTopic: function() {
 				console.log('cancelTopic--------------------');
+				this.msg = "是否确认取消分享会?";
+				this.$refs.popup.showModal();
 			},
 			popupConfirm: function() {
 				this.$refs.popup.hideModal();
@@ -124,10 +121,14 @@
 					}).then((res) => {
 						this.$refs.message.success("取消报名成功");
 					});
-					console.log('取消报名')
 					retUrl = '../myJoinDetail/myJoinDetail'
 				} else if (this.$props.type == 2) {
-					'/home/:id'
+					fetch({
+						url: requestUrls.topics + '/' + this.topic_id,
+						method: 'PUT'
+					}).then((res) =>{
+						this.$refs.message.sucess("取消分享会成功")
+					});
 					retUrl = '../myCreateDetail/myCreateDetail'
 				}
 				setTimeout(uni.navigateBack, 1000)
