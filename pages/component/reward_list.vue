@@ -43,6 +43,8 @@
 </template>
 
 <script>
+	import fetch from '../../fetch.js'
+	import requestUrls from '../../api.js'
 	export default {
 		props: {
 			rewards: {
@@ -68,11 +70,21 @@
 			onConfirm(payload) {
 				if(payload.amount == 0 || payload.total == 0) {
 					this.$refs.Message.warn('请先选择兑换数量')
-				} else if(payload.myMoney < payload.total) {
+				} else if(payload.balance == 0 || payload.balance < payload.total) {
 					this.$refs.Message.error('你的余额不足')
 				} else {
-					this.$refs.Message.success('兑换成功')
-					this.$refs.popup.hideModal()
+					fetch({
+						url: requestUrls.getRewards,
+						method: 'POST',
+						payload: {id: this.currItem.id, count: payload.amount}
+					}).then(data => {
+						if(data.status) {
+							this.$refs.Message.success('兑换成功')
+							this.$refs.popup.hideModal()
+						} else {
+							this.$refs.Message.warn(data.msg)
+						}
+					})
 				}
 			}
 		}

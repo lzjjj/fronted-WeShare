@@ -12,7 +12,7 @@
 					<view class="flex-sub padding-sm"><view class="align-center text-bold" style="height: 35px; display: flex;">兑换数量：</view></view>
 					<view class="flex-twice padding-sm"><uni-number-box ref="numberbox" :value="0" :max="100" @change="bindChange"></uni-number-box></view>
 				</view>
-				你当前有金币{{myMoney}}，商品总额{{total}}，你确定要兑换吗?
+				你当前有金币{{balance}}，商品总额{{total}}，你确定要兑换吗?
 			</view>
 			<view v-if="msg!=''" class="padding-xl">
 				{{msg}}
@@ -29,6 +29,8 @@
 
 <script>
 	import uniNumberBox from "@/components/uni-number-box/uni-number-box.vue"
+	import requestUrls from '../../api.js'
+	import fetch from '../../fetch.js'
 	export default {
 		props:{
 			showCancel: {
@@ -57,24 +59,35 @@
 				show : false,
 				total: 0,
 				amount: 0,
-				myMoney: 1000
+				balance: 0
 			}
 		},
 		methods:{
 			showModal() {
 				this.show = true;
-				if(this.msg == '')
+				if(this.msg == '') {
+					this.getSysUserInfo();
 					this.$refs.numberbox.inputValue = 0;
+				}
 			},
 			hideModal() {
 				this.show = false;
 			},
 			confirm() {
-				this.$emit('confirm', {amount: this.amount, total: this.total, myMoney: this.myMoney});
+				this.$emit('confirm', {amount: this.amount, total: this.total, balance: this.balance});
 			},
 			bindChange(e) {
 				this.amount = e;
 				this.total = e * this.reward.price;
+			},
+			getSysUserInfo() {
+				fetch({
+					url: requestUrls.getUserInfo,
+				}).then(data => {
+					if (data.status) {
+						this.balance = data.result.balance;
+					}
+				})
 			}
 		}
 	}
