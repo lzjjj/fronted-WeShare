@@ -81,6 +81,7 @@
 						if(data.status) {
 							this.$refs.Message.success('兑换成功')
 							this.$refs.popup.hideModal()
+							this.$emit('changeReward', {id: this.currItem.id, count: payload.amount})
 						} else {
 							this.$refs.Message.warn(data.msg)
 						}

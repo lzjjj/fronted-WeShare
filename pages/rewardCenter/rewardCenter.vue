@@ -38,7 +38,14 @@
 				})
 			},
 			changeReward(payload){
-				
+				let index = 0;
+				for (var i = 0; i < this.rewards.length; i++) {
+					if(this.rewards[i].id == payload.id) {
+						index = i;
+						break;
+					}
+				}
+				this.rewards[i].amount -= payload.count;
 			}
 		}
 	}
