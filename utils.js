@@ -25,7 +25,7 @@ export const compareDate = function(date1, date2) {
 }
 
 export const isEmpty = function(str) {
-	return str === null || str === undefined || str === '';
+	return !str;
 }
 
 export const uploadPic = function(url, imgPath) {
@@ -33,16 +33,6 @@ export const uploadPic = function(url, imgPath) {
 		url: url,
 		filePath: imgPath,
 		name: 'file',
-		// success:(res) => {
-		// 	console.log(res);
-		// 	let ret = JSON.parse(res.data)
-		// 	return ret[0].path
-		// },
-		// fail: (res) => {
-		// 	console.log("upload picture failed");
-		// 	console.log(res);
-		// 	return Promise.reject(res.data);
-		// }
 	}).then((res)=>{
 		if(res && res[1] && res[1].statusCode == '200') {
 			let ret = JSON.parse(res[1].data);
@@ -60,8 +50,9 @@ export const WARNING_DEADLINE = "截止时间不能大于开始时间";
 export const WARNING_TITLE_EMPTY = "分享会标题不能为空";
 export const WARNING_OWNER_EMPTY = "演讲者姓名不能为空";
 export const WARNING_PLACE_EMPTY = "演讲地点不能为空";
-export const WARNING_PARTICIPANTS_EMPTY = "可报名人数不能为空";
-export const WARNING_LEAST_PARTICIPANTS_EMPTY = "最小报名人数不能为空";
+export const WARNING_PARTICIPANTS_EMPTY = "可报名人数不能为空或零";
+export const WARNING_LEAST_PARTICIPANTS_EMPTY = "最小报名人数不能为空或零";
+export const WARNING_LEAST_PAR_BT_PARTICIPANTS = "最小报名人数不能大于可报名人数"
 export const WARNING_DEADLINE_DATE_EMPTY = "报名截止时间不能为空";
 export const WARNING_START_DATE_EMPTY = "分享会开始时间不能为空";
 export const WARNING_END_DATE_EMPTY = "分享会结束时间不能为空";

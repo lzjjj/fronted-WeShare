@@ -71,7 +71,8 @@
 		WARNING_DEADLINE_DATE_EMPTY,
 		WARNING_START_DATE_EMPTY,
 		WARNING_END_DATE_EMPTY,
-		MORE_THAN_ONE_TOPIC_AT_SAME_TIME
+		MORE_THAN_ONE_TOPIC_AT_SAME_TIME,
+		WARNING_LEAST_PAR_BT_PARTICIPANTS
 	} from "../../utils.js"
 	import yuDatetimePicker from "@/components/yu-datetime-picker/yu-datetime-picker.vue"
 	import requestUrls from "../../api.js"
@@ -250,6 +251,8 @@
 					this.dateAlert.msg = WARNING_PARTICIPANTS_EMPTY;
 				} else if(isEmpty(this.minCounts)) {
 					this.dateAlert.msg = WARNING_LEAST_PARTICIPANTS_EMPTY;
+				} else if(this.minCounts > this.counts) {
+					this.dateAlert.msg = WARNING_LEAST_PAR_BT_PARTICIPANTS;
 				} else if(isEmpty(this.deadline)) {
 					this.dateAlert.msg = WARNING_DEADLINE_DATE_EMPTY;
 				} else if(compareDate(this.currentDateTime, this.sharingStartDate) 
