@@ -19,7 +19,7 @@
 			</view>
 			<view class="cu-bar bg-white justify-end">
 				<view class="action">
-					<button v-if="title!='警告'" class="cu-btn line-green text-green" @tap="hideModal">取消</button>
+					<button v-if="title!='警告' && title!=''" class="cu-btn line-green text-green" @tap="hideModal">取消</button>
 					<button class="cu-btn bg-green margin-left" @tap="confirm">确定</button>
 				</view>
 			</view>

@@ -55,7 +55,7 @@
 			return {
 				topic: {},
 				picUrl: '',
-				title: WARNING_TITLE,
+				title: '',
 				msg: ''
 			}
 		},
@@ -75,6 +75,7 @@
 					}
 				}).then((res) => {
 					console.log(res)
+					this.msg = '报名成功';
 					this.$refs.popup.showModal();
 				});
 				console.log('register--------------------');
@@ -97,13 +98,14 @@
 			},
 			popupConfirm: function() {
 				this.$refs.popup.hideModal();
-				let retUrl = './topic'
+				let retUrl = '../index/index'
 				if(this.$props.type == 1) {
 					retUrl = '../myJoinDetail/myJoinDetail'
 				} else if(this.$props.type == 2){
 					retUrl = '../myCreateDetail/myCreateDetail'
 				}
-				uni.navigateTo({
+				console.log(retUrl)
+				uni.switchTab({
 					url: retUrl
 				})
 			}
