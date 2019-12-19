@@ -58,6 +58,7 @@
 		getDate,
 		compareDate,
 		isEmpty,
+		uploadPic,
 		WARNING_TITLE,
 		WARNING_DATE_LT_CURRENT,
 		WARNING_END_LT_START,
@@ -188,30 +189,11 @@
 					success: (res) => {
 						this.imgPath = res.tempFilePaths[0];
 						this.img = res.tempFiles[0];
-						this.uploadPic(this.imgPath);
+						uploadPic(requestUrls.picUpload, this.imgPath)
+							.then((res)=>{
+								this.imgId = res;	
+							});
 					}
-				});
-			},
-			uploadPic: function(imgPath) {
-				uni.uploadFile({
-					url: requestUrls.picUpload,
-					filePath: imgPath,
-					name: 'file',
-					success:(res) => {
-						console.log(res);
-						let ret = JSON.parse(res.data)
-						this.imgId = ret[0].path
-						console.log(this.imgId)
-					},
-					fail: (res) => {
-						console.log("upload picture failed");
-						console.log(res);
-					}
-				});
-			},
-			viewImage: function() {
-				uni.previewImage({
-					urls: [this.imgPath],
 				});
 			},
 			createTopic: function() {

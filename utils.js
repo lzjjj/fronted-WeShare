@@ -28,6 +28,31 @@ export const isEmpty = function(str) {
 	return str === null || str === undefined || str === '';
 }
 
+export const uploadPic = function(url, imgPath) {
+	return uni.uploadFile({
+		url: url,
+		filePath: imgPath,
+		name: 'file',
+		// success:(res) => {
+		// 	console.log(res);
+		// 	let ret = JSON.parse(res.data)
+		// 	return ret[0].path
+		// },
+		// fail: (res) => {
+		// 	console.log("upload picture failed");
+		// 	console.log(res);
+		// 	return Promise.reject(res.data);
+		// }
+	}).then((res)=>{
+		if(res && res[1] && res[1].statusCode == '200') {
+			let ret = JSON.parse(res[1].data);
+			return ret[0].path;
+		} else {
+			return Promise.reject(res.data);
+		}
+	});
+}
+
 export const WARNING_TITLE = "警告";
 export const WARNING_DATE_LT_CURRENT = "不能选择早于现在的时间";
 export const WARNING_END_LT_START = "结束时间不能早于开始时间";
@@ -42,4 +67,4 @@ export const WARNING_START_DATE_EMPTY = "分享会开始时间不能为空";
 export const WARNING_END_DATE_EMPTY = "分享会结束时间不能为空";
 export const MORE_THAN_ONE_TOPIC_AT_SAME_TIME = "同一时间不能创建多个话题";
 
-export const REGISTRATION_SUCCESS = "registration successfully";
+export const REGISTRATION_SUCCESS = "operation successfully";
