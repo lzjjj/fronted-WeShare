@@ -67,11 +67,14 @@
 		},
 		methods:{
 			register: function() {
+				console.log('---------topic------------')
+				console.log(this.topic)
+				console.log(this.topic.id)
 				fetch({
 					url: requestUrls.registration,
 					method: 'POST',
 					payload: {
-						topic_id: this.topic.topic_id
+						topic_id: this.topic.id
 					}
 				}).then((res) => {
 					console.log(res)
