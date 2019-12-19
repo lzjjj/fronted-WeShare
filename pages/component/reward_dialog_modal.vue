@@ -57,7 +57,7 @@
 		data() {
 			return {
 				show : false,
-				total: 0,
+				total: 0.0,
 				amount: 0,
 				balance: 0
 			}
@@ -78,7 +78,7 @@
 			},
 			bindChange(e) {
 				this.amount = e;
-				this.total = e * this.reward.price;
+				this.total = parseFloat(e * this.reward.price).toFixed(2);
 			},
 			getSysUserInfo() {
 				fetch({
