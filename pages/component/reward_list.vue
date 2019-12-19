@@ -31,7 +31,8 @@
 					<button class="cu-btn bg-green shadow" @tap="showModal(reward)" data-target="rewardDialog">兑换</button>
 				</view>
 				<view v-if="title == '已兑换商品'">
-					<view class="cu-tag radius align-center showtag text-bold" :class=" reward.status == '未兑换' ? 'bg-blue' : 'bg-green'">{{reward.status}}</view>
+					<view v-if="reward.status=='process'" class="cu-tag radius align-center showtag text-bold bg-blue">等待兑换</view>
+					<view v-if="reward.status=='success'" class="cu-tag radius align-center showtag text-bold bg-blue">兑换成功</view>
 				</view>
 			</view>
 			
