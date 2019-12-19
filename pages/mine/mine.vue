@@ -14,7 +14,7 @@
 					<image src='../../static/wallet.svg' class='item-img'></image>
 					<text>钱包余额</text>
 				</view>
-				<view v-if="balance !=0" class="lg text-yellow cuIcon-rechargefill" style="font-size: 1rem;">{{balance}}</view>
+				<view v-if="balance!=0" class="lg text-yellow cuIcon-rechargefill" style="font-size: 1rem;">{{balance}}</view>
 				<view v-if="balance ==0" class="text-yellow" style="font-size: 1rem;">{{balance}}</view>
 			</view>
 			<view class='list-item' bindtap='luanchToMyDate' @click="openRecord">
@@ -50,7 +50,7 @@
 					url: requestUrls.getUserInfo,
 				}).then(data => { //data为一个数组，数组第一项为错误信息，第二项为返回数据
 					if (data.status) {
-						this.balance = data.result.bal;
+						this.balance = data.result.balance;
 					}
 				})
 			},
