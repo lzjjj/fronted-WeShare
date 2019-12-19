@@ -32,7 +32,7 @@
 			<view class="cu-form-group margin-top">
 				<textarea maxlength="-1" name="description" placeholder="请输入商品描述"></textarea>
 			</view>
-			<button class="cu-btn block line-orange lg" style="margin-top: 20%;" form-type="submit">
+			<button class="cu-btn block line-orange lg margin-xs" style="margin-top: 20%;" form-type="submit">
 				<text class="cuIcon-upload"></text> 确认提交
 			</button>
 		</form>
@@ -48,7 +48,6 @@
 		data() {
 			return {
 				imgList:[],
-				commodity: {name: '', price: 0, amount: 0, description:'', picture_id:''},
 				imgId:''
 			}
 		},
@@ -90,13 +89,22 @@
 				})
 			},
 			formSubmit(e) {
+				let json = e.detail.value;
+				if(json.name == '') {
+					this.$refs.Message.warn('请输入商品名称')
+				} else if(json.price == 0 ) {
+					this.$refs.Message.warn('请输入商品价格')
+				} else if(json.amount == 0) {
+					this.$refs.Message.warn('请输入商品数量')
+				}
+				
 				if(this.imgId != '') {
-					e.detail.value.picture_id = this.imgId
+					json.picture_id = this.imgId
 				}
 				fetch({
 					url: requestUrls.getRewards,
 					method: 'POST',
-					payload: e.detail.value
+					payload: json
 				}).then(data => {
 					if(data.status) {
 						this.$refs.Message.success('添加成功')
