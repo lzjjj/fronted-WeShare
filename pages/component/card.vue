@@ -40,7 +40,7 @@
 		methods: {
 			navigate() {
 				uni.navigateTo({
-					url: '../sharingDetail/sharingDetail?detail=' + JSON.stringify(this.$props.topic)
+					url: '../sharingDetail/sharingDetail?detailId=' + this.$props.topic.id
 				})
 			},
 			IsCard(e) {

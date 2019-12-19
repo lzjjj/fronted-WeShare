@@ -44,7 +44,7 @@
 			},
 			navigate(item) {
 				uni.navigateTo({
-					url: '../myJoinDetail/myJoinDetail?detail='+ JSON.stringify(item)
+					url: '../myJoinDetail/myJoinDetail?detailId='+ item.id
 				})
 			},
 		}

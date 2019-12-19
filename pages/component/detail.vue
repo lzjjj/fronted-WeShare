@@ -34,23 +34,26 @@
 				<view class="label">简介：</view>
 				<view class="description">{{topic.description}}</view>
 			</view>
-			<button v-if="type == 0" class="bg-gradual-blue cu-btn apply-button" @click="register">报名</button>
+			<button v-if="type == 0 && topic.registration_is_valid"  class="bg-gradual-blue cu-btn apply-button" @click="register">报名</button>
+			<button v-if="type == 0 && !topic.registration_is_valid"  class="bg-grey cu-btn apply-button" >已报名</button>
 			<button v-if="type == 1" class="bg-gradual-blue cu-btn apply-button" @click="cancelRegister">取消报名</button>
 			<view v-if="type == 2" class="flex justify-around">
 				<button class="bg-gradual-blue cu-btn apply-button" style="margin-right: 5%;" @click="cancelTopic">取消分享</button>
 				<button v-if="false" class="bg-gradual-blue cu-btn apply-button">编辑</button>
 			</view>
-			<rewardDialog ref="popup" :title="title" :msg="msg"  @confirm='popupConfirm'></rewardDialog>
+			<rewardDialog ref="popup" :title="title" :msg="msg" @confirm='popupConfirm'></rewardDialog>
 		</view>
 	</view>
 </template>
 
 <script>
 	import requestUrls from '../../api.js'
-	import {WARNING_TITLE} from '../../utils.js'
+	import {
+		WARNING_TITLE
+	} from '../../utils.js'
 	import fetch from '../../fetch.js'
 	export default {
-		props: ["type", "detail"],
+		props: ["type", "detailId"],
 		data() {
 			return {
 				topic: {},
@@ -61,13 +64,24 @@
 			}
 		},
 		mounted() {
-			this.topic = JSON.parse(this.$props.detail)
-			this.topic.to_date = this.topic.to_date.substring(11)
-			this.picUrl = this.topic.picture_id ? requestUrls.picLoad + this.topic.picture_id :
-				'https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg';
-			this.topic_id = this.topic.id;
+			this.getTopicDetail()
+			
 		},
-		methods:{
+		methods: {
+			getTopicDetail() {
+				fetch({
+					url: requestUrls.getTopics + '/' + this.$props.detailId
+				}).then((res) => {
+					if(res.status){
+						this.topic = res.result
+						this.topic.to_date = this.topic.to_date.substring(11)
+						this.picUrl = this.topic.picture_id ? requestUrls.picLoad + this.topic.picture_id :
+							'https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg';
+						this.topic_id = this.topic.id;
+					}
+					console.log(res)
+				})
+			},
 			register: function() {
 				fetch({
 					url: requestUrls.registration,
@@ -100,9 +114,9 @@
 			popupConfirm: function() {
 				this.$refs.popup.hideModal();
 				let retUrl = '../index/index'
-				if(this.$props.type == 1) {
+				if (this.$props.type == 1) {
 					retUrl = '../myJoinDetail/myJoinDetail'
-				} else if(this.$props.type == 2){
+				} else if (this.$props.type == 2) {
 					retUrl = '../myCreateDetail/myCreateDetail'
 				}
 				console.log(retUrl)
