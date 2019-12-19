@@ -18,7 +18,6 @@
 			this.getRewards()
 		},
 		onReachBottom() {
-			console.log("hahha")
 			this.pageIndex++;
 			this.getRewards()
 		},

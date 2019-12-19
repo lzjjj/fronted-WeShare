@@ -5,13 +5,13 @@
 				<view class="flex align-center">
 					<view class="padding margin-xs radius" style="width: 80%;">
 						<view class="grid col-1">
-							<view class="text-black">{{item.name}}</view>
-							<view class="text-grey">{{item.time}}</view>
+							<view class="text-black">{{item.subject}}</view>
+							<view class="text-grey">{{item.create_date}}</view>
 						</view>
 					</view>
 					<view class="padding-sm margin-xs radius" style="width: 25%;">
-						<view v-if="item.cost > 0" class="lg text-yellow cuIcon-rechargefill" style="font-size: 0.95rem; width: 100%;">+{{item.cost}}</view>
-						<view v-else class="lg text-red cuIcon-rechargefill" style="font-size: 0.95rem; width: 100%;">{{item.cost}}</view>
+						<view v-if="item.amount > 0" class="lg text-yellow cuIcon-rechargefill" style="font-size: 0.95rem; width: 100%;">+{{item.amount}}</view>
+						<view v-else class="lg text-red cuIcon-rechargefill" style="font-size: 0.95rem; width: 100%;">{{item.amount}}</view>
 					</view>
 				</view>
 			</view>
@@ -25,23 +25,33 @@
 	export default {
 		data() {
 			return {
-				records: [{
-					name:'分享分享会',
-					time:'2019-12-15 10:15:00',
-					cost: '1000',
-					},
-					{
-					name:'兑换奖励',
-					time:'2019-12-15 10:15:00',
-					cost: '-1000'
-					},
-				]
+				records: [],
+				pageIndex: 1
 			}
 		},
 		methods: {
-			
+			loadData() {
+				fetch({
+					url: requestUrls.getRecord + "?page=" + this.pageIndex + "&per_page=10",
+				}).then(data => {
+					if (data.result.length > 0) {
+						if(this.records.length > 0) {
+							this.records.push(data.result)
+						} else {
+							this.records = data.result
+						}
+					} else {
+						this.pageIndex--;
+					}
+				})
+			}
 		},
 		onLoad() {
+			this.loadData();
+		},
+		onReachBottom() {
+			this.pageIndex++;
+			this.loadData();
 		}
 	}
 </script>
