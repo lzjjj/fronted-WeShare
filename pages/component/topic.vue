@@ -50,7 +50,6 @@
 					})
 			},
 			refresh() {
-				console.log("refresh")
 				if (this.canIRequest) {
 					this.pageIndex++;
 					this.getTopics();
@@ -65,7 +64,6 @@
 						this.canIRequest = false;
 					} else if (data && data.msg=="") {
 						this.canIRequest = true;
-						console.log(data.result)
 						this.topics = [...this.topics, ...data.result]
 					} else {
 						this.pageIndex--;

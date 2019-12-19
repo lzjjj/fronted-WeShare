@@ -55,8 +55,7 @@
 		getDate,
 		compareDate
 	} from '../../utils.js'
-	import {
-	} from '../../utils.js'
+	import {} from '../../utils.js'
 	import fetch from '../../fetch.js'
 	export default {
 		props: ["type", "detailId"],
@@ -117,12 +116,12 @@
 							topic_id: this.topic_id
 						}
 					}).then((res) => {
-					if(res.msg == REGISTRATION_SUCCESS) {
-						this.$refs.message.success("报名成功");
-						setTimeout(uni.navigateBack, 1000)
-					} else {
-						this.$refs.message.warn("报名失败");
-					}	
+						if (res.msg == REGISTRATION_SUCCESS) {
+							this.$refs.message.success("报名成功");
+							setTimeout(uni.reLaunch, 1000, {url: '../index/index'})
+						} else {
+							this.$refs.message.warn("报名失败");
+						}
 					});
 				}
 			},
@@ -137,7 +136,6 @@
 			},
 			popupConfirm: function() {
 				this.$refs.popup.hideModal();
-				let retUrl = '../index/index'
 				if (this.$props.type == 1) {
 					fetch({
 						url: requestUrls.registration,
@@ -148,17 +146,15 @@
 					}).then((res) => {
 						this.$refs.message.success("取消报名成功");
 					});
-					retUrl = '../myJoinDetail/myJoinDetail'
 				} else if (this.$props.type == 2) {
 					fetch({
 						url: requestUrls.topics + '/' + this.topic_id,
 						method: 'PUT'
-					}).then((res) =>{
+					}).then((res) => {
 						this.$refs.message.sucess("取消分享会成功")
 					});
-					retUrl = '../myCreateDetail/myCreateDetail'
 				}
-				setTimeout(uni.navigateBack, 1000)
+				setTimeout(uni.reLaunch, 1000, {url: '../index/index?TabCur=1'})
 			}
 		}
 	}

@@ -51,7 +51,6 @@
 					})
 					.then(data => { //data为一个数组，数组第一项为错误信息，第二项为返回数据
 						this.canRequest = true;
-						console.log(data.result)
 						if (data.msg == 'not found') {
 							this.canRequest = false;
 						} else if (data && data.msg=="") {
