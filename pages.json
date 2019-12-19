@@ -8,7 +8,8 @@
 		}, {
 			"path": "pages/rewardCenter/rewardCenter",
 			"style": {
-				"navigationBarTitleText": "奖励中心"
+				"navigationBarTitleText": "奖励中心",
+				"enablePullDownRefresh": true
 			}
 		}, {
 			"path": "pages/mine/mine",
