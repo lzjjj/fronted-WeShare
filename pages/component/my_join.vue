@@ -6,7 +6,7 @@
 					<view class="cu-bar" style="margin: -10px 0;font-size: 0.8rem;font-weight: bold;"> <text class="text-cut">{{item.topic_name}}</text></view>
 					<view class="flex justify-between align-center">
 						<view class="dots">Sharing 简介：{{item.description}}</view>
-						<button class="cu-btn lg bg-blue" style="width: 5.5rem;height: 1.8rem;font-size: 0.6rem;color: #FFFFFF;">取消报名</button>
+						<button class="cu-btn lg bg-blue" style="width: 5.5rem;height: 1.8rem;font-size: 0.7rem;color: #FFFFFF;">取消报名</button>
 					</view>
 					<view style="color: #C8C7CC;">
 						<view>时间: {{item.from_date}} - {{item.to_date}}</view>

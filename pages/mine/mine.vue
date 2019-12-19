@@ -14,9 +14,10 @@
 					<image src='../../static/wallet.svg' class='item-img'></image>
 					<text>钱包余额</text>
 				</view>
-				<view class="lg text-yellow cuIcon-rechargefill" style="font-size: 1rem;">{{userInfo.balance ? userInfo.balance : 0}}</view>
+				<view v-if="balance !=0" class="lg text-yellow cuIcon-rechargefill" style="font-size: 1rem;">{{balance}}</view>
+				<view v-if="balance ==0" class="text-yellow" style="font-size: 1rem;">{{balance}}</view>
 			</view>
-			<view class='list-item' bindtap='luanchToMyDate' @click="openRecord"> 
+			<view class='list-item' bindtap='luanchToMyDate' @click="openRecord">
 				<view style='display:flex;justify-content:center;align-items:center;'>
 					<image src='../../static/record.svg' class='item-img'></image>
 					<text>账单</text>
@@ -39,6 +40,7 @@
 		data() {
 			return {
 				userInfo: null,
+				balance: 0,
 				canIUse: false
 			}
 		},
@@ -48,8 +50,7 @@
 					url: requestUrls.getUserInfo,
 				}).then(data => { //data为一个数组，数组第一项为错误信息，第二项为返回数据
 					if (data.status) {
-						this.userInfo.balance = data.result.balance;
-						console.log(this.userInfo.balance)
+						this.balance = data.result.bal;
 					}
 				})
 			},
@@ -61,7 +62,6 @@
 						provider: 'weixin',
 					}).then((res) => {
 						this.userInfo = res[1].userInfo
-						console.log(this.userInfo)
 					})
 				})
 			},
@@ -79,11 +79,12 @@
 		onLoad() {
 
 		},
-		mounted() {
+		created() {
 			this.userInfo = uni.getStorageSync("userInfo")
-			this.getSysUserInfo()
 		},
-		onShow() {}
+		onShow() {
+			this.getSysUserInfo()
+		}
 	}
 </script>
 
