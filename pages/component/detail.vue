@@ -34,8 +34,8 @@
 				<view class="label">简介：</view>
 				<view class="description">{{topic.description}}</view>
 			</view>
-			<button v-if="type == 0 && !topic.registration_is_valid"  class="bg-gradual-blue cu-btn apply-button" @click="register">报名</button>
-			<button v-if="type == 0 && topic.registration_is_valid"  class="bg-grey cu-btn apply-button" >已报名</button>
+			<button v-if="type == 0 && !topic.registration_is_valid" class="bg-gradual-blue cu-btn apply-button" @click="register">报名</button>
+			<button v-if="type == 0 && topic.registration_is_valid" class="bg-grey cu-btn apply-button">已报名</button>
 			<button v-if="type == 1" class="bg-gradual-blue cu-btn apply-button" @click="cancelRegister">取消报名</button>
 			<view v-if="type == 2" class="flex justify-around">
 				<button class="bg-gradual-blue cu-btn apply-button" style="margin-right: 5%;" @click="cancelTopic">取消分享</button>
@@ -51,7 +51,11 @@
 	import requestUrls from '../../api.js'
 	import {
 		WARNING_TITLE,
-		REGISTRATION_SUCCESS
+		REGISTRATION_SUCCESS,
+		getDate,
+		compareDate
+	} from '../../utils.js'
+	import {
 	} from '../../utils.js'
 	import fetch from '../../fetch.js'
 	export default {
@@ -62,42 +66,65 @@
 				picUrl: '',
 				title: WARNING_TITLE,
 				msg: '',
-				topic_id: ''
+				topic_id: '',
+				isOverDate: false,
+				isOverAmount: false
 			}
 		},
 		mounted() {
 			this.getTopicDetail()
 		},
 		methods: {
+			validJoinerAmount() {
+				return this.topic.participants_count == this.topic.registrationCount
+			},
+			validDate() {
+				console.log(this.topic.dead_line_date)
+				console.log(getDate())
+				return compareDate(getDate(), this.topic.dead_line_date)
+			},
 			getTopicDetail() {
 				fetch({
 					url: requestUrls.getTopics + '/' + this.$props.detailId
 				}).then((res) => {
-					if(res.status){
+					if (res.status) {
 						this.topic = res.result
 						this.topic.to_date = this.topic.to_date.substring(11)
 						this.picUrl = this.topic.picture_id ? requestUrls.picLoad + this.topic.picture_id :
 							'../../static/just_share.png';
 						this.topic_id = this.topic.id;
+						this.isOverDate = this.validDate()
+						this.isOverAmount = this.validJoinerAmount()
 					}
-					console.log(res)
 				})
 			},
 			register: function() {
-				fetch({
-					url: requestUrls.registration,
-					method: 'POST',
-					payload: {
-						topic_id: this.topic_id
-					}
-				}).then((res) => {
+				if (this.isOverDate) {
+					uni.showToast({
+						title: '报名时间已截止',
+						duration: 2000
+					})
+				} else if (this.isOverAmount) {
+					uni.showToast({
+						title: '报名人数已满',
+						duration: 2000
+					})
+				} else {
+					fetch({
+						url: requestUrls.registration,
+						method: 'POST',
+						payload: {
+							topic_id: this.topic_id
+						}
+					}).then((res) => {
 					if(res.msg == REGISTRATION_SUCCESS) {
 						this.$refs.message.success("报名成功");
 						setTimeout(uni.navigateBack, 1000)
 					} else {
 						this.$refs.message.warn("报名失败");
 					}	
-				});
+					});
+				}
 			},
 			cancelRegister: function() {
 				this.msg = "是否确认取消报名?";
