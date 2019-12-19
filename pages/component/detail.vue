@@ -56,28 +56,26 @@
 				topic: {},
 				picUrl: '',
 				title: '',
-				msg: ''
+				msg: '',
+				topic_id: ''
 			}
 		},
 		mounted() {
 			this.topic = JSON.parse(this.$props.detail)
 			this.topic.to_date = this.topic.to_date.substring(11)
 			this.picUrl = this.topic.picture_id ? requestUrls.picLoad + this.topic.picture_id :
-				'https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg'
+				'https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg';
+			this.topic_id = this.topic.id;
 		},
 		methods:{
 			register: function() {
-				console.log('---------topic------------')
-				console.log(this.topic)
-				console.log(this.topic.id)
 				fetch({
 					url: requestUrls.registration,
 					method: 'POST',
 					payload: {
-						topic_id: this.topic.id
+						topic_id: this.topic_id
 					}
 				}).then((res) => {
-					console.log(res)
 					this.msg = '报名成功';
 					this.$refs.popup.showModal();
 				});
