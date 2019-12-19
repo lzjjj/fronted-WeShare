@@ -17,7 +17,8 @@
 		onLoad() {
 			this.getRewards()
 		},
-		onPullDownRefresh() {
+		onReachBottom() {
+			console.log("hahha")
 			this.pageIndex++;
 			this.getRewards()
 		},
@@ -26,16 +27,15 @@
 				fetch({
 					url: requestUrls.getRewards + "/?page=" + this.pageIndex + "&per_page=10",
 				}).then(data => {
-					if (data.length > 0) {
+					if (data.result.length > 0) {
 						if(this.rewards.length > 0) {
-							this.rewards.push(data)
+							this.rewards.push(data.result)
 						} else {
-							this.rewards = data
+							this.rewards = data.result
 						}
 					} else {
 						this.pageIndex--;
 					}
-					uni.stopPullDownRefresh();
 				})
 			}
 		}

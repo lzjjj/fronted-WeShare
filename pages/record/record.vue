@@ -20,6 +20,8 @@
 </template>
 
 <script>
+	import requestUrls from '../../api.js'
+	import fetch from '../../fetch.js'
 	export default {
 		data() {
 			return {
