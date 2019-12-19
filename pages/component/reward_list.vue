@@ -77,7 +77,7 @@
 				} else {
 					fetch({
 						url: requestUrls.getRewards,
-						method: 'POST',
+						method: 'PUT',
 						payload: {id: this.currItem.id, count: payload.amount}
 					}).then(data => {
 						if(data.status) {

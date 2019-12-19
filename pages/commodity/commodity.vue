@@ -1,6 +1,6 @@
 <template>
 	<view>
-		商品管理
+		<createCommodity></createCommodity>
 	</view>
 </template>
 
