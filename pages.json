@@ -54,6 +54,12 @@
 				"navigationBarTitleText":"创建分享会"
 			}
 		}
+        ,{
+            "path" : "pages/commodity/commodity",
+            "style" : {
+				"navigationBarTitleText":"商品管理"
+			}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
