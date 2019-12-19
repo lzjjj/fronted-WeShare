@@ -47,7 +47,7 @@
 			getMyCreates() {
 				this.canRequest = false;
 				fetch({
-						url: requestUrls.getMyCreates + '?page=1&per_page=10'
+						url: requestUrls.getMyCreates + '?page='+ this.pageIndex + '&per_page=10'
 					})
 					.then(data => { //data为一个数组，数组第一项为错误信息，第二项为返回数据
 						this.canRequest = true;
