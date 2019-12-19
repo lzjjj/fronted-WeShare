@@ -22,11 +22,10 @@
 					</view>
 					<view v-else>库存不足</view>
 				</view>
-				<view v-else class="text-sm flex">
-					<view class="flex p-xs mb-sm">
-						<view class="flex-sub text-orange">数量:{{reward.amount}}</view>
-						<view class="flex-twice" style="float: left;">时间:{{reward.exchange_date}}</view>
-					</view>
+				<view v-else class="text-orange text-sm flex">
+					数量:{{reward.amount}}
+					<view class="padding-sm"></view>
+					时间:{{reward.exchange_date}}
 				</view>
 			</view>
 			<view class="blockclass">
