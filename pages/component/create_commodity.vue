@@ -30,7 +30,7 @@
 				<input placeholder="请输入商品库存" name="amount" type="number"></input>
 			</view>
 			<view class="cu-form-group margin-top">
-				<textarea maxlength="-1" name="description" @input="textareaAInput" placeholder="请输入商品描述"></textarea>
+				<textarea maxlength="-1" name="description" placeholder="请输入商品描述"></textarea>
 			</view>
 			<button class="cu-btn block line-orange lg" style="margin-top: 20%;" form-type="submit">
 				<text class="cuIcon-upload"></text> 确认提交
@@ -41,13 +41,15 @@
 </template>
 
 <script>
+	import {uploadPic} from "../../utils.js"
 	import requestUrls from '../../api.js'
 	import fetch from '../../fetch.js'
 	export default {
 		data() {
 			return {
 				imgList:[],
-				commodity: {name: '', price: 0, amount: 0, description:'', picture_id:''}
+				commodity: {name: '', price: 0, amount: 0, description:'', picture_id:''},
+				imgId:''
 			}
 		},
 		methods: {
@@ -62,6 +64,10 @@
 						} else {
 							this.imgList = res.tempFilePaths
 						}
+						uploadPic(requestUrls.picUpload, this.imgList[0])
+							.then((res)=>{
+								this.imgId = res;	
+						});
 					}
 				});
 			},
@@ -83,12 +89,9 @@
 					}
 				})
 			},
-			textareaAInput(e) {
-				this.commodity.description = e.detail.value
-			},
 			formSubmit(e) {
-				if(this.imgList.length > 0) {
-					e.detail.value.picture_id = this.imgList[0]
+				if(this.imgId != '') {
+					e.detail.value.picture_id = this.imgId
 				}
 				fetch({
 					url: requestUrls.getRewards,
@@ -97,6 +100,7 @@
 				}).then(data => {
 					if(data.status) {
 						this.$refs.Message.success('添加成功')
+						setTimeout(uni.navigateBack, 1000)
 					} else {
 						this.$refs.Message.warn('添加失败')
 					}

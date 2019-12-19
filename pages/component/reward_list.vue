@@ -1,7 +1,7 @@
 <template>
 	<view class="cu-list menu-avatar">
 		<view class="cu-item" v-for="(reward, index) in rewards" :key="index" style="height: 100px;">
-			<view class="cu-avatar round lg" v-bind:style="'background-image:url(' + reward.picture_id + ')'"></view>
+			<view class="cu-avatar round lg" v-bind:style="'background-image:url(http://639cgy.natappfree.cc/' + reward.picture_id + ')'"></view>
 			<view class="content">
 				<view class="flex">
 					<view class="flex-sub radius" style="width: 50%;">
