@@ -99,20 +99,11 @@
 			},
 			register: function() {
 				if (this.isOverDate) {
-					uni.showToast({
-						title: '报名时间已截止',
-						duration: 2000
-					})
+					this.$refs.message.error('报名时间已截止')
 				} else if (this.isOverAmount) {
-					uni.showToast({
-						title: '报名人数已满',
-						duration: 2000
-					})
+					this.$refs.message.error('报名人数已满') 
 				} else if (this.topic.isTopicOwner) {
-					uni.showToast({
-						title: '不可报名该分享',
-						duration: 2000
-					})
+					this.$refs.message.error('不可报名该分享') 
 				} else {
 					fetch({
 						url: requestUrls.registration,
