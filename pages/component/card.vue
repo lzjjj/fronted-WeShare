@@ -16,7 +16,7 @@
 						<!-- <view class=" lg text-yellow cuIcon-rechargefill" style="font-size: 0.8rem;">100</view> -->
 					</view>
 					<view class="flex justify-end align-center" style="margin-bottom: 10px;">
-						<view style="color: #C8C7CC;padding-right: 5px;">已报名{{topic.participants_count}}人</view>
+						<view style="color: #C8C7CC;padding-right: 5px;">已报名{{topic.registrationCount}}人</view>
 						<view style="color: #F37B1D; font-size: 0.75rem;">剩余{{topic.participants_count - topic.registrationCount}}个名额</view>
 					</view>
 				</view>
@@ -32,7 +32,7 @@
 		data() {
 			return {
 				isCard: false,
-				picUrl: this.$props.topic.picture_id ? requestUrls.picLoad + this.$props.topic.picture_id : 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg'
+				picUrl: this.$props.topic.picture_id ? requestUrls.picLoad + this.$props.topic.picture_id : '../../static/just_share.png'
 			};
 		},
 		mounted() {
@@ -40,7 +40,7 @@
 		methods: {
 			navigate() {
 				uni.navigateTo({
-					url: '../sharingDetail/sharingDetail?detail=' + JSON.stringify(this.$props.topic)
+					url: '../sharingDetail/sharingDetail?detailId=' + this.$props.topic.id
 				})
 			},
 			IsCard(e) {

@@ -21,7 +21,7 @@
 		},
 		methods: {
 			close() {
-				uni.switchTab({
+				uni.reLaunch({
 					url: '../index/index'
 				})
 			}

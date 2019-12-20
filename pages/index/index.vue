@@ -11,9 +11,9 @@
 			</view>
 		</scroll-view>
 		<view style="margin-top: 50px;">
-			<topic v-if="TabCur == 0"></topic>
-			<myJoin v-if="TabCur == 1"></myJoin>
-			<myCreate v-if="TabCur == 2"></myCreate>
+			<topic ref="topic" v-if="TabCur == 0" v-on:closePullDownFresh="closePullDownFresh"></topic>
+			<myJoin ref="myJoin" v-if="TabCur == 1" v-on:closePullDownFresh="closePullDownFresh"></myJoin>
+			<myCreate ref="myCreate" v-if="TabCur == 2" v-on:closePullDownFresh="closePullDownFresh"></myCreate>
 		</view>
 		<uni-fab :pattern="pattern" :content="content" :horizontal="horizontal" :direction="direction" @trigger="trigger"></uni-fab>
 	</view>
@@ -23,6 +23,28 @@
 	import requestUrls from '../../api.js'
 	import uniFab from '@/components/uni-fab/uni-fab.vue';
 	export default {
+		onLoad(option) {
+			if (option.TabCur) this.TabCur = Number(option.TabCur)
+		},
+		onReachBottom() {
+			if (this.TabCur == 0) {
+				this.$refs.topic.refresh();
+			} else if (this.TabCur == 1) {
+				this.$refs.myJoin.refresh();
+			} else if (this.TabCur == 2) {
+				this.$refs.myCreate.refresh();
+			}
+		},
+		onPullDownRefresh() {
+			if (this.TabCur == 0) {
+				this.$refs.topic.pullDownRefresh();
+			} else if (this.TabCur == 1) {
+				this.$refs.myJoin.pullDownRefresh();
+			} else if (this.TabCur == 2) {
+				this.$refs.myCreate.pullDownRefresh();
+			}
+		},
+		
 		data() {
 			return {
 				TabCur: 0,
@@ -45,16 +67,21 @@
 			uniFab
 		},
 		methods: {
+			closePullDownFresh(val) {
+				uni.stopPullDownRefresh()
+			},
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;
-				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
+				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60;
 			},
 			trigger() {
 				uni.navigateTo({
 					url: "../createTopic/createTopic"
 				})
 			}
-		}
+		},
+		onShareAppMessage() {}
+
 	}
 </script>
 

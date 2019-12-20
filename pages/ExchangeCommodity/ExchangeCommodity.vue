@@ -5,22 +5,44 @@
 </template>
 
 <script>
+	import requestUrls from '../../api.js'
+	import fetch from '../../fetch.js'
 	export default {
 		data() {
 			return {
-				rewards:[{name:'棉花糖', price:'100',desc:'超级好吃的棉花糖',photo:'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg', status: '未兑换', quantity: 1},
-				{name:'棉花糖', price:'100',desc:'超级好吃的棉花糖',photo:'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg',status: '兑换成功', quantity: 1}],
-				title:'已兑换商品'
+				rewards:[],
+				title:'已兑换商品',
+				pageIndex: 1
 			}
 		},
 		methods: {
-			
+			loadData() {
+				fetch({
+					url: requestUrls.getExchangeHistory + "?page=" + this.pageIndex + "&per_page=10",
+				}).then(data => {
+					if (data.result.length > 0) {
+						if(this.rewards.length > 0 && this.pageIndex > 1) {
+							this.rewards.push(data.result)
+						} else {
+							this.rewards = data.result
+						}
+					} else {
+						this.pageIndex--;
+					}
+					uni.stopPullDownRefresh()
+				})
+			}
 		},
 		onLoad() {
-			
+			this.loadData()
 		},
-		onShow() {
-			
+		onReachBottom() {
+			this.pageIndex++;
+			this.loadData();
+		},
+		onPullDownRefresh() {
+			this.pageIndex = 1;
+			this.loadData();
 		}
 	}
 </script>

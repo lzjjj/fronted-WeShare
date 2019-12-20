@@ -1,12 +1,13 @@
 <template>
 	<view class="globalColor">
-		<view class='head'>
-			<view style='text-align:center;color: #000000;'>
+		<view class='head bg-gradual-blue shadow-blur'>
+			<view style='text-align:center;color: #000000;margin-top: 10%;'>
 				<image :src="userInfo.avatarUrl" class='head-img'></image>
 				<view v-if="userInfo == null">请登录</view>
 				<view v-else>{{userInfo.nickName}}</view>
 				<button class='login-button' open-type="getUserInfo" @click="getWXUserInfo"> </button>
 			</view>
+			<image src="../../static/wave.gif" mode="scaleToFill" class="gif-black response" style="position: absolute; bottom: 0;height:100upx"></image>
 		</view>
 		<view class='mine-list'>
 			<view class='list-item'>
@@ -14,21 +15,32 @@
 					<image src='../../static/wallet.svg' class='item-img'></image>
 					<text>钱包余额</text>
 				</view>
-				<view class="lg text-yellow cuIcon-rechargefill" style="font-size: 1rem;">{{userInfo.balance ? userInfo.balance : 0}}</view>
+				<view v-if="balance!=0" class="lg text-yellow cuIcon-rechargefill" style="font-size: 1rem;">{{balance}}</view>
+				<view v-if="balance ==0" class="text-yellow" style="font-size: 1rem;">{{balance}}</view>
 			</view>
-			<view class='list-item' bindtap='luanchToMyDate' @click="openRecord"> 
+			<view class='list-item' bindtap='luanchToMyDate' @click="open('../record/record')">
 				<view style='display:flex;justify-content:center;align-items:center;'>
 					<image src='../../static/record.svg' class='item-img'></image>
 					<text>账单</text>
 				</view>
+				<text class="lg text-gray cuIcon-right"></text>
 			</view>
-			<view class='list-item' bindtap='luanchToMyDate' @click="openExchange">
+			<view class='list-item' bindtap='luanchToMyDate' @click="open('../ExchangeCommodity/ExchangeCommodity')">
 				<view style='display:flex;justify-content:center;align-items:center;'>
 					<image src='../../static/expiry.svg' class='item-img'></image>
 					<text>兑换的商品</text>
 				</view>
+				<text class="lg text-gray cuIcon-right"></text>
+			</view>
+			<view v-if="role == 'admin'" class='list-item' bindtap='luanchToMyDate' @click="open('../manageCommodity/manageCommodity')">
+				<view style='display:flex;justify-content:center;align-items:center;'>
+					<image src='../../static/goods.svg' class='item-img'></image>
+					<text>商品管理</text>
+				</view>
+				<text class="lg text-gray cuIcon-right"></text>
 			</view>
 		</view>
+		<message ref="message"></message>
 	</view>
 </template>
 
@@ -39,7 +51,9 @@
 		data() {
 			return {
 				userInfo: null,
-				canIUse: false
+				balance: 0,
+				canIUse: false,
+				role: ''
 			}
 		},
 		methods: {
@@ -48,8 +62,8 @@
 					url: requestUrls.getUserInfo,
 				}).then(data => { //data为一个数组，数组第一项为错误信息，第二项为返回数据
 					if (data.status) {
-						this.userInfo.balance = data.result.balance;
-						console.log(this.userInfo.balance)
+						this.balance = data.result.balance;
+						this.role = data.result.role;
 					}
 				})
 			},
@@ -60,30 +74,31 @@
 					uni.getUserInfo({
 						provider: 'weixin',
 					}).then((res) => {
-						this.userInfo = res[1].userInfo
-						console.log(this.userInfo)
+						if (res[0]) {
+							this.$refs.message.warn(res[0].errMsg)
+						}
+						if (res[1]) {
+							console.log(res)
+							uni.setStorage({
+								key: 'userInfo',
+								data: res[1].userInfo
+							})
+							this.userInfo = res[1].userInfo
+						}
 					})
 				})
 			},
-			openRecord() {
+			open(path) {
 				uni.navigateTo({
-					url: '../record/record'
-				});
-			},
-			openExchange() {
-				uni.navigateTo({
-					url: '../ExchangeCommodity/ExchangeCommodity'
+					url: path
 				});
 			}
 		},
 		onLoad() {
-
 		},
-		mounted() {
-			this.userInfo = uni.getStorageSync("userInfo")
+		onShow() {
 			this.getSysUserInfo()
-		},
-		onShow() {}
+		}
 	}
 </script>
 
@@ -94,8 +109,7 @@
 
 	.head {
 		width: 100%;
-		height: 9.7rem;
-		background-color: yellow;
+		height: 14rem;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -114,7 +128,7 @@
 		height: 3.9rem;
 		border-radius: 50%;
 		position: absolute;
-		top: 2.8rem;
+		top: 5.5rem;
 		opacity: 0;
 	}
 
@@ -135,5 +149,10 @@
 	.item-img {
 		width: 1rem;
 		height: 1rem;
+	}
+	
+	/* css 滤镜 控制黑白底色gif的 */
+	.gif-black{  
+	  mix-blend-mode: screen;  
 	}
 </style>

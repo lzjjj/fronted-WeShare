@@ -58,6 +58,7 @@
 		getDate,
 		compareDate,
 		isEmpty,
+		uploadPic,
 		WARNING_TITLE,
 		WARNING_DATE_LT_CURRENT,
 		WARNING_END_LT_START,
@@ -70,7 +71,8 @@
 		WARNING_DEADLINE_DATE_EMPTY,
 		WARNING_START_DATE_EMPTY,
 		WARNING_END_DATE_EMPTY,
-		MORE_THAN_ONE_TOPIC_AT_SAME_TIME
+		MORE_THAN_ONE_TOPIC_AT_SAME_TIME,
+		WARNING_LEAST_PAR_BT_PARTICIPANTS
 	} from "../../utils.js"
 	import yuDatetimePicker from "@/components/yu-datetime-picker/yu-datetime-picker.vue"
 	import requestUrls from "../../api.js"
@@ -188,30 +190,11 @@
 					success: (res) => {
 						this.imgPath = res.tempFilePaths[0];
 						this.img = res.tempFiles[0];
-						this.uploadPic(this.imgPath);
+						uploadPic(requestUrls.picUpload, this.imgPath)
+							.then((res)=>{
+								this.imgId = res;	
+							});
 					}
-				});
-			},
-			uploadPic: function(imgPath) {
-				uni.uploadFile({
-					url: requestUrls.picUpload,
-					filePath: imgPath,
-					name: 'file',
-					success:(res) => {
-						console.log(res);
-						let ret = JSON.parse(res.data)
-						this.imgId = ret[0].path
-						console.log(this.imgId)
-					},
-					fail: (res) => {
-						console.log("upload picture failed");
-						console.log(res);
-					}
-				});
-			},
-			viewImage: function() {
-				uni.previewImage({
-					urls: [this.imgPath],
 				});
 			},
 			createTopic: function() {
@@ -224,14 +207,15 @@
 				}
 			},
 			onConfirmCreate: function() {
+				this.$refs.createPopup.hideModal();
 				this.topic.topic_name = this.topicName;
 				this.topic.description = this.topicDesc;
 				this.topic.speaker = this.ownerName;
 				this.topic.share_place = this.topicPlace;
 				this.topic.participants_count = this.counts;
-				this.topic.from_date = this.sharingStartDate;
-				this.topic.to_date = this.sharingEndDate;
-				this.topic.dead_line_date = this.deadline;
+				this.topic.from_date = this.sharingStartDate + ":00";
+				this.topic.to_date = this.sharingEndDate + ":00";
+				this.topic.dead_line_date = this.deadline + ":00";
 				this.topic.picture_id = this.imgId;
 				this.topic.least_participants = this.minCounts;
 				fetch({
@@ -268,6 +252,8 @@
 					this.dateAlert.msg = WARNING_PARTICIPANTS_EMPTY;
 				} else if(isEmpty(this.minCounts)) {
 					this.dateAlert.msg = WARNING_LEAST_PARTICIPANTS_EMPTY;
+				} else if(this.minCounts > this.counts) {
+					this.dateAlert.msg = WARNING_LEAST_PAR_BT_PARTICIPANTS;
 				} else if(isEmpty(this.deadline)) {
 					this.dateAlert.msg = WARNING_DEADLINE_DATE_EMPTY;
 				} else if(compareDate(this.currentDateTime, this.sharingStartDate) 
@@ -288,8 +274,8 @@
 
 <style scoped>
 	.apply-button {
-		margin-top: 20px;
-		width: 100%;
+		margin: 5%;
+		width: 90%;
 		height: 2.5rem;
 	}
 	.cu-form-group .title {

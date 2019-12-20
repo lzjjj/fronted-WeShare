@@ -34,77 +34,126 @@
 				<view class="label">简介：</view>
 				<view class="description">{{topic.description}}</view>
 			</view>
-			<button v-if="type == 0" class="bg-gradual-blue cu-btn apply-button" @click="register">报名</button>
+			<button v-if="type == 0 && !topic.registration_is_valid" class="bg-gradual-blue cu-btn apply-button" @click="register">报名</button>
+			<button v-if="type == 0 && topic.registration_is_valid" class="bg-grey cu-btn apply-button">已报名</button>
 			<button v-if="type == 1" class="bg-gradual-blue cu-btn apply-button" @click="cancelRegister">取消报名</button>
 			<view v-if="type == 2" class="flex justify-around">
-				<button class="bg-gradual-blue cu-btn apply-button" style="margin-right: 5%;" @click="cancelTopic">取消分享</button>
+				<button v-if="topic.status == 'new'" class="bg-gradual-blue cu-btn apply-button" style="margin-right: 5%;" @click="cancelTopic">取消分享</button>
 				<button v-if="false" class="bg-gradual-blue cu-btn apply-button">编辑</button>
 			</view>
-			<rewardDialog ref="popup" :title="title" :msg="msg"  @confirm='popupConfirm'></rewardDialog>
+			<rewardDialog ref="popup" :title="title" :msg="msg" @confirm='popupConfirm'></rewardDialog>
+			<message ref="message"></message>
 		</view>
 	</view>
 </template>
 
 <script>
 	import requestUrls from '../../api.js'
-	import {WARNING_TITLE} from '../../utils.js'
+	import {
+		WARNING_TITLE,
+		REGISTRATION_SUCCESS,
+		getDate,
+		compareDate
+	} from '../../utils.js'
+	import {} from '../../utils.js'
 	import fetch from '../../fetch.js'
 	export default {
-		props: ["type", "detail"],
+		props: ["type", "detailId"],
 		data() {
 			return {
 				topic: {},
 				picUrl: '',
 				title: WARNING_TITLE,
-				msg: ''
+				msg: '',
+				topic_id: '',
+				isOverDate: false,
+				isOverAmount: false
 			}
 		},
 		mounted() {
-			this.topic = JSON.parse(this.$props.detail)
-			this.topic.to_date = this.topic.to_date.substring(11)
-			this.picUrl = this.topic.picture_id ? requestUrls.picLoad + this.topic.picture_id :
-				'https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg'
+			this.getTopicDetail()
 		},
-		methods:{
-			register: function() {
+		methods: {
+			validJoinerAmount() {
+				return this.topic.participants_count == this.topic.registrationCount
+			},
+			validDate() {
+				console.log(this.topic.dead_line_date)
+				console.log(getDate())
+				return compareDate(getDate(), this.topic.dead_line_date)
+			},
+			getTopicDetail() {
 				fetch({
-					url: requestUrls.registration,
-					method: 'POST',
-					payload: {
-						topic_id: this.topic.topic_id
-					}
+					url: requestUrls.getTopics + '/' + this.$props.detailId
 				}).then((res) => {
-					console.log(res)
-					this.$refs.popup.showModal();
-				});
-				console.log('register--------------------');
+					if (res.status) {
+						this.topic = res.result
+						this.topic.to_date = this.topic.to_date.substring(11)
+						this.picUrl = this.topic.picture_id ? requestUrls.picLoad + this.topic.picture_id :
+							'../../static/just_share.png';
+						this.topic_id = this.topic.id;
+						this.isOverDate = this.validDate()
+						this.isOverAmount = this.validJoinerAmount()
+					}
+				})
+			},
+			register: function() {
+				if (this.isOverDate) {
+					this.$refs.message.error('报名时间已截止')
+				} else if (this.isOverAmount) {
+					this.$refs.message.error('报名人数已满') 
+				} else if (this.topic.isTopicOwner) {
+					this.$refs.message.error('不可报名该分享') 
+				} else {
+					fetch({
+						url: requestUrls.registration,
+						method: 'POST',
+						payload: {
+							topic_id: this.topic_id
+						}
+					}).then((res) => {
+						if (res.status) {
+							this.$refs.message.success("报名成功");
+							setTimeout(uni.reLaunch, 1000, {
+								url: '../index/index'
+							})
+						} else {
+							this.$refs.message.warn("报名失败");
+						}
+					});
+				}
 			},
 			cancelRegister: function() {
-				console.log('cancelRegister--------------------');
-				fetch({
-					url: requestUrls.registration,
-					method: 'PUT',
-					payload: {
-						topic_id: this.topic.topic_id
-					}
-				}).then((res) => {
-					console.log(res)
-					this.$refs.popup.showModal();
-				});
+				this.msg = "是否确认取消报名?";
+				this.$refs.popup.showModal();
 			},
 			cancelTopic: function() {
 				console.log('cancelTopic--------------------');
+				this.msg = "是否确认取消分享会?";
+				this.$refs.popup.showModal();
 			},
 			popupConfirm: function() {
 				this.$refs.popup.hideModal();
-				let retUrl = './topic'
-				if(this.$props.type == 1) {
-					retUrl = '../myJoinDetail/myJoinDetail'
-				} else if(this.$props.type == 2){
-					retUrl = '../myCreateDetail/myCreateDetail'
+				if (this.$props.type == 1) {
+					fetch({
+						url: requestUrls.registration,
+						method: 'PUT',
+						payload: {
+							topic_id: this.topic_id
+						}
+					}).then((res) => {
+						this.$refs.message.success("取消报名成功");
+					});
+				} else if (this.$props.type == 2) {
+					fetch({
+						url: requestUrls.topics + '/' + this.topic_id,
+						method: 'PUT'
+					}).then((res) => {
+						this.$refs.message.sucess("取消分享会成功")
+					});
 				}
-				uni.navigateTo({
-					url: retUrl
+				setTimeout(uni.reLaunch, 1000, {
+					url: '../index/index?TabCur=' + this.$props.type
 				})
 			}
 		}

@@ -1,16 +1,16 @@
 <template>
 	<view>
-		<view class="cu-card case" :key="index" v-for="(item,index) in myCreateList" @click="navigate(item)" >
+		<view class="cu-card case" :key="index" v-for="(item,index) in myCreateList" @click="navigate(item)">
 			<view class="cu-item shadow">
 				<view style="margin:10px 10px;">
 					<view class="cu-bar" style="margin: -10px 0;font-size: 0.8rem;font-weight: bold;"> <text class="text-cut">{{item.topic_name}}</text></view>
 					<view class="flex justify-between align-center">
 						<view class="dots_1">Sharing 简介：{{item.description}}</view>
-						<button v-if="item.status == 'new'" class="cu-btn lg bg-blue" style="width: 5.5rem;height: 1.8rem;font-size: 0.7rem;color: #FFFFFF;">报名中</button>
-						<button v-if="item.status == 'process'" class="cu-btn lg bg-blue" style="width: 5.5rem;height: 1.8rem;font-size: 0.7rem;color: #FFFFFF;">进行中</button>
-						<button v-if="item.status == 'cancel'" class="cu-btn lg bg-grey" style="width: 5.5rem;height: 1.8rem;font-size: 0.7rem;color: #FFFFFF;">已取消</button>
-						<button v-if="item.status == 'complete'" class="cu-btn lg bg-green" style="width: 5.5rem;height: 1.8rem;font-size: 0.7rem;color: #FFFFFF;">已完成</button>
-						<button v-if="item.status == 'deadline'" class="cu-btn lg bg-red" style="width: 5.5rem;height: 1.8rem;font-size: 0.7rem;color: #FFFFFF;">已截止</button>
+						<view v-if="item.status == 'new'" class='cu-tag line-blue'>报名中</view>
+						<view v-if="item.status == 'process'" class='cu-tag line-blue'>进行中</view>
+						<view v-if="item.status == 'cancel'" class='cu-tag line-grey'>已取消</view>
+						<view v-if="item.status == 'complete'" class='cu-tag line-blue'>已完成</view>
+						<view v-if="item.status == 'deadline'" class='cu-tag line-grey'>已截止</view>
 					</view>
 					<view style="color: #C8C7CC;">
 						<view>时间: {{item.from_date}} - {{item.to_date}}</view>
@@ -20,6 +20,7 @@
 				</view>
 			</view>
 		</view>
+		<view class='no_content' v-if="requestDone && myCreateList.length == 0"></view>
 	</view>
 </template>
 
@@ -29,26 +30,49 @@
 	export default {
 		data() {
 			return {
-				myCreateList: []
+				myCreateList: [],
+				pageIndex: 1,
+				canRequest: true,
+				requestDone: false
 			};
 		},
 		mounted() {
 			this.getMyCreates()
 		},
 		methods: {
-			getMyCreates(){
+			refresh() {
+				if (this.canRequest) {
+					this.pageIndex++;
+					this.getMyCreates();
+				}
+			},
+			pullDownRefresh() {
+				this.pageIndex = 1;
+				this.myCreateList = [];
+				this.requestDone = false;
+				this.getMyCreates();
+			},
+			getMyCreates() {
+				this.canRequest = false;
 				fetch({
-						url: requestUrls.getMyCreates + '?page=1&per_page=10'
+						url: requestUrls.getMyCreates + '?page=' + this.pageIndex + '&per_page=10'
 					})
 					.then(data => { //data为一个数组，数组第一项为错误信息，第二项为返回数据
-						if (data) {
-							this.myCreateList = data.result
+						this.canRequest = true;
+						this.$emit('closePullDownFresh', false);
+						if (data.msg == 'not found') {
+							this.canRequest = false;
+						} else if (data && data.msg == "") {
+							this.myCreateList = [...this.myCreateList, ...data.result]
+						} else {
+							this.pageIndex--;
 						}
+						this.requestDone = true
 					})
 			},
 			navigate(item) {
 				uni.navigateTo({
-					url: '../myCreateDetail/myCreateDetail?detail='+ JSON.stringify(item)
+					url: '../myCreateDetail/myCreateDetail?detailId=' + item.id
 				})
 			},
 		}
