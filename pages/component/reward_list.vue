@@ -2,7 +2,7 @@
 	<view>
 		<view class="cu-list menu-avatar">
 			<view class="cu-item" v-for="(reward, index) in rewards" :key="index" style="height: 100px;">
-				<view class="cu-avatar round lg" v-bind:style="'background-image:url(http://639cgy.natappfree.cc/' + reward.picture_id + ')'"></view>
+				<view class="cu-avatar round lg" v-bind:style="'background-image:url(http://hdpdwz.natappfree.cc/' + reward.picture_id + ')'"></view>
 				<view class="content">
 					<view class="flex">
 						<view class="flex-sub radius" style="width: 50%;">
@@ -87,7 +87,7 @@
 				this.currItem = item
 			},
 			onConfirm(payload) {
-				if (payload.amount == 0 || payload.total == 0) {
+				if (payload.amount == 0) {
 					this.$refs.Message.warn('请先选择兑换数量')
 				} else if (payload.balance == 0 || payload.balance < payload.total) {
 					this.$refs.Message.error('你的余额不足')
