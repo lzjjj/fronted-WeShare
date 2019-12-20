@@ -31,7 +31,7 @@
 				</view>
 				<text class="lg text-gray cuIcon-right"></text>
 			</view>
-			<view v-if="role == 'admin'" class='list-item' bindtap='luanchToMyDate' @click="open('../commodity/commodity')">
+			<view v-if="role == 'admin'" class='list-item' bindtap='luanchToMyDate' @click="open('../manageCommodity/manageCommodity')">
 				<view style='display:flex;justify-content:center;align-items:center;'>
 					<image src='../../static/goods.svg' class='item-img'></image>
 					<text>商品管理</text>

@@ -33,43 +33,41 @@
 			"style": {
 				"navigationBarTitleText": "详细内容"
 			}
-		},{
-            "path" : "pages/record/record",
-            "style" : {
-				"navigationBarTitleText":"账单",
+		}, {
+			"path": "pages/record/record",
+			"style": {
+				"navigationBarTitleText": "账单",
 				"enablePullDownRefresh": true
 			}
-        }
-        ,{
-            "path" : "pages/ExchangeCommodity/ExchangeCommodity",
-            "style" : {
-				"navigationBarTitleText":"已兑换的商品",
+		}, {
+			"path": "pages/ExchangeCommodity/ExchangeCommodity",
+			"style": {
+				"navigationBarTitleText": "已兑换的商品",
 				"enablePullDownRefresh": true
 			}
-        }
-        ,{
-            "path" : "pages/submitSuccess/submitSuccess",
-            "style" : {
-				"navigationBarTitleText":"提交成功"
+		}, {
+			"path": "pages/submitSuccess/submitSuccess",
+			"style": {
+				"navigationBarTitleText": "提交成功"
 			}
-        }
-		,{
-		    "path" : "pages/createTopic/createTopic",
-		    "style" : {
-				"navigationBarTitleText":"创建分享会"
+		}, {
+			"path": "pages/createTopic/createTopic",
+			"style": {
+				"navigationBarTitleText": "创建分享会"
+			}
+		}, {
+			"path": "pages/commodity/commodity",
+			"style": {
+				"navigationBarTitleText": "商品上传"
+			}
+		}, {
+			"path": "pages/manageCommodity/manageCommodity",
+			"style": {
+				"navigationBarTitleText": "商品管理",
+				"enablePullDownRefresh": true
 			}
 		}
-        ,{
-            "path" : "pages/commodity/commodity",
-            "style" : {
-				"navigationBarTitleText":"商品管理"
-			}
-        }
-        ,{
-            "path" : "pages/manageCommodity/manageCommodity",
-            "style" : {}
-        }
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
