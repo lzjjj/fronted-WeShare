@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<rewardList :rewards= rewards :title=title />
+		<rewardList :rewards= "rewards" :title="title" :requestDone="requestDone"/>
 	</view>
 </template>
 
@@ -12,7 +12,8 @@
 			return {
 				rewards:[],
 				title:'已兑换商品',
-				pageIndex: 1
+				pageIndex: 1,
+				requestDone: false
 			}
 		},
 		methods: {
@@ -22,6 +23,7 @@
 				}).then(data => {
 					if (data.result.length > 0) {
 						if(this.rewards.length > 0 && this.pageIndex > 1) {
+							this.requestDone = true;
 							this.rewards.push(data.result)
 						} else {
 							this.rewards = data.result
