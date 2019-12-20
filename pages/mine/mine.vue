@@ -3,7 +3,7 @@
 		<view class='head bg-gradual-blue shadow-blur'>
 			<view style='text-align:center;color: #000000;margin-top: 10%;'>
 				<image :src="userInfo.avatarUrl" class='head-img'></image>
-				<view v-if="userInfo == null">请登录</view>
+				<view v-if="userInfo == null">点击获取微信信息</view>
 				<view v-else>{{userInfo.nickName}}</view>
 				<button class='login-button' open-type="getUserInfo" @click="getWXUserInfo"> </button>
 			</view>
