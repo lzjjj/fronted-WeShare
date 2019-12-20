@@ -2,18 +2,6 @@
 	import requestUrls from 'api.js'
 	export default {
 		onLaunch: () => {
-			uni.authorize({
-				scope: 'scope.userInfo',
-			}).then(() => {
-				uni.getUserInfo({
-					provider: 'weixin',
-				}).then((res) => {
-					uni.setStorage({
-						key: 'userInfo',
-						data: res[1].userInfo
-					})
-				})
-			})
 		},
 		methods: {},
 		onShow: function() {

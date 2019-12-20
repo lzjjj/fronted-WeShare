@@ -1,6 +1,6 @@
 <template>
 	<view class="globalColor">
-		<view class='head'>
+		<view class='head bg-gradual-blue shadow-blur' style="position: relative;">
 			<view style='text-align:center;color: #000000;'>
 				<image :src="userInfo.avatarUrl" class='head-img'></image>
 				<view v-if="userInfo == null">请登录</view>
@@ -39,6 +39,7 @@
 				<text class="lg text-gray cuIcon-right"></text>
 			</view>
 		</view>
+		<message ref="message"></message>
 	</view>
 </template>
 
@@ -72,21 +73,27 @@
 					uni.getUserInfo({
 						provider: 'weixin',
 					}).then((res) => {
-						this.userInfo = res[1].userInfo
+						if (res[0]) {
+							this.$refs.message.warn(res[0].errMsg)
+						}
+						if (res[1]) {
+							console.log(res)
+							uni.setStorage({
+								key: 'userInfo',
+								data: res[1].userInfo
+							})
+							this.userInfo = res[1].userInfo
+						}
 					})
 				})
 			},
 			open(path) {
 				uni.navigateTo({
 					url: path
-				});		
+				});
 			}
 		},
 		onLoad() {
-
-		},
-		created() {
-			this.userInfo = uni.getStorageSync("userInfo")
 		},
 		onShow() {
 			this.getSysUserInfo()
@@ -102,7 +109,6 @@
 	.head {
 		width: 100%;
 		height: 9.7rem;
-		background-color: yellow;
 		display: flex;
 		justify-content: center;
 		align-items: center;
