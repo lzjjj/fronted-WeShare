@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<rewardList :rewards= rewards @changeReward='changeReward'/>
+		<rewardList :rewards=rewards />
 	</view>
 </template>
 
@@ -10,47 +10,35 @@
 	export default {
 		data() {
 			return {
-				rewards:[],
-				pageIndex: 1
+				rewards: [],
+				pageIndex: 1,
+				canIRequest: true
 			}
 		},
 		onLoad() {
 			this.getRewards()
 		},
 		onReachBottom() {
-			this.pageIndex++;
-			this.getRewards()
-		},
-		onPullDownRefresh() {
-			this.pageIndex = 1;
-			this.getRewards()
+			if (this.canIRequest) {
+				this.pageIndex++;
+				this.getRewards()
+			}
 		},
 		methods: {
 			getRewards() {
+				this.canIRequest = false;
 				fetch({
 					url: requestUrls.getRewards + "?page=" + this.pageIndex + "&per_page=10",
 				}).then(data => {
-					if (data.result.length > 0) {
-						if(this.rewards.length > 0 && this.pageIndex != 1) {
-							this.rewards.push(data.result)
-						} else {
-							this.rewards = data.result
-						}
+					if (data.msg == 'not found') {
+						this.canIRequest = false;
+					} else if (data && data.msg == "") {
+						this.canIRequest = true;
+						this.rewards = this.rewards.concat(data.result)
 					} else {
 						this.pageIndex--;
 					}
 				})
-				uni.stopPullDownRefresh();
-			},
-			changeReward(payload){
-				let index = 0;
-				for (var i = 0; i < this.rewards.length; i++) {
-					if(this.rewards[i].id == payload.id) {
-						index = i;
-						break;
-					}
-				}
-				this.rewards[i].amount -= payload.count;
 			}
 		}
 	}
