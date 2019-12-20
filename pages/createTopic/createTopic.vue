@@ -262,7 +262,7 @@
 					this.dateAlert.msg = WARNING_DATE_LT_CURRENT;
 				}else if(compareDate(this.sharingStartDate, this.sharingEndDate)) {
 					this.dateAlert.msg = WARNING_END_LT_START;
-				}else if(compareDate(this.deadline, this.sharingStartDate)) {
+				}else if(!compareDate(this.sharingStartDate, this.deadline)) {
 					this.dateAlert.msg = WARNING_DEADLINE;
 				}
 				else return true;
