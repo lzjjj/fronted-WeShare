@@ -6,6 +6,7 @@ const requestUrls = {
 	getTopics: globalUrl + '/home/topics', //Get topic list
 	createTopic: globalUrl + '/home/topics/user',
 	getRewards: globalUrl + '/commodity',
+	deleteRewards: globalUrl + '/commodity',
 	login: globalUrl + '/login',
 	getMyJoins: globalUrl + '/home/topics/joiner', //Get myJoins list
 	getMyCreates: globalUrl + '/home/topics/owner', //Get mycreate list

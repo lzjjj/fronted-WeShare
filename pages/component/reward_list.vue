@@ -39,11 +39,12 @@
 					</view>
 				</view>
 				<view v-else>
-					<view class="cuIcon-delete align-center" v-on:click="onClick(reward)"></view>
+					<view class="cuIcon-deletefill text-red bigView" style="margin-left: -200%;" v-on:click="showDeletePopup(reward)"></view>
 				</view>
 
 			</view>
-			<rewardDialog ref="popup" :showUp=showUp :reward=currItem @hideModal="hideModal" @confirm='onConfirm'></rewardDialog>
+			<rewardDialog ref="popup" :showUp="showUp" :reward="currItem"  @confirm='onConfirm'></rewardDialog>
+			<rewardDialog ref="popupDelete" :title="deleteTitle" :msg="deleteMsg" :showUp="showUpDelete" @confirm='onConfirmDelete'></rewardDialog>
 			<message ref="Message"></message>
 		</view>
 		<view class="no_content" v-if="requestDone && rewards.length == 0"></view>
@@ -75,12 +76,42 @@
 		data() {
 			return {
 				showUp: '',
-				currItem: {}
+				currItem: {},
+				showUpDelete:'',
+				deleteMsg: "是否确定删除?",
+				deleteTitle: "提示"
 			}
 		},
 		methods: {
-			delete() {
+			onDelete(reward) {
+				fetch({
+					url: requestUrls.deleteRewards,
+					method: "DELETE",
+					payload: {
+						id: reward.id
+					}
+				})
 				console.log('todo delete this commodity')
+			},
+			showDeletePopup(item) {
+				this.$refs.popupDelete.showModal()
+				this.currItem = item
+			},
+			onConfirmDelete() {
+				this.$refs.popupDelete.hideModal()
+				fetch({
+					url: requestUrls.deleteRewards,
+					method: 'DELETE',
+					payload: {
+						id: this.currItem.id
+					}
+				}).then((res) => {
+					if (res && res.status) {
+						this.$refs.Message.success('删除成功');
+					} else {
+						this.$refs.Message.error('删除失败');
+					}
+				})
 			},
 			showModal(item) {
 				this.$refs.popup.showModal()
@@ -120,6 +151,10 @@
 <style>
 	.blockclass {
 		margin-right: 3%;
+	}
+
+	.bigView {
+		
 	}
 
 	.showtag {
