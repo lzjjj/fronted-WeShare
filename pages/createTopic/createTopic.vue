@@ -207,6 +207,7 @@
 				}
 			},
 			onConfirmCreate: function() {
+				this.$refs.createPopup.hideModal();
 				this.topic.topic_name = this.topicName;
 				this.topic.description = this.topicDesc;
 				this.topic.speaker = this.ownerName;
