@@ -42,7 +42,7 @@
 		}, {
 			"path": "pages/ExchangeCommodity/ExchangeCommodity",
 			"style": {
-				"navigationBarTitleText": "已兑换的商品",
+				"navigationBarTitleText": "兑换的商品",
 				"enablePullDownRefresh": true
 			}
 		}, {
