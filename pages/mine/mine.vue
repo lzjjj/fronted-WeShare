@@ -22,18 +22,21 @@
 					<image src='../../static/record.svg' class='item-img'></image>
 					<text>账单</text>
 				</view>
+				<text class="lg text-gray cuIcon-right"></text>
 			</view>
 			<view class='list-item' bindtap='luanchToMyDate' @click="open('../ExchangeCommodity/ExchangeCommodity')">
 				<view style='display:flex;justify-content:center;align-items:center;'>
 					<image src='../../static/expiry.svg' class='item-img'></image>
 					<text>兑换的商品</text>
 				</view>
+				<text class="lg text-gray cuIcon-right"></text>
 			</view>
 			<view v-if="role == 'admin'" class='list-item' bindtap='luanchToMyDate' @click="open('../commodity/commodity')">
 				<view style='display:flex;justify-content:center;align-items:center;'>
 					<image src='../../static/goods.svg' class='item-img'></image>
 					<text>商品管理</text>
 				</view>
+				<text class="lg text-gray cuIcon-right"></text>
 			</view>
 		</view>
 	</view>
