@@ -35,6 +35,15 @@
 				this.$refs.myCreate.refresh();
 			}
 		},
+		onPullDownRefresh() {
+			if (this.TabCur == 0) {
+				this.$refs.topic.pullDownRefresh();
+			} else if (this.TabCur == 1) {
+				this.$refs.myJoin.pullDownRefresh();
+			} else if (this.TabCur == 2) {
+				this.$refs.myCreate.pullDownRefresh();
+			}
+		},
 		data() {
 			return {
 				TabCur: 0,

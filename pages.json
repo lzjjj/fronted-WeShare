@@ -3,7 +3,8 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "话题"
+				"navigationBarTitleText": "话题",
+				"enablePullDownRefresh": true
 			}
 		}, {
 			"path": "pages/rewardCenter/rewardCenter",

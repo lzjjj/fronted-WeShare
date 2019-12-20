@@ -55,6 +55,11 @@
 					this.getTopics();
 				}
 			},
+			pullDownRefresh() {
+				this.pageIndex = 1;
+				this.topics = [];
+				this.getTopics();
+			},
 			getTopics() {
 				this.canIRequest = false;
 				fetch({

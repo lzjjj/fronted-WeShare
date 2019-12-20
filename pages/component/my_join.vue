@@ -44,6 +44,11 @@
 					this.getMyJoins();
 				}
 			},
+			pullDownRefresh() {
+				this.pageIndex = 1;
+				this.joinLists = [];
+				this.getMyJoins();
+			},
 			getMyJoins() {
 				this.canRequest = false;
 				fetch({

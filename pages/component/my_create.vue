@@ -44,6 +44,11 @@
 					this.getMyCreates();
 				}
 			},
+			pullDownRefresh() {
+				this.pageIndex = 1;
+				this.myCreateList = [];
+				this.getMyCreates();
+			},
 			getMyCreates() {
 				this.canRequest = false;
 				fetch({
