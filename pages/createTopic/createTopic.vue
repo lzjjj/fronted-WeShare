@@ -273,8 +273,8 @@
 
 <style scoped>
 	.apply-button {
-		margin-top: 20px;
-		width: 100%;
+		margin: 5%;
+		width: 90%;
 		height: 2.5rem;
 	}
 	.cu-form-group .title {
