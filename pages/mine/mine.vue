@@ -7,6 +7,7 @@
 				<view v-else>{{userInfo.nickName}}</view>
 				<button class='login-button' open-type="getUserInfo" @click="getWXUserInfo"> </button>
 			</view>
+			<image src="../../static/wave.gif" mode="scaleToFill" class="gif-black response" style="position: absolute; bottom: 0;height:100upx"></image>
 		</view>
 		<view class='mine-list'>
 			<view class='list-item'>
@@ -148,5 +149,10 @@
 	.item-img {
 		width: 1rem;
 		height: 1rem;
+	}
+	
+	/* css 滤镜 控制黑白底色gif的 */
+	.gif-black{  
+	  mix-blend-mode: screen;  
 	}
 </style>
