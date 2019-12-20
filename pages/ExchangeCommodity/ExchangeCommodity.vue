@@ -44,6 +44,7 @@
 		},
 		onPullDownRefresh() {
 			this.pageIndex = 1;
+			this.requestDone = false;
 			this.loadData();
 		}
 	}

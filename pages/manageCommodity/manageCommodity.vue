@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<button class="bg-gradual-blue cu-btn apply-button" @tap="open('../commodity/commodity')">上传商品</button>
-		<rewardList :rewards="rewards" :manage="true"></rewardList>
+		<rewardList :rewards="rewards" :manage="true" :requestDone="requestDone"></rewardList>
 	</view>
 </template>
 
@@ -15,7 +15,8 @@
 				rewards: [],
 				pageIndex: 1,
 				canIRequest: true,
-				manage: true
+				manage: true,
+				requestDone: false
 			}
 		},
 		onLoad() {
@@ -29,6 +30,7 @@
 		},
 		onPullDownRefresh() {
 			this.canIRequest = true;
+			this.requestDone = false;
 			this.rewards = [];
 			this.pageIndex = 1;
 			this.getRewards();
@@ -51,6 +53,8 @@
 					if (data.msg == 'not found') {
 						this.canIRequest = false;
 					} else if (data && data.msg == "") {
+						this.requestDone = true;
+						console.log(data.result)
 						this.canIRequest = true;
 						this.rewards = this.rewards.concat(data.result.filter(reward => reward.name));
 						console.log(this.rewards)
