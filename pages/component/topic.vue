@@ -1,6 +1,7 @@
 <template>
 	<view>
 		<card :key="index" v-for="(topic,index) in topics" :topic="topic"></card>
+		<view class='no_content' v-if="requestDone && topics.length == 0"></view>
 	</view>
 </template>
 
@@ -18,7 +19,8 @@
 			return {
 				topics: [],
 				pageIndex: 1,
-				canIRequest: true
+				canIRequest: true,
+				requestDone: false
 			};
 		},
 		beforeCreate() {
@@ -71,9 +73,11 @@
 					} else if (data && data.msg == "") {
 						this.canIRequest = true;
 						this.topics = [...this.topics, ...data.result]
+						
 					} else {
 						this.pageIndex--;
 					}
+					this.requestDone = true
 				})
 			}
 		}

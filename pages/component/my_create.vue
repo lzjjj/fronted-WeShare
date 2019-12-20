@@ -6,11 +6,11 @@
 					<view class="cu-bar" style="margin: -10px 0;font-size: 0.8rem;font-weight: bold;"> <text class="text-cut">{{item.topic_name}}</text></view>
 					<view class="flex justify-between align-center">
 						<view class="dots_1">Sharing 简介：{{item.description}}</view>
-						<view v-if="item.status == 'new'" class='cu-tag line-blue' >报名中</view>
-						<view v-if="item.status == 'process'" class='cu-tag line-blue' >进行中</view>
-						<view v-if="item.status == 'cancel'"  class='cu-tag line-grey' >已取消</view>
-						<view v-if="item.status == 'complete'" class='cu-tag line-blue' >已完成</view>
-						<view v-if="item.status == 'deadline'" class='cu-tag line-grey' >已截止</view>
+						<view v-if="item.status == 'new'" class='cu-tag line-blue'>报名中</view>
+						<view v-if="item.status == 'process'" class='cu-tag line-blue'>进行中</view>
+						<view v-if="item.status == 'cancel'" class='cu-tag line-grey'>已取消</view>
+						<view v-if="item.status == 'complete'" class='cu-tag line-blue'>已完成</view>
+						<view v-if="item.status == 'deadline'" class='cu-tag line-grey'>已截止</view>
 					</view>
 					<view style="color: #C8C7CC;">
 						<view>时间: {{item.from_date}} - {{item.to_date}}</view>
@@ -20,6 +20,7 @@
 				</view>
 			</view>
 		</view>
+		<view class='no_content' v-if="requestDone && myCreateList.length == 0"></view>
 	</view>
 </template>
 
@@ -31,7 +32,8 @@
 			return {
 				myCreateList: [],
 				pageIndex: 1,
-				canRequest: true
+				canRequest: true,
+				requestDone: false
 			};
 		},
 		mounted() {
@@ -52,23 +54,24 @@
 			getMyCreates() {
 				this.canRequest = false;
 				fetch({
-						url: requestUrls.getMyCreates + '?page='+ this.pageIndex + '&per_page=10'
+						url: requestUrls.getMyCreates + '?page=' + this.pageIndex + '&per_page=10'
 					})
 					.then(data => { //data为一个数组，数组第一项为错误信息，第二项为返回数据
 						this.canRequest = true;
 						this.$emit('closePullDownFresh', false);
 						if (data.msg == 'not found') {
 							this.canRequest = false;
-						} else if (data && data.msg=="") {
+						} else if (data && data.msg == "") {
 							this.myCreateList = [...this.myCreateList, ...data.result]
 						} else {
-						this.pageIndex--;
-					}
+							this.pageIndex--;
+						}
+						this.requestDone = true
 					})
 			},
 			navigate(item) {
 				uni.navigateTo({
-					url: '../myCreateDetail/myCreateDetail?detailId='+ item.id
+					url: '../myCreateDetail/myCreateDetail?detailId=' + item.id
 				})
 			},
 		}

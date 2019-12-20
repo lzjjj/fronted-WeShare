@@ -20,6 +20,7 @@
 				</view>
 			</view>
 		</view>
+		<view class='no_content' v-if="requestDone && joinLists.length == 0"></view>
 	</view>
 </template>
 
@@ -31,7 +32,8 @@
 			return {
 				joinLists: [],
 				pageIndex: 1,
-				canRequest: true
+				canRequest: true,
+				requestDone: false
 			};
 		},
 		mounted() {
@@ -64,6 +66,7 @@
 						} else {
 							this.pageIndex--;
 						}
+						this.requestDone = true
 					})
 			},
 			navigate(item) {
