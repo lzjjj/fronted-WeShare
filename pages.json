@@ -36,13 +36,15 @@
 		},{
             "path" : "pages/record/record",
             "style" : {
-				"navigationBarTitleText":"账单"
+				"navigationBarTitleText":"账单",
+				"enablePullDownRefresh": true
 			}
         }
         ,{
             "path" : "pages/ExchangeCommodity/ExchangeCommodity",
             "style" : {
-				"navigationBarTitleText":"已兑换的商品"
+				"navigationBarTitleText":"已兑换的商品",
+				"enablePullDownRefresh": true
 			}
         }
         ,{

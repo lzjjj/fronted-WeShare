@@ -21,7 +21,7 @@
 					url: requestUrls.getExchangeHistory + "?page=" + this.pageIndex + "&per_page=10",
 				}).then(data => {
 					if (data.result.length > 0) {
-						if(this.rewards.length > 0) {
+						if(this.rewards.length > 0 && this.pageIndex > 1) {
 							this.rewards.push(data.result)
 						} else {
 							this.rewards = data.result
@@ -29,6 +29,7 @@
 					} else {
 						this.pageIndex--;
 					}
+					uni.stopPullDownRefresh()
 				})
 			}
 		},
@@ -37,6 +38,10 @@
 		},
 		onReachBottom() {
 			this.pageIndex++;
+			this.loadData();
+		},
+		onPullDownRefresh() {
+			this.pageIndex = 1;
 			this.loadData();
 		}
 	}
