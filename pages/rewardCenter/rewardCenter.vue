@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<rewardList :rewards=rewards @changeReward='changeReward' />
+		<rewardList :rewards=rewards @changeReward='changeReward' :requestDone='requestDone'/>
 	</view>
 </template>
 
@@ -12,7 +12,8 @@
 			return {
 				rewards: [],
 				pageIndex: 1,
-				canIRequest: true
+				canIRequest: true,
+				requestDone: false
 			}
 		},
 		onLoad() {
@@ -25,6 +26,7 @@
 			}
 		},
 		onPullDownRefresh() {
+			this.requestDone = false
 			this.pageIndex = 1;
 			this.rewards = []
 			this.getRewards()
@@ -48,6 +50,7 @@
 					} else {
 						this.pageIndex--;
 					}
+					this.requestDone = true
 				})
 			},
 			changeReward(payload) {
