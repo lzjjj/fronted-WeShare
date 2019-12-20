@@ -49,6 +49,7 @@
 			pullDownRefresh() {
 				this.pageIndex = 1;
 				this.myCreateList = [];
+				this.requestDone = false;
 				this.getMyCreates();
 			},
 			getMyCreates() {

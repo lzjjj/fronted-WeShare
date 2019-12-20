@@ -49,6 +49,7 @@
 			pullDownRefresh() {
 				this.pageIndex = 1;
 				this.joinLists = [];
+				this.requestDone = false;
 				this.getMyJoins();
 			},
 			getMyJoins() {

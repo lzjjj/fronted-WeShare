@@ -26,7 +26,7 @@
 		},
 		onPullDownRefresh() {
 			this.pageIndex = 1;
-			this.getRewards()
+			this.rewards = []
 			if (this.canIRequest) {
 				this.pageIndex++;
 				this.getRewards()
