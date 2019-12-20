@@ -12,9 +12,9 @@ const requestUrls = {
 	registration: globalUrl + '/home/topics/registration',
 	topics: globalUrl + '/home/topics',
 	record: globalUrl + '/user/records',
-	picUpload: "http://efdgqr.natappfree.cc/multerUpload/upload",
+	picUpload: "http://65egmc.natappfree.cc/multerUpload/upload",
 	WeChatlogin: globalUrl + '/login/',
-	picLoad: "http://639cgy.natappfree.cc/",
+	picLoad: "http://hdpdwz.natappfree.cc/",
 	getUserInfo: globalUrl + "/users",
 	getRecord: globalUrl + "/bills",
 	getExchangeHistory:globalUrl + "/users/exchangeHistory"
