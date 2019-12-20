@@ -1,7 +1,7 @@
 <template>
 	<view class="globalColor">
 		<view class='head bg-gradual-blue shadow-blur' style="position: relative;">
-			<view style='text-align:center;color: #000000;'>
+			<view style='text-align:center;color: #000000;margin-top: 10%;'>
 				<image :src="userInfo.avatarUrl" class='head-img'></image>
 				<view v-if="userInfo == null">请登录</view>
 				<view v-else>{{userInfo.nickName}}</view>
@@ -108,7 +108,7 @@
 
 	.head {
 		width: 100%;
-		height: 9.7rem;
+		height: 14rem;
 		display: flex;
 		justify-content: center;
 		align-items: center;
