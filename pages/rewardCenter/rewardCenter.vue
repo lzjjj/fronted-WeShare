@@ -34,7 +34,10 @@
 						this.canIRequest = false;
 					} else if (data && data.msg == "") {
 						this.canIRequest = true;
-						this.rewards = this.rewards.concat(data.result)
+						this.rewards = this.rewards.concat(data.result);
+						if(this.rewards.length > 0) {
+							this.rewards = this.rewards.filter(reward =>  reward.amount > 0)
+						}
 					} else {
 						this.pageIndex--;
 					}
