@@ -1,6 +1,6 @@
 <template>
 	<view class="globalColor">
-		<view class='head bg-gradual-blue shadow-blur' style="position: relative;">
+		<view class='head bg-gradual-blue shadow-blur'>
 			<view style='text-align:center;color: #000000;margin-top: 10%;'>
 				<image :src="userInfo.avatarUrl" class='head-img'></image>
 				<view v-if="userInfo == null">请登录</view>
@@ -127,7 +127,7 @@
 		height: 3.9rem;
 		border-radius: 50%;
 		position: absolute;
-		top: 2.8rem;
+		top: 5.5rem;
 		opacity: 0;
 	}
 
