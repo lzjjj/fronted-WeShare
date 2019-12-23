@@ -1,5 +1,8 @@
 // request interceptors -> token 认证
 export default async function fetch(options) {
+	uni.showLoading({
+		title: "加载中"
+	})
 	const {
 		url,
 		payload,
@@ -38,5 +41,7 @@ export default async function fetch(options) {
 				message: defaultMsg,
 				...err
 			})
+		}).finally(()=>{
+			uni.hideLoading()
 		})
 }
