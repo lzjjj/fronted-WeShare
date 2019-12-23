@@ -13,7 +13,7 @@ const requestUrls = {
 	registration: globalUrl + '/home/topics/registration',
 	topics: globalUrl + '/home/topics',
 	record: globalUrl + '/user/records',
-	picUpload: "http://bu9n2a.natappfree.cc",
+	picUpload: "http://bu9n2a.natappfree.cc/multerUpload/upload",
 	WeChatlogin: globalUrl + '/login/',
 	picLoad: "http://6ewam3.natappfree.cc/",
 	getUserInfo: globalUrl + "/users",
