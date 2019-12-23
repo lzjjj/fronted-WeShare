@@ -36,9 +36,11 @@
 			</view>
 			<button v-if="type == 0 && !topic.registration_is_valid" class="bg-gradual-blue cu-btn apply-button" @click="register">报名</button>
 			<button v-if="type == 0 && topic.registration_is_valid" class="bg-grey cu-btn apply-button">已报名</button>
-			<button v-if="type == 1 && (topic.status=='new' || topic.status=='deadline')" class="bg-gradual-blue cu-btn apply-button" @click="cancelRegister">取消报名</button>
+			<button v-if="type == 1 && (topic.status=='new' || topic.status=='deadline')" class="bg-gradual-blue cu-btn apply-button"
+			 @click="cancelRegister">取消报名</button>
 			<view v-if="type == 2" class="flex justify-around">
-				<button v-if="topic.status == 'new' || topic.status=='deadline'" class="bg-gradual-blue cu-btn apply-button" style="margin-right: 5%;" @click="cancelTopic">取消分享</button>
+				<button v-if="topic.status == 'new' || topic.status=='deadline'" class="bg-gradual-blue cu-btn apply-button" style="margin-right: 5%;"
+				 @click="cancelTopic">取消分享</button>
 				<button v-if="false" class="bg-gradual-blue cu-btn apply-button">编辑</button>
 			</view>
 			<rewardDialog ref="popup" :title="title" :msg="msg" @confirm='popupConfirm'></rewardDialog>
@@ -101,9 +103,9 @@
 				if (this.isOverDate) {
 					this.$refs.message.error('报名时间已截止')
 				} else if (this.isOverAmount) {
-					this.$refs.message.error('报名人数已满') 
+					this.$refs.message.error('报名人数已满')
 				} else if (this.topic.isTopicOwner) {
-					this.$refs.message.error('不可报名该分享') 
+					this.$refs.message.error('不可报名该分享')
 				} else {
 					fetch({
 						url: requestUrls.registration,

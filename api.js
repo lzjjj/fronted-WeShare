@@ -1,6 +1,6 @@
 // const globalUrl = 'http://localhost:3000'
 // const globalUrl = 'http://kuangal2-w10.corp.oocl.com:3000'
-const globalUrl = 'http://nrcsxn.natappfree.cc'
+const globalUrl = 'http://gvw8ae.natappfree.cc'
 // const globalUrl = 'http://hanry-w10:3000'
 const requestUrls = {
 	getTopics: globalUrl + '/home/topics', //Get topic list
@@ -18,6 +18,7 @@ const requestUrls = {
 	picLoad: "http://6ewam3.natappfree.cc/",
 	getUserInfo: globalUrl + "/users",
 	getRecord: globalUrl + "/bills",
-	getExchangeHistory:globalUrl + "/users/exchangeHistory"
+	getExchangeHistory:globalUrl + "/users/exchangeHistory",
+	completeTopic:globalUrl + "/home/topics/support/",
 }
 export default requestUrls

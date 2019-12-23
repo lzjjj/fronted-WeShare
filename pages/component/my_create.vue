@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="cu-card case" :key="index" v-for="(item,index) in myCreateList" @click="navigate(item)">
+		<view class="cu-card case" :key="index" v-for="(item,index) in myCreateList" @tap.stop="navigate(item)">
 			<view class="cu-item shadow">
 				<view style="margin:10px 10px;">
 					<view class="cu-bar" style="margin: -10px 0;font-size: 0.8rem;font-weight: bold;"> <text class="text-cut">{{item.topic_name}}</text></view>
@@ -12,15 +12,20 @@
 						<view v-if="item.status == 'complete'" class='cu-tag line-blue'>已完成</view>
 						<view v-if="item.status == 'deadline'" class='cu-tag line-grey'>已截止</view>
 					</view>
-					<view style="color: #C8C7CC;">
-						<view>时间: {{item.from_date}} - {{item.to_date}}</view>
-						<view>地点: {{item.share_place}}</view>
-						<view>截止时间: {{item.dead_line_date}}</view>
+					<view class="flex justify-center align-center">
+						<view style="color: #C8C7CC;">
+							<view>时间: {{item.from_date}} - {{item.to_date}}</view>
+							<view>地点: {{item.share_place}}</view>
+							<view>截止时间: {{item.dead_line_date}}</view>
+						</view>
+						<button v-if="item.status!='complete'" class="bg-gradual-blue cu-btn apply-button" @tap.stop="completeTopic(item.id, index)"
+						 style="width: 40%;">完成该话题</button>
 					</view>
 				</view>
 			</view>
 		</view>
 		<view class='no_content' v-if="requestDone && myCreateList.length == 0"></view>
+		<message ref="message"></message>
 	</view>
 </template>
 
@@ -40,6 +45,17 @@
 			this.getMyCreates()
 		},
 		methods: {
+			completeTopic(id, index) {
+				fetch({
+					url: requestUrls.completeTopic + id,
+					method: "PUT"
+				}).then(res => {
+					if (res.status) {
+						this.myCreateList[index].status = "complete"
+						this.$refs.message.success('修改成功！')
+					}
+				})
+			},
 			refresh() {
 				if (this.canRequest) {
 					this.pageIndex++;
