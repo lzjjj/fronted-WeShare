@@ -7,7 +7,7 @@
 			<view class="cu-form-group">
 				<view class="grid col-4 grid-square flex-sub">
 					<view class="bg-img" v-for="(item,index) in imgList" :key="index" @tap="ViewImage" :data-url="imgList[index]">
-					 <image :src="imgList[index]" mode="aspectFill"></image>
+						<image :src="imgList[index]" mode="aspectFill"></image>
 						<view class="cu-tag bg-red" @tap.stop="DelImg" :data-index="index">
 							<text class='cuIcon-close'></text>
 						</view>
@@ -41,14 +41,16 @@
 </template>
 
 <script>
-	import {uploadPic} from "../../utils.js"
+	import {
+		uploadPic
+	} from "../../utils.js"
 	import requestUrls from '../../api.js'
 	import fetch from '../../fetch.js'
 	export default {
 		data() {
 			return {
-				imgList:[],
-				imgId:''
+				imgList: [],
+				imgId: ''
 			}
 		},
 		methods: {
@@ -64,9 +66,9 @@
 							this.imgList = res.tempFilePaths
 						}
 						uploadPic(requestUrls.picUpload, this.imgList[0])
-							.then((res)=>{
-								this.imgId = res;	
-						});
+							.then((res) => {
+								this.imgId = res;
+							});
 					}
 				});
 			},
@@ -90,15 +92,19 @@
 			},
 			formSubmit(e) {
 				let json = e.detail.value;
-				if(json.name == '') {
-					this.$refs.Message.warn('请输入商品名称')
-				} else if(json.price == 0 ) {
-					this.$refs.Message.warn('请输入商品价格')
-				} else if(json.amount == 0) {
-					this.$refs.Message.warn('请输入商品数量')
+				let validationMsg = '';
+				if (json.name == '') {
+					validationMsg = '请输入商品名称'
+				} else if (json.price == 0) {
+					validationMsg = '请输入商品价格'
+				} else if (json.amount == 0) {
+					validationMsg = '请输入商品数量'
 				}
-				
-				if(this.imgId != '') {
+				if (validationMsg != '') {
+					this.$refs.Message.warn(validationMsg);
+					return;
+				}
+				if (this.imgId != '') {
 					json.picture_id = this.imgId
 				}
 				fetch({
@@ -106,13 +112,14 @@
 					method: 'POST',
 					payload: json
 				}).then(data => {
-					if(data.status) {
+					if (data.status) {
 						this.$refs.Message.success('添加成功')
 						setTimeout(uni.navigateBack, 1000)
 					} else {
 						this.$refs.Message.warn('添加失败')
 					}
 				})
+
 			}
 		}
 	}
