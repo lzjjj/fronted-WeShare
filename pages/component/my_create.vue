@@ -18,7 +18,7 @@
 							<view>地点: {{item.share_place}}</view>
 							<view>截止时间: {{item.dead_line_date}}</view>
 						</view>
-						<button v-if="item.status!='complete' && this.role == 'admin'" class="bg-gradual-blue cu-btn apply-button" @tap.stop="completeTopic(item.id, index)"
+						<button v-if="item.status!='complete' && item.status!='cancel' &&  role == 'admin'" class="bg-gradual-blue cu-btn apply-button" @tap.stop="completeTopic(item.id, index)"
 						 style="width: 40%;">完成该话题</button>
 					</view>
 				</view>
@@ -52,6 +52,7 @@
 					url: requestUrls.getUserInfo,
 				}).then(data => { //data为一个数组，数组第一项为错误信息，第二项为返回数据
 					if (data.status) {
+						console.log(data.result.role)
 						this.role = data.result.role;
 					}
 				})
