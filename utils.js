@@ -36,10 +36,12 @@ export const uploadPic = function(url, imgPath) {
 	}).then((res)=>{
 		if(res && res[1] && res[1].statusCode == '200') {
 			let ret = JSON.parse(res[1].data);
-			return ret[0].path;
+			return ret[0].filename;
 		} else {
 			return Promise.reject(res.data);
 		}
+	}).catch((res)=>{
+		return Promise.reject();
 	});
 }
 

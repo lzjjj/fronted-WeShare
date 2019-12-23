@@ -193,7 +193,8 @@
 						uploadPic(requestUrls.picUpload, this.imgPath)
 							.then((res)=>{
 								this.imgId = res;	
-							});
+								console.log('pic upload --- '+this.imgId)
+							}).catch((res)=>{});
 					}
 				});
 			},
