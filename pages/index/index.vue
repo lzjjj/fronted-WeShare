@@ -1,5 +1,5 @@
-<template>
-	<view>
+<template style="min-height: 100%;">
+	<view @touchstart="start" @touchend="end" style="height: 100%;">
 		<scroll-view scroll-x class="bg-white nav position-top" scroll-with-animation :scroll-left="scrollLeft">
 			<view class="flex text-center">
 				<view class="cu-item flex-sub" :class="index==TabCur?'text-blue cur':''" v-for="(item,index) in 3" :key="index"
@@ -44,7 +44,7 @@
 				this.$refs.myCreate.pullDownRefresh();
 			}
 		},
-		
+
 		data() {
 			return {
 				TabCur: 0,
@@ -60,13 +60,34 @@
 					color: '#3c3e49',
 					selectedColor: '#007AFF',
 					buttonColor: '#3c3e49'
-				}
+				},
+				clientX: 0,
 			}
 		},
 		components: {
 			uniFab
 		},
 		methods: {
+			start(e) {
+				console.log(e)
+				this.clientX = e.changedTouches[0].clientX;
+			},
+			end(e) {
+				const subX = e.changedTouches[0].clientX - this.clientX;
+				if (subX > 100) {
+					if (this.TabCur != 0) {
+						this.TabCur--
+					}
+				} else if (subX < -100) {
+					if (this.TabCur < 2) {
+						this.TabCur++
+					}
+					
+				} else {
+					console.log('无效')
+				}
+				console.log(this.TabCur)
+			},
 			closePullDownFresh(val) {
 				uni.stopPullDownRefresh()
 			},
@@ -86,6 +107,9 @@
 </script>
 
 <style>
+	page{
+		height: 100%;
+	}
 	.content {
 		display: flex;
 		flex-direction: column;
