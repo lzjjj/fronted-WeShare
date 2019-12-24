@@ -23,9 +23,10 @@
 				requestDone: false
 			};
 		},
-		beforeCreate() {
+		beforeCreate() {},
+		mounted() {
+			this.getTopics()
 		},
-
 		methods: {
 			refresh() {
 				if (this.canIRequest) {
@@ -49,7 +50,7 @@
 					} else if (data && data.msg == "") {
 						this.canIRequest = true;
 						this.topics = [...this.topics, ...data.result]
-						
+
 					} else {
 						this.pageIndex--;
 					}
