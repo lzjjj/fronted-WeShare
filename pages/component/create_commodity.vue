@@ -23,7 +23,7 @@
 			</view>
 			<view class="cu-form-group">
 				<view class="title">商品价格</view>
-				<input placeholder="请输入商品价格" name="price" type="digit"></input>
+				<input placeholder="请输入商品价格" name="price" type="number"></input>
 			</view>
 			<view class="cu-form-group">
 				<view class="title">商品库存</view>
