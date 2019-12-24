@@ -124,7 +124,7 @@
 						let d = j;
 						if(localMonth < 10){ m = '0' + m;}
 						if(j < 10){ d = '0' + d;}
-						let str = year + '-' + m + '-' + d;
+						let str = localYear + '-' + m + '-' + d;
 						dates.push(str);
 					}
 				} else {
@@ -133,7 +133,7 @@
 						let d = j;
 						if(localMonth < 10){ m = '0' + m;}
 						if(j < 10){ d = '0' + d;}
-						let str = year + '-' + m + '-' + d;
+						let str = localYear + '-' + m + '-' + d;
 						dates.push(str);
 					}
 				}
