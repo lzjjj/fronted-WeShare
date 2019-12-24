@@ -23,7 +23,8 @@
 				requestDone: false
 			};
 		},
-		beforeCreate() {
+		mounted() {
+			this.getTopics()
 		},
 
 		methods: {

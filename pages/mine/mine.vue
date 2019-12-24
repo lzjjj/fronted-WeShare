@@ -3,9 +3,9 @@
 		<view class='head bg-gradual-blue shadow-blur'>
 			<view style='text-align:center;color: #000000;margin-top: 10%;'>
 				<image :src="userInfo.avatarUrl" class='head-img'></image>
-				<view v-if="userInfo == null">点击获取微信信息</view>
-				<view v-else>{{userInfo.nickName}}</view>
-				<button class='login-button' open-type="getUserInfo" @click="getWXUserInfo"> </button>
+				<!-- <view v-if="userInfo == null">点击获取微信信息</view> -->
+				<view >{{userInfo.nickName}}</view>
+				<!-- <button class='login-button' open-type="getUserInfo" @click="getWXUserInfo"> </button> -->
 			</view>
 			<image src="../../static/wave.gif" mode="scaleToFill" class="gif-black response" style="position: absolute; bottom: 0;height:100upx"></image>
 		</view>
@@ -68,25 +68,25 @@
 				})
 			},
 			getWXUserInfo() {
-				uni.authorize({
-					scope: 'scope.userInfo',
-				}).then(() => {
-					uni.getUserInfo({
-						provider: 'weixin',
-					}).then((res) => {
-						if (res[0]) {
-							this.$refs.message.warn(res[0].errMsg)
-						}
-						if (res[1]) {
-							console.log(res)
-							uni.setStorage({
-								key: 'userInfo',
-								data: res[1].userInfo
-							})
-							this.userInfo = res[1].userInfo
-						}
-					})
-				})
+				// uni.authorize({
+				// 	scope: 'scope.userInfo',
+				// }).then(() => {
+				// 	uni.getUserInfo({
+				// 		provider: 'weixin',
+				// 	}).then((res) => {
+				// 		if (res[0]) {
+				// 			this.$refs.message.warn(res[0].errMsg)
+				// 		}
+				// 		if (res[1]) {
+				// 			console.log(res)
+				// 			uni.setStorage({
+				// 				key: 'userInfo',
+				// 				data: res[1].userInfo
+				// 			})
+				// 			this.userInfo = res[1].userInfo
+				// 		}
+				// 	})
+				// })
 			},
 			open(path) {
 				uni.navigateTo({
@@ -97,6 +97,7 @@
 		onLoad() {
 		},
 		onShow() {
+			this.userInfo = uni.getStorageSync("userInfo")
 			this.getSysUserInfo()
 		}
 	}

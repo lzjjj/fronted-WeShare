@@ -10,10 +10,12 @@ import detail from './pages/component/detail.vue'
 import rewardList from './pages/component/reward_list.vue'
 import rewardDialog from './pages/component/reward_dialog_modal.vue'
 import boboMessage from './components/bobo-message/bobo-message.vue'
+import allTopic from './pages/component/allTopic.vue'
 
 Vue.component('cu-custom',cuCustom)
 Vue.component('card',card)
 Vue.component('topic',topic)
+Vue.component('allTopic',allTopic)
 Vue.component('myJoin',myJoin)
 Vue.component('myCreate',myCreate)
 Vue.component('detail',detail)
