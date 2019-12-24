@@ -19,7 +19,7 @@
 				<allTopic ref="allTopic" v-if="TabCur == 3 && role =='admin'" v-on:closePullDownFresh="closePullDownFresh"></allTopic>
 			</view>
 		</view>
-		<view v-if="!userInfo" class="cu-modal" :class="modalName=='Image'?'show':''">
+		<view v-show="userInfo==null" class="cu-modal">
 			<view class="cu-dialog">
 				<view class="bg-img" style="background-image: url('https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg');height:200px;">
 				</view>
@@ -68,6 +68,13 @@
 		},
 
 		data() {
+			let userInfoStorage = null;
+			uni.getStorage({
+				key: "userInfo",
+				success:function(res) {
+					userInfoStorage = res.data;
+				}
+			});
 			return {
 				TabCur: 0,
 				scrollLeft: 0,
@@ -84,7 +91,7 @@
 					buttonColor: '#3c3e49'
 				},
 				clientX: 0,
-				userInfo: null,
+				userInfo: userInfoStorage,
 				modalName: "Image",
 				role: null
 			}
