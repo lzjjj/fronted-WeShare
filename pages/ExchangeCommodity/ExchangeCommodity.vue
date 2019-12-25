@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<rewardList :rewards= "rewards" :title="title" :requestDone="requestDone"/>
+		<rewardList :rewards= rewards :title = 'title' :requestDone='requestDone'/>
 	</view>
 </template>
 

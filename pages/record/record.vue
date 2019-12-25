@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view v-if="records.length > 0" class="cu-list">
+		<view class="cu-list">
 			<view v-for="(item, index) in records" :key="index" class="cu-item">
 				<view class="flex align-center">
 					<view class="padding margin-xs radius" style="width: 80%;">
@@ -16,7 +16,7 @@
 				</view>
 			</view>
 		</view>
-		<view v-else class="text-center margin-top">无记录</view>
+		<view class="no_content" v-if="records.length == 0"></view>
 	</view>
 </template>
 

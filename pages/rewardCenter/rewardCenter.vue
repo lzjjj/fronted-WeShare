@@ -39,18 +39,20 @@
 				}).then(data => {
 					if (data.msg == 'not found') {
 						this.canIRequest = false;
+						this.requestDone = true;
 					} else if (data && data.msg == "") {
+						this.requestDone = false;
 						this.canIRequest = true;
 						this.rewards = this.rewards.concat(data.result);
 						if (this.rewards.length > 0) {
 							let temp = this.rewards.filter(reward => reward.amount > 0)
 							this.rewards = temp.length == 0 ? [] : temp
 						}
-						uni.stopPullDownRefresh()
 					} else {
 						this.pageIndex--;
+						this.requestDone = true;
 					}
-					this.requestDone = true
+					uni.stopPullDownRefresh()
 				})
 			},
 			changeReward(payload) {
