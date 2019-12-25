@@ -18,8 +18,7 @@
 							<view>地点: {{item.share_place}}</view>
 							<view>截止时间: {{item.dead_line_date}}</view>
 						</view>
-						<button v-if="item.status!='complete' && item.status!='cancel' &&  role == 'admin'" class="bg-gradual-blue cu-btn apply-button" @tap.stop="completeTopic(item.id, index)"
-						 style="width: 40%;">完成该话题</button>
+						
 					</view>
 				</view>
 			</view>
@@ -38,35 +37,13 @@
 				myCreateList: [],
 				pageIndex: 1,
 				canRequest: true,
-				requestDone: false,
-				role:""
+				requestDone: false
 			};
 		},
 		mounted() {
-			this.getSysUserInfo()
 			this.getMyCreates()
 		},
 		methods: {
-			getSysUserInfo() {
-				fetch({
-					url: requestUrls.getUserInfo,
-				}).then(data => { //data为一个数组，数组第一项为错误信息，第二项为返回数据
-					if (data.status) {
-						this.role = data.result.role;
-					}
-				})
-			},
-			completeTopic(id, index) {
-				fetch({
-					url: requestUrls.completeTopic + id,
-					method: "PUT"
-				}).then(res => {
-					if (res.status) {
-						this.myCreateList[index].status = "complete"
-						this.$refs.message.success('修改成功！')
-					}
-				})
-			},
 			refresh() {
 				if (this.canRequest) {
 					this.pageIndex++;

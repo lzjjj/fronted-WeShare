@@ -19,6 +19,7 @@
 						<view style="color: #C8C7CC;padding-right: 5px;">已报名{{topic.registrationCount}}人</view>
 						<view style="color: #F37B1D; font-size: 0.75rem;">剩余{{topic.participants_count - topic.registrationCount}}个名额</view>
 					</view>
+					
 				</view>
 			</view>
 		</view>
@@ -27,21 +28,27 @@
 
 <script>
 	import requestUrls from '../../api.js'
+	import fetch from '../../fetch.js'
 	export default {
 		props: ["topic"],
 		data() {
 			return {
+				role: null,
 				isCard: false,
 				picUrl: this.$props.topic.picture_id ? requestUrls.picLoad + this.$props.topic.picture_id : '../../static/just_share.png'
 			};
 		},
 		mounted() {
+			
 		},
 		methods: {
+			
 			navigate() {
-				uni.navigateTo({
-					url: '../sharingDetail/sharingDetail?detailId=' + this.$props.topic.id
-				})
+				if (!this.$props.noNeedLuanch) {
+					uni.navigateTo({
+						url: '../sharingDetail/sharingDetail?detailId=' + this.$props.topic.id
+					})
+				}
 			},
 			IsCard(e) {
 				this.isCard = e.detail.value
