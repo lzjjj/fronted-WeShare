@@ -41,6 +41,7 @@
 		onLoad(option) {
 			if (option.TabCur) this.TabCur = Number(option.TabCur)
 			this.userInfo = uni.getStorageSync("userInfo")
+			this.role = uni.getStorageSync("role")
 		},
 		beforeCreate(){
 			
@@ -122,6 +123,10 @@
 					url: requestUrls.getUserInfo,
 				}).then(data => { //data为一个数组，数组第一项为错误信息，第二项为返回数据
 					if (data.status) {
+						uni.setStorage({
+							key: 'role',
+							data: data.result.role
+						})
 						this.role = data.result.role;
 					}
 				})
@@ -165,7 +170,7 @@
 						this.TabCur--
 					}
 				} else if (subX < -100) {
-					if (this.TabCur < 2) {
+					if (this.TabCur < (this.role =='admin' ? 3 : 2)) {
 						this.TabCur++
 					}
 
