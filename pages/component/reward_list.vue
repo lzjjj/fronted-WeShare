@@ -47,7 +47,7 @@
 			<rewardDialog ref="popupDelete" :title="deleteTitle" :msg="deleteMsg" :showUp="showUpDelete" @confirm='onConfirmDelete'></rewardDialog>
 			<message ref="Message"></message>
 		</view>
-		<view class="no_content" v-if="requestDone && rewards.length == 0"></view>
+		<view v-if="requestDone && rewards.length == 0" class="no_content" ></view>
 	</view>
 </template>
 

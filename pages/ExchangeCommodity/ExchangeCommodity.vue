@@ -23,7 +23,6 @@
 				}).then(data => {
 					if (data.result.length > 0) {
 						if(this.rewards.length > 0 && this.pageIndex > 1) {
-							this.requestDone = true;
 							this.rewards.push(data.result)
 						} else {
 							this.rewards = data.result
@@ -31,6 +30,7 @@
 					} else {
 						this.pageIndex--;
 					}
+					this.requestDone = true;
 					uni.stopPullDownRefresh()
 				})
 			}

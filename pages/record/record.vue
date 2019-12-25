@@ -16,7 +16,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="no_content" v-if="records.length == 0"></view>
+		<view class="no_content" v-if="requestDone && records.length == 0"></view>
 	</view>
 </template>
 
@@ -27,7 +27,8 @@
 		data() {
 			return {
 				records: [],
-				pageIndex: 1
+				pageIndex: 1,
+				requestDone: false
 			}
 		},
 		methods: {
@@ -44,6 +45,7 @@
 					} else {
 						this.pageIndex--;
 					}
+					this.requestDone = true
 					uni.stopPullDownRefresh()
 				})
 			}

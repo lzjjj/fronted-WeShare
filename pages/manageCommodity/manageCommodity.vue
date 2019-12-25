@@ -53,14 +53,13 @@
 					if (data.msg == 'not found') {
 						this.canIRequest = false;
 					} else if (data && data.msg == "") {
-						this.requestDone = true;
 						console.log(data.result)
 						this.canIRequest = true;
 						this.rewards = this.rewards.concat(data.result.filter(reward => reward.name));
-						console.log(this.rewards)
 					} else {
 						this.pageIndex--;
 					}
+					this.requestDone = true;
 				})
 			}
 		}
