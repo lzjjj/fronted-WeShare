@@ -14,7 +14,7 @@ const requestUrls = {
 	topics: globalUrl + '/home/topics',
 	record: globalUrl + '/user/records',
 	picUpload: "http://7s79mz.natappfree.cc/multerUpload/upload",
-	WeChatlogin: globalUrl + '/login/',
+	WeChatlogin: globalUrl + '/login',
 	picLoad: "http://6ewam3.natappfree.cc/",
 	getUserInfo: globalUrl + "/users",
 	getRecord: globalUrl + "/bills",
