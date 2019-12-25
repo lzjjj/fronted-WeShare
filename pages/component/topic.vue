@@ -25,7 +25,9 @@
 		},
 		beforeCreate() {},
 		mounted() {
-			this.getTopics()
+			if (uni.getStorageSync("token") && uni.getStorageSync("userInfo")) {
+				this.getTopics()
+			}
 		},
 		methods: {
 			refresh() {
