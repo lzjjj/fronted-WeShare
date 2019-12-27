@@ -1,6 +1,6 @@
 // const globalUrl = 'http://localhost:3000'
 // const globalUrl = 'http://kuangal2-w10.corp.oocl.com:3000'
-const globalUrl = 'http://gvw8ae.natappfree.cc'
+const globalUrl = 'http://xsdtzh.natappfree.cc'
 // const globalUrl = 'http://hanry-w10:3000'
 const requestUrls = {
 	getTopics: globalUrl + '/home/topics', //Get topic list
@@ -13,9 +13,9 @@ const requestUrls = {
 	registration: globalUrl + '/home/topics/registration',
 	topics: globalUrl + '/home/topics',
 	record: globalUrl + '/user/records',
-	picUpload: "http://7s79mz.natappfree.cc/multerUpload/upload",
+	picUpload: "http://b7yaek.natappfree.cc/multerUpload/upload",
 	WeChatlogin: globalUrl + '/login',
-	picLoad: "http://6ewam3.natappfree.cc/",
+	picLoad: "http://746i7j.natappfree.cc/",
 	getUserInfo: globalUrl + "/users",
 	getRecord: globalUrl + "/bills",
 	getExchangeHistory:globalUrl + "/users/exchangeHistory",
